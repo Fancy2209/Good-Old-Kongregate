@@ -508,9 +508,9 @@
     }
     if (NewKongCSS) {
       // Create a new link element for the replacement stylesheet
-      var OldStylesheet = document.createElement('link');
+      var GoodKongCSS = document.createElement('link');
       GoodKongCSS.rel = 'stylesheet';
-      GoodKongCSS.href = 'https://cdn4.kongcdn.com/compiled-assets/application_merged-d149861bb6b349773c09c26eb67ff364513fb9079f14aad0d0975e1bd764c37d.css';
+      GoodKongCSS.href = 'https://raw.githubusercontent.com/Fancy2209/Good-Old-Kongregate/main/Stylesheets/OldKong.css';
       GoodKongCSS.data-turbo-track = 'reload';
       // Replace the existing stylesheet with the new one
       existingStylesheet.parentNode.replaceChild(GoodKongCSS, NewKongCSS);
