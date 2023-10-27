@@ -685,7 +685,7 @@ function game_indicator(element,value) {
       var customFavicon = document.createElement('link');
       customFavicon.type = 'image/png';
       customFavicon.rel = 'icon';
-      customFavicon.href = 'https://example.com/your-custom-favicon.ico'; // Replace with the URL of your custom favicon
+      customFavicon.href = 'https://raw.githubusercontent.com/Fancy2209/Good-Old-Kongregate/main/Icon/kong.png'; // Replace with the URL of your custom favicon
 
       var existingFavicon = document.querySelector('link[rel="icon"]');
       if (existingFavicon) {
