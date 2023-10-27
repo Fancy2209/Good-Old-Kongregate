@@ -7,27 +7,30 @@
 // @match         *://www.kongregate.com/*
 // @icon         https://cdn1.kongcdn.com/compiled-assets/favicos/favico-196-de563d6c4856efb7ac5060666510e5e50b2382593b724b802a6c6c53c1971e8c.png
 // @grant        none
+// @run-at       document-start
 // ==/UserScript==
 
 (function() {
   'use strict';
-
+  /*
   // Find the Things
   const VeryGoodNewHeader = document.querySelector('div.sticky.top-0.z-100');
   const VeryGoodNewSubwrap = document.getElementById('subwrap');
+  */
   
   var existingFavicon = document.querySelector('link[rel="icon"]');
   var customFavicon = document.createElement('link');
+  /*
   customFavicon.type = 'image/png';
   customFavicon.rel = 'icon';
   customFavicon.href = 'https://raw.githubusercontent.com/Fancy2209/Good-Old-Kongregate/main/Icon/kong.png'; // Replace with the URL of your custom favicon
-  
   var goodKongCSS = document.createElement('link');
   var newKongCSS = document.querySelector('head link[rel="stylesheet"][href*="application_merged"][data-turbo-track="reload"]');
+  
   goodKongCSS.rel = 'stylesheet';
   goodKongCSS.href = 'https://fancy2209.github.io/KOG/GoodOldKongregate.css';
   goodKongCSS.setAttribute('data-turbo-track', 'reload');
-  
+  */
   const headerWrap = `
   <div id="headerwrap">
 
@@ -676,11 +679,37 @@ function game_indicator(element,value) {
 
 </div>
   `;
-      if (VeryGoodNewHeader) {
-        // Old Header HTML
-
-        VeryGoodNewHeader.innerHTML = headerWrap;
+    var v1=0, v2=0, v3=0;
+    var targetNode = document;
+    var config = { childList: true, subtree: true };
+    var callback = (mutationList, observer) => {
+        for (let mutation of mutationList) {
+            for(let node of mutation.addedNodes){
+                for (let mutation of mutationList) {
+                    if (mutation.type === 'childList') {
+                        for(let node of mutation.addedNodes){
+                                if(v1==0 && node.className=="sticky top-0 z-100"){
+                                    v1=1;
+                                    node.innerHTML = headerWrap;
+                                }
+                                else if(v2==0 && node.id=="subwrap"){
+                                    v2=1;
+                                    node.innerHTML = subwrap;
+                                }
+                            }
+                        }
+                }
+            }
         }
+    };
+    var observer = new MutationObserver(callback);
+    observer.observe(targetNode, config);
+      /*
+      if (VeryGoodNewHeader) {
+      // Old Header HTML
+
+      VeryGoodNewHeader.innerHTML = headerWrap;
+      }
       if (VeryGoodNewSubwrap) {
         // Old Subwrap HTML
 
@@ -696,7 +725,7 @@ function game_indicator(element,value) {
         existingFavicon.remove();
         document.head.appendChild(customFavicon);
       }
-      
+      */
 
 
 })();
