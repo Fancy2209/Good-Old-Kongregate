@@ -678,10 +678,18 @@ function game_indicator(element,value) {
         }
 
       if (newKongCSS) {
-        newKongCSS.remove();
-        document.head.append(goodKongCSS);
-      }
+      // Create a new link element for the replacement stylesheet
+      var goodKongCSS = document.createElement('link');
+      goodKongCSS.rel = 'stylesheet';
+      goodKongCSS.href = 'https://fancy2209.github.io/KOG/GoodOldKongregate.css';
+      goodKongCSS.setAttribute('data-turbo-track', 'reload');
 
+      var customFavicon = document.createElement('link');
+      customFavicon.type = 'image/png';
+      customFavicon.rel = 'icon';
+      customFavicon.href = 'https://example.com/your-custom-favicon.ico'; // Replace with the URL of your custom favicon
+
+      var existingFavicon = document.querySelector('link[rel="icon"]');
       if (existingFavicon) {
           existingFavicon.remove();
           document.head.appendChild(customFavicon);
