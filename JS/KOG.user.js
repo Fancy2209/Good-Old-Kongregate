@@ -12,11 +12,12 @@
 (function() {
     'use strict';
 
-    // Find the element you want to replace
+    // Find the Header
     const VeryGoodNewHeader = document.querySelector('div.sticky.top-0.z-100');
+    var NewKongCSS = document.querySelector('head link [rel="stylesheet"][href="https://cdn4.kongcdn.com/compiled-assets/application_merged-d149861bb6b349773c09c26eb67ff364513fb9079f14aad0d0975e1bd764c37d.css"][data-turbo-track="reload"]');
 
     if (VeryGoodNewHeader) {
-        // Create a new HTML element with your custom content
+        // Old Header HTML
         const headerWrap = `
         <!-- #headerwrap -->
         <div id="headerwrap">
@@ -502,7 +503,16 @@
             </div>
         `;
 
-        // Replace the old element's innerHTML with your custom HTML
+        // Replace the Header HTML with the Old One
         VeryGoodNewHeader.innerHTML = headerWrap;
     }
+    if (NewKongCSS) {
+      // Create a new link element for the replacement stylesheet
+      var OldStylesheet = document.createElement('link');
+      GoodKongCSS.rel = 'stylesheet';
+      GoodKongCSS.href = 'https://cdn4.kongcdn.com/compiled-assets/application_merged-d149861bb6b349773c09c26eb67ff364513fb9079f14aad0d0975e1bd764c37d.css';
+      GoodKongCSS.data-turbo-track = 'reload';
+      // Replace the existing stylesheet with the new one
+      existingStylesheet.parentNode.replaceChild(GoodKongCSS, NewKongCSS);
+}
 })();
