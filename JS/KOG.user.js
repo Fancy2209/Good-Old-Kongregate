@@ -2,8 +2,8 @@
 // @name         Good Old Kongregate
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  Site is now usable
-// @author       You
+// @description  Gone but not forgotten
+// @author       Fancy2209
 // @match         *://www.kongregate.com/*
 // @icon         https://cdn1.kongcdn.com/compiled-assets/favicos/favico-196-de563d6c4856efb7ac5060666510e5e50b2382593b724b802a6c6c53c1971e8c.png
 // @grant        none
@@ -12,14 +12,16 @@
 (function() {
   'use strict';
 
-  // Find the Header
+  // Find the Things
   const VeryGoodNewHeader = document.querySelector('div.sticky.top-0.z-100');
   const VeryGoodNewSubwrap = document.getElementById('subwrap');
+  
   var newKongCSS = document.querySelector('head link[rel="stylesheet"][href*="application_merged"][data-turbo-track="reload"]');
+  
   const headerWrap = `
   <div id="headerwrap">
 
-
+    
   <!--============ #header ============-->
   <div id="header">
     <div id="header_logo">
@@ -153,7 +155,7 @@
 <!-- Start Games -->
 <li id="main_nav_games" class="main_nav_item guest">
 <a class="main_nav_top_item" href="http://www.kongregate.com/games">Games</a>
-<div class="main_nav_menu" style="left: -637.567  px; width: 1536px;"><div class="main_nav_menu_inner">
+<div class="main_nav_menu" style="left: -583.433px; width: 1536px;"><div class="main_nav_menu_inner">
 
 <!-- Recent Games Start -->
 <div id="main_nav_games_im_playing" class="main_nav_category my_games_block mrl">
@@ -676,24 +678,12 @@ function game_indicator(element,value) {
         }
 
       if (newKongCSS) {
-      // Create a new link element for the replacement stylesheet
-      var goodKongCSS = document.createElement('link');
-      goodKongCSS.rel = 'stylesheet';
-      goodKongCSS.href = 'https://fancy2209.github.io/KOG/GoodOldKongregate.css';
-      goodKongCSS.setAttribute('data-turbo-track', 'reload');
+        newKongCSS.remove();
+        document.head.append(goodKongCSS);
+      }
 
-      var customFavicon = document.createElement('link');
-      customFavicon.type = 'image/png';
-      customFavicon.rel = 'icon';
-      customFavicon.href = 'https://raw.githubusercontent.com/Fancy2209/Good-Old-Kongregate/main/Icon/kong.png'; // Replace with the URL of your custom favicon
-
-      var existingFavicon = document.querySelector('link[rel="icon"]');
       if (existingFavicon) {
           existingFavicon.remove();
-      }
-      // Replace the existing stylesheet with the new one
-      newKongCSS.remove
-      document.head.append(goodKongCSS);
-      document.head.appendChild(customFavicon);
+          document.head.appendChild(customFavicon);
     }
 })();
