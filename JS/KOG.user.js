@@ -7,6 +7,7 @@
 // @match         *://www.kongregate.com/*
 // @icon         https://cdn1.kongcdn.com/compiled-assets/favicos/favico-196-de563d6c4856efb7ac5060666510e5e50b2382593b724b802a6c6c53c1971e8c.png
 // @grant        none
+// @run-at       document-start
 // ==/UserScript==
 
 (function() {
@@ -14,7 +15,7 @@
 
     // Find the Header
     const VeryGoodNewHeader = document.querySelector('div.sticky.top-0.z-100');
-    var NewKongCSS = document.querySelector('head link [rel="stylesheet"][href="https://cdn4.kongcdn.com/compiled-assets/application_merged-d149861bb6b349773c09c26eb67ff364513fb9079f14aad0d0975e1bd764c37d.css"][data-turbo-track="reload"]');
+    var newKongCSS = document.querySelector('head link[rel="stylesheet"][href*="application_merged"][data-turbo-track="reload"]');
 
     if (VeryGoodNewHeader) {
         // Old Header HTML
@@ -506,13 +507,12 @@
         // Replace the Header HTML with the Old One
         VeryGoodNewHeader.innerHTML = headerWrap;
     }
-    if (NewKongCSS) {
+    if (newKongCSS) {
       // Create a new link element for the replacement stylesheet
-      var GoodKongCSS = document.createElement('link');
-      GoodKongCSS.rel = 'stylesheet';
-      GoodKongCSS.href = 'https://raw.githubusercontent.com/Fancy2209/Good-Old-Kongregate/main/Stylesheets/OldKong.css';
-      GoodKongCSS.data-turbo-track = 'reload';
+      var goodKongCSS = document.createElement('link');
+      goodKongCSS.rel = 'stylesheet';
+      goodKongCSS.href = 'https://raw.githubusercontent.com/Fancy2209/Good-Old-Kongregate/main/Stylesheets/OldKong.css';
+      goodKongCSS.setAttribute('data-turbo-track', 'reload');
       // Replace the existing stylesheet with the new one
-      existingStylesheet.parentNode.replaceChild(GoodKongCSS, NewKongCSS);
-}
+      newKongCSS.parentNode.replaceChild(goodKongCSS, newKongCSS);}
 })();
