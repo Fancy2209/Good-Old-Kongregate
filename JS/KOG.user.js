@@ -147,7 +147,6 @@
         <label id="welcome_password_label" for="welcome_password" class="text_label" style="">Password</label>
         <input type="password" name="password" id="welcome_password" value="" title="Password" tabindex="4" class="text_field">
       </span>
-      <input type="submit" value="Sign In" tabindex="5" id="welcome_box_sign_in_button" class="submit spriteall spritesite" onclick="try{}catch(e){};if(!this.elem_welcome_box_sign_in_button){this.elem_welcome_box_sign_in_button=$('welcome_box_sign_in_button');this.spin_welcome_box_sign_in_button=$('welcome_box_sign_in_button_spinner');this.restore=function(t){return function(){t.elem_welcome_box_sign_in_button.show();t.spin_welcome_box_sign_in_button.hide();Event.stopObserving(window, 'unload', t.restore);}}(this);}this.elem_welcome_box_sign_in_button.hide();this.spin_welcome_box_sign_in_button.show();Event.observe(window, 'unload', this.restore);"><span id="welcome_box_sign_in_button_spinner" class="spinner spinner_inverse" style="display:none" title="loading…">​</span>
       <span id="remember_holder" style="display:none;">
         <input type="checkbox" name="remember_me" id="welcome_remember_me" value="true" class="imgMini" tabindex="6" checked="checked"> <label for="welcome_remember_me" id="welcome_remember_label" class="bd">Remember me</label>
       </span>
@@ -166,7 +165,7 @@
     <!-- Start Games -->
     <li id="main_nav_games" class="main_nav_item guest">
     <a class="main_nav_top_item" href="http://www.kongregate.com/games">Games</a>
-    <div class="main_nav_menu" style="left: -583.433px; width: 1536px;"><div class="main_nav_menu_inner">
+    <div class="main_nav_menu" style="left: -638.767px; width: 1536px;"><div class="main_nav_menu_inner">
 
     <!-- Recent Games Start -->
     <div id="main_nav_games_im_playing" class="main_nav_category my_games_block mrl">
@@ -257,7 +256,7 @@
     <!-- Start Achievements -->
     <li id="main_nav_achievements" class="main_nav_item guest">
     <a class="main_nav_top_item" href="http://www.kongregate.com/badges">Achievements</a>
-    <div class="main_nav_menu" style="left: -583.433px; width: 1536px;"><div class="main_nav_menu_inner">
+    <div class="main_nav_menu" style="left: -638.767px; width: 1536px;"><div class="main_nav_menu_inner">
     <!-- BoTD Start -->
     <dl id="main_nav_achievements_botd" class="main_nav_category mrl">
     <dt class="main_nav_category_title pbs"><a href="http://www.kongregate.com/badges" data-metric-tracker="js-wa-tc-Navigation-Badge_of_the_Day"><tr8n translation_key_id="7900" id="f2fb1c8230059751b989a7e6c6ea1c8d">Badge of the Day »</tr8n></a></dt>
@@ -388,7 +387,7 @@
     <!-- Start My Kong -->
     <li id="main_nav_mykong" class="main_nav_item guest">
     <a class="main_nav_top_item" href="http://www.kongregate.com/community">My Kong</a>
-    <div class="main_nav_menu" style="left: -583.433px; width: 1536px;">
+    <div class="main_nav_menu" style="left: -638.767px; width: 1536px;">
     <div class="main_nav_menu_inner">
     <!-- Account Info Start -->
     <dl id="main_nav_mykong_activity" class="main_nav_category mrl">
@@ -429,7 +428,7 @@
     <!-- Start Dev -->
     <li id="main_nav_dev" class="main_nav_item guest">
     <a class="main_nav_top_item" href="http://developers.kongregate.com/">Dev</a>
-    <div class="main_nav_menu" style="left: -583.433px; width: 1536px;">
+    <div class="main_nav_menu" style="left: -638.767px; width: 1536px;">
     <div class="main_nav_menu_inner">
     <a class="nav--dev-upload" href="http://www.kongregate.com/games/new">Upload Your Game</a>
     <p class="nav--dev-tagline">
@@ -468,7 +467,6 @@
     var game_title_auto_completer=new Ajax.CachedAutocompleter("game_title","game_title_auto_complete","/games/search?site_search=true",{"paramName":"search","method":"get","onShow":function(element,update){update.show();},"onHide":function(element,update){update.hide();},"minChars":3,"noAutoDefault":false,"forceActivation":true,"frequency":0.1,"callback":function(element,value){return game_indicator(element,value)},"afterUpdateElement":function(element,value){(function(m) { $("nav_search_submit_button").onclick(); game_title_auto_completer.submitted = true; document.location = m.url; })(eval('(' + value.down('.metadata').innerHTML + ')'));}});$('game_title').up('form').observe('submit', function() { if ('' == $('game_title').value) { $('search_game_id').value = ''; }});
     //]]>
     </script></div></dt>
-    <dd><input type="submit" value="Search" id="nav_search_submit_button" tabindex="2" class="spritesite" onclick="try{}catch(e){};if(!this.elem_nav_search_submit_button){this.elem_nav_search_submit_button=$('nav_search_submit_button');this.spin_nav_search_submit_button=$('nav_search_submit_button_spinner');this.restore=function(t){return function(){t.elem_nav_search_submit_button.show();t.spin_nav_search_submit_button.hide();Event.stopObserving(window, 'unload', t.restore);}}(this);}this.elem_nav_search_submit_button.hide();this.spin_nav_search_submit_button.show();Event.observe(window, 'unload', this.restore);"><span id="nav_search_submit_button_spinner" class="spinner spinner_inverse" style="display:none" title="loading…">​</span></dd>
     </dl>
     <script>
     //<![CDATA[
@@ -677,7 +675,7 @@
       `;
   if (VeryGoodNewHeader) {
       // Insert the new <div> element before the <k-navbar> element
-      VeryGoodNewHeader.parentElement.insertBefore(headerWrap, kNavbar);
+      VeryGoodNewHeader.parentElement.insertBefore(headerWrap, VeryGoodNewHeader);
       VeryGoodNewHeader.remove();
   }
   if (VeryGoodNewSubwrap) {
