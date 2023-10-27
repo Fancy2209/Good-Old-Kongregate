@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.11
 // @description  Gone but not forgotten
 // @author       Fancy2209
 // @match         *://www.kongregate.com/*
