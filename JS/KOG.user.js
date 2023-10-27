@@ -16,7 +16,17 @@
   const VeryGoodNewHeader = document.querySelector('div.sticky.top-0.z-100');
   const VeryGoodNewSubwrap = document.getElementById('subwrap');
   
+  var existingFavicon = document.querySelector('link[rel="icon"]');
+  var customFavicon = document.createElement('link');
+  customFavicon.type = 'image/png';
+  customFavicon.rel = 'icon';
+  customFavicon.href = 'https://raw.githubusercontent.com/Fancy2209/Good-Old-Kongregate/main/Icon/kong.png'; // Replace with the URL of your custom favicon
+  
+  var goodKongCSS = document.createElement('link');
   var newKongCSS = document.querySelector('head link[rel="stylesheet"][href*="application_merged"][data-turbo-track="reload"]');
+  goodKongCSS.rel = 'stylesheet';
+  goodKongCSS.href = 'https://fancy2209.github.io/KOG/GoodOldKongregate.css';
+  goodKongCSS.setAttribute('data-turbo-track', 'reload');
   
   const headerWrap = `
   <div id="headerwrap">
@@ -679,19 +689,14 @@ function game_indicator(element,value) {
 
       if (newKongCSS) {
       // Create a new link element for the replacement stylesheet
-      var goodKongCSS = document.createElement('link');
-      goodKongCSS.rel = 'stylesheet';
-      goodKongCSS.href = 'https://fancy2209.github.io/KOG/GoodOldKongregate.css';
-      goodKongCSS.setAttribute('data-turbo-track', 'reload');
-
-      var customFavicon = document.createElement('link');
-      customFavicon.type = 'image/png';
-      customFavicon.rel = 'icon';
-      customFavicon.href = 'https://example.com/your-custom-favicon.ico'; // Replace with the URL of your custom favicon
-
-      var existingFavicon = document.querySelector('link[rel="icon"]');
+        newKongCSS.remove();
+        document.head.appendChild(goodKongCSS);
+      }
       if (existingFavicon) {
-          existingFavicon.remove();
-          document.head.appendChild(customFavicon);
-    }
+        existingFavicon.remove();
+        document.head.appendChild(customFavicon);
+      }
+      
+
+
 })();
