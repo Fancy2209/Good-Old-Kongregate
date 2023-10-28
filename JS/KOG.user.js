@@ -662,7 +662,7 @@ function game_indicator(element,value) {
   </div>
   <!--============ /#footer ============-->
   `;
-    var v1=0, v1bis=0, v2=0, v3=0, v4=0;
+    var v1=0, v1bis=0, v2=0, v3=0, v4=0, v5=0;
     var targetNode = document;
     var config = { childList: true, subtree: true };
     var callback = (mutationList, observer) => {
@@ -691,16 +691,6 @@ function game_indicator(element,value) {
                                 node.parentElement.insertBefore(n, node);
                                 node.remove();
                             }
-                            /*if (v1 === 0 && node.classList.contains("md:hidden") && node.classList.contains("sticky") && node.classList.contains("top-0") && node.classList.contains("z-100") && node.classList.contains("group/navbar")) {
-                                v1 = 1;
-                                node.parentElement.insertBefore(headerWrap, node);
-                                node.remove();
-                            }
-                            else if (v2 === 0 && node.classList.contains("hidden") && node.classList.contains("md:block") && node.classList.contains("relative") && node.classList.contains("sticky") && node.classList.contains("top-0") && node.classList.contains("z-100") && node.classList.contains("group/navbar")) {
-                                v2 = 1;
-                                node.parentElement.insertBefore(subwrap, node);
-                                node.remove();
-                            }*/
                             else if (v3==0 && node.tagName=="LINK" && node.rel=="icon"){
                                 v3=1;
                                 node.remove();
@@ -710,6 +700,10 @@ function game_indicator(element,value) {
                                 v4=1;
                                 node.remove();
                                 document.head.appendChild(goodKongCSS);
+                            }
+                            else if(v5==0 && node.tagName=="LINK" && node.rel=="stylesheet" && node.href.search("application-")>-1 && node.getAttribute("data-turbo-track")=="reload"){
+                                v5=1;
+                                node.remove();
                             }
                         }
                     }
