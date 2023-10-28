@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Gone but not forgotten
 // @author       Fancy2209
 // @match         *://www.kongregate.com/*
@@ -11,30 +11,21 @@
 // ==/UserScript==
 
 (function() {
-  'use strict';
-  /*
-  // Find the Things
-  const VeryGoodNewHeader = document.querySelector('div.sticky.top-0.z-100');
-  const VeryGoodNewSubwrap = document.getElementById('subwrap');
-  */
-  
-  var existingFavicon = document.querySelector('link[rel="icon"]');
-  var customFavicon = document.createElement('link');
-  /*
-  customFavicon.type = 'image/png';
-  customFavicon.rel = 'icon';
-  customFavicon.href = 'https://raw.githubusercontent.com/Fancy2209/Good-Old-Kongregate/main/Icon/kong.png'; // Replace with the URL of your custom favicon
-  var goodKongCSS = document.createElement('link');
-  var newKongCSS = document.querySelector('head link[rel="stylesheet"][href*="application_merged"][data-turbo-track="reload"]');
-  
-  goodKongCSS.rel = 'stylesheet';
-  goodKongCSS.href = 'https://fancy2209.github.io/KOG/GoodOldKongregate.css';
-  goodKongCSS.setAttribute('data-turbo-track', 'reload');
-  */
-  const headerWrap = `
-  <div id="headerwrap">
+    'use strict';
 
-    
+    // Find the Things
+
+    var customFavicon = document.createElement('link');
+    customFavicon.type = 'image/png';
+    customFavicon.rel = 'icon';
+    customFavicon.href = 'https://raw.githubusercontent.com/Fancy2209/Good-Old-Kongregate/main/Icon/kong.png'; // Replace with the URL of your custom favicon
+
+    var goodKongCSS = document.createElement('link');
+    goodKongCSS.rel = 'stylesheet';
+    goodKongCSS.href = 'https://fancy2209.github.io/KOG/GoodOldKongregate.css';
+    goodKongCSS.setAttribute('data-turbo-track', 'reload');
+
+    const headerWrap = `
   <!--============ #header ============-->
   <div id="header">
     <div id="header_logo">
@@ -134,7 +125,7 @@
 <!-- Guest Welcome Start -->
 <div id="guest_user_welcome_content" class="welcome-guest regtextSml" style="">
 <form id="nav_sign_in" onsubmit="if(window.DynamicFrameTarget){ new DynamicFrameTarget({form: this, callback: user_status.sessionStatus});}" action="https://www.kongregate.com/session" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="7MNLS7SbhmwyZG7/uDUqOhGx4iBUFcBMiRJBHfE8b5c5jwNgs72IDYFW5o+TYdq6+zzRiEE6lsuVGr13IVQMjQ==">
-  
+
   <input type="hidden" name="from_welcome_box" id="from_welcome_box" value="true">
   <a title="Sign in with Facebook" class="facebook_signin_small sprite_facebook mrs" onclick="new FacebookAuthenticator({}); return false;" href="#">Sign in</a>
     <strong><a class="js-activate-inline-registration" href="#">Register</a></strong>
@@ -225,11 +216,11 @@
   <li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="http://www.kongregate.com/mmo-games"><tr8n translation_key_id="4815" id="6a828d3342cb6db551dec15b122dc248">MMO</tr8n></a></li>
   <li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="http://www.kongregate.com/adventure-rpg-games"><tr8n translation_key_id="5183" id="e134b45f61a33f4231408c64ff4eb1a2">Adventure &amp; RPG</tr8n></a></li>
   <li class="featured">
-    
+
       <a data-metric-tracker="js-wa-tc-Navigation-Feature" class="js-activate-inline-registration" href="#">
         <span><tr8n translation_key_id="4827" id="c9282553bdba249264f8036eb2028fa2">My Favorites</tr8n></span>
       </a>
-    
+
   </li>
   <li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="http://www.kongregate.com/strategy-defense-games"><tr8n translation_key_id="5181" id="8fba9d10e45c3816fa83ed3a98f79c24">Strategy &amp; Defense</tr8n></a></li>
   <li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="http://www.kongregate.com/shooter-games"><tr8n translation_key_id="4672" id="9a9a0e97bf92631df74b693c6135186e">Shooter</tr8n></a></li>
@@ -316,7 +307,7 @@
 <dt class="main_nav_category_title pbs"><a data-metric-tracker="js-wa-tc-Navigation-Recently_Badged" href="http://www.kongregate.com/badges?sort=newest"><tr8n translation_key_id="7436" id="fc67e5f67528c92e4015eb0453c8b7fb">Recently Badged Games</tr8n> »</a></dt>
 <dd class="mtm">
   <ul class="main_nav_recently_badge_list">
-    
+
       <li class="game">
 <a href="http://www.kongregate.com/games/mrudi/trader-of-stories-chapter-1" class="media" data-metric-tracker="js-wa-tc-Navigation-Recently_Badged">
 <img alt="Play Trader of Stories - Chapter 1" src="https://cdn4.kongcdn.com/game_icons/0066/0760/game-icon-kongregate.jpg?i10c=img.resize(width:250)" class="img">
@@ -327,7 +318,7 @@
 </a>
 </li>
 
-    
+
       <li class="game">
 <a href="http://www.kongregate.com/games/Gibton/apple-worm" class="media" data-metric-tracker="js-wa-tc-Navigation-Recently_Badged">
 <img alt="Play Apple Worm" src="https://cdn3.kongcdn.com/game_icons/0065/9998/apple-worm_Kong_250x200.png?i10c=img.resize(width:250)" class="img">
@@ -338,7 +329,7 @@
 </a>
 </li>
 
-    
+
       <li class="game">
 <a href="http://www.kongregate.com/games/rzuf79/frog-fable" class="media" data-metric-tracker="js-wa-tc-Navigation-Recently_Badged">
 <img alt="Play Frog Fable" src="https://cdn1.kongcdn.com/game_icons/0065/8941/kong_icon.png?i10c=img.resize(width:250)" class="img">
@@ -349,7 +340,7 @@
 </a>
 </li>
 
-    
+
   </ul>
 </dd>
 </dl>
@@ -377,7 +368,7 @@
 <dd class="mtm">
   <ul class="main_nav_category_list">
     <li><a href="http://www.kongregate.com/badge_quests/your_first" data-metric-tracker="js-wa-tc-Navigation-Quests"><tr8n translation_key_id="7445" id="e3705f31a25fb33858729308b23f74f6">All Quests</tr8n></a></li>
-    
+
   </ul>
 </dd>
 </dl>
@@ -534,14 +525,8 @@ function game_indicator(element,value) {
 </div>
 
   </div><!--============ /#header ============-->
-</div>
   `;
-  const subwrap = `
-  <div id="subwrap">
-
-
-
-
+    const subwrap = `
   <!--============ #footer ============-->
   <div id="footer" class="clearfix">
     <div class="kongregate-logo mbl"><a class="spriteall spritesite kongregate-logo" href="http://www.kongregate.com/">Kongregate</a></div>
@@ -676,10 +661,8 @@ function game_indicator(element,value) {
 
   </div>
   <!--============ /#footer ============-->
-
-</div>
   `;
-    var v1=0, v2=0, v3=0;
+    var v1=0, v1bis=0, v2=0, v3=0, v4=0;
     var targetNode = document;
     var config = { childList: true, subtree: true };
     var callback = (mutationList, observer) => {
@@ -688,44 +671,53 @@ function game_indicator(element,value) {
                 for (let mutation of mutationList) {
                     if (mutation.type === 'childList') {
                         for(let node of mutation.addedNodes){
-                                if(v1==0 && node.className=="sticky top-0 z-100"){
-                                    v1=1;
-                                    node.innerHTML = headerWrap;
-                                }
-                                else if(v2==0 && node.id=="subwrap"){
-                                    v2=1;
-                                    node.innerHTML = subwrap;
-                                }
+                            if(v1==0 && node.className=="md:hidden sticky top-0 z-100 group/navbar"){
+                                v1=1;
+                                let n=document.createElement("div");
+                                n.id="headerwrap";
+                                n.innerHTML = headerWrap;
+                                node.parentElement.insertBefore(n, node);
+                                node.remove();
+                            }
+                            else if(v1bis==0 && node.tagName=="K-NAVBAR"){
+                                v1bis=1;
+                                node.remove();
+                            }
+                            else if(v2==0 && node.id=="subwrap" && node.parentNode==document.body){
+                                v2=1;
+                                let n=document.createElement("div");
+                                n.id="subwrap";
+                                n.innerHTML=subwrap;
+                                node.parentElement.insertBefore(n, node);
+                                node.remove();
+                            }
+                            /*if (v1 === 0 && node.classList.contains("md:hidden") && node.classList.contains("sticky") && node.classList.contains("top-0") && node.classList.contains("z-100") && node.classList.contains("group/navbar")) {
+                                v1 = 1;
+                                node.parentElement.insertBefore(headerWrap, node);
+                                node.remove();
+                            }
+                            else if (v2 === 0 && node.classList.contains("hidden") && node.classList.contains("md:block") && node.classList.contains("relative") && node.classList.contains("sticky") && node.classList.contains("top-0") && node.classList.contains("z-100") && node.classList.contains("group/navbar")) {
+                                v2 = 1;
+                                node.parentElement.insertBefore(subwrap, node);
+                                node.remove();
+                            }*/
+                            else if (v3==0 && node.tagName=="LINK" && node.rel=="icon"){
+                                v3=1;
+                                node.remove();
+                                document.head.appendChild(customFavicon);
+                            }
+                            else if(v4==0 && node.tagName=="LINK" && node.rel=="stylesheet" && node.href.search("application_merged")>-1 && node.getAttribute("data-turbo-track")=="reload"){
+                                v4=1;
+                                node.remove();
+                                document.head.appendChild(goodKongCSS);
                             }
                         }
+                    }
                 }
             }
         }
     };
     var observer = new MutationObserver(callback);
     observer.observe(targetNode, config);
-      /*
-      if (VeryGoodNewHeader) {
-      // Old Header HTML
-
-      VeryGoodNewHeader.innerHTML = headerWrap;
-      }
-      if (VeryGoodNewSubwrap) {
-        // Old Subwrap HTML
-
-        VeryGoodNewSubwrap.innerHTML = subwrap;
-        }
-
-      if (newKongCSS) {
-      // Create a new link element for the replacement stylesheet
-        newKongCSS.remove();
-        document.head.appendChild(goodKongCSS);
-      }
-      if (existingFavicon) {
-        existingFavicon.remove();
-        document.head.appendChild(customFavicon);
-      }
-      */
-
 
 })();
