@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    http://tampermonkey.net/
-// @version      0.11
+// @version      0.2
 // @description  Gone but not forgotten
 // @author       Fancy2209
 // @match         *://www.kongregate.com/*
@@ -36,7 +36,7 @@
     <!--============ #header ============-->
     <div id="header">
       <div id="header_logo">
-    <h3 id="playing"><strong></strong> online playing <strong></strong> free games!</h3>
+    <h3 id="playing"><strong>8,218 people</strong> online playing <strong>128,477</strong> free games!</h3>
     <h2 title="Kongregate">
     <a class="spritesite spriteall" title="Kongregate" id="kong_header_link" href="http://www.kongregate.com/">Kongregate</a>
     </h2>
