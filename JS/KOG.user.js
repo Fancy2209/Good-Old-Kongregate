@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.4
 // @description  Gone but not forgotten
 // @author       Fancy2209
 // @match         *://www.kongregate.com/*
@@ -22,7 +22,6 @@
 
     var goodKongCSS = document.createElement('link');
     goodKongCSS.rel = 'stylesheet';
-    goodKongCSS.href = 'https://fancy2209.github.io/KOG/GoodOldKongregate.css';
     goodKongCSS.setAttribute('data-turbo-track', 'reload');
 
     const headerWrap = `
@@ -2883,7 +2882,7 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
       </tr>
     </tbody></table>
 `
-    var v1=0, v1bis=0, v2=0, v3=0, v4=0, v5=0, v6=0;
+    var v1=0, v2=0, v3=0, v4=0, v5=0, v6=0, v7=0, v8=0;
     var targetNode = document;
     var config = { childList: true, subtree: true };
     var callback = (mutationList, observer) => {
@@ -2900,33 +2899,41 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                                 node.parentElement.insertBefore(n, node);
                                 node.remove();
                             }
-                            else if(v1bis==0 && node.tagName=="K-NAVBAR"){
-                                v1bis=1;
+                            else if(v2==0 && node.tagName=="K-NAVBAR"){
+                                v2=1;
                                 node.remove();
                             }
-                            else if(v2==0 && node.id=="subwrap" && node.parentNode==document.body){
-                                v2=1;
+                            else if(v3==0 && node.id=="subwrap" && node.parentNode==document.body){
+                                v3=1;
                                 let n=document.createElement("div");
                                 n.id="subwrap";
                                 n.innerHTML=subwrap;
                                 node.parentElement.insertBefore(n, node);
                                 node.remove();
                             }
-                            else if (v3==0 && node.tagName=="LINK" && node.rel=="icon"){
-                                v3=1;
-                                document.head.appendChild(customFavicon);
-                            }
-                            else if(v4==0 && node.tagName=="LINK" && node.rel=="stylesheet" && node.href.search("application_merged")>-1 && node.getAttribute("data-turbo-track")=="reload"){
+                            else if (v4==0 && node.tagName=="LINK" && node.rel=="icon"){
                                 v4=1;
                                 node.remove();
-                                document.head.appendChild(goodKongCSS);
+                                document.head.appendChild(customFavicon);
                             }
-                            else if(v5==0 && node.tagName=="LINK" && node.rel=="stylesheet" && node.href.search("application-")>-1 && node.getAttribute("data-turbo-track")=="reload"){
+                            else if(v5==0 && node.tagName=="LINK" && node.rel=="stylesheet" && node.href.search("application_merged")>-1 && node.getAttribute("data-turbo-track")=="reload"){
                                 v5=1;
                                 node.remove();
+                                goodKongCSS.href = 'https://fancy2209.github.io/KOG/GoodOldKongregate.css';
+                                document.head.appendChild(goodKongCSS);
                             }
-                            else if(v6==0 && document.URL=="https://www.kongregate.com/" && node.tagName=="MAIN"){
+                            else if(v6==0 && node.tagName=="LINK" && node.rel=="stylesheet" && node.href.search("gamepage_merged")>-1 && node.getAttribute("data-turbo-track")=="reload"){
                                 v6=1;
+                                node.remove();
+                                goodKongCSS.href = 'https://web.archive.org/web/20200801001338/https://cdn3.kongcdn.com/compiled-assets/gamepage_merged-1efaa3d0c09d55a9fac97f5c61e1517ae200e4ba25ba63a6dc2f6845e7113e3e.css';
+                                document.head.appendChild(goodKongCSS);
+                            }
+                            else if(v7==0 && node.tagName=="LINK" && node.rel=="stylesheet" && node.href.search("application-")>-1 && node.getAttribute("data-turbo-track")=="reload"){
+                                v7=1;
+                                node.remove();
+                            }
+                            else if(v8==0 && document.URL=="https://www.kongregate.com/" && node.tagName=="MAIN"){
+                                v8=1;
                                 let pw=document.createElement("div");
                                 pw.id="primarywrap";
                                 pw.addClassName("divider");
