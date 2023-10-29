@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    http://tampermonkey.net/
-// @version      0.52
+// @version      0.60
 // @description  Gone but not forgotten
 // @author       Fancy2209, Matrix4348
 // @match         *://www.kongregate.com/*
@@ -2842,5 +2842,34 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
   var observer = new MutationObserver(callback);
   observer.observe(targetNode, config);
 
+  function TimeToLogin(active_user){
+        if(active_user.id()>0){
+            document.getElementById("guest_user_welcome_content").style.display="none";
+            var login_area=document.getElementById("nav_welcome_box");
+            login_area.style.display="";
+            var av=document.createElement("img"); av.src=active_user.avatarUrl();
+            login_area.getElementsByClassName("profile profile_control")[0].firstElementChild.href="http://www.kongregate.com/accounts/"+active_user.username();
+            document.getElementById("small_avatar_placeholder").appendChild(av);
+            login_area.getElementsByClassName("username_holder")[0].innerHTML=active_user.username();
+            document.getElementById("mini-profile-level").innerHTML=active_user.level();
+            login_area.getElementsByClassName("play-laters-count")[0].innerHTML=active_user.playLatersCount();
+            login_area.getElementsByClassName("favorites-count-link")[0].href="http://www.kongregate.com/accounts/"+active_user.username()+"/favorites";
+            login_area.getElementsByClassName("favorites-count")[0].innerHTML=active_user.favoritesCount();
+            login_area.getElementsByClassName("friends_online_link")[0].href="http://www.kongregate.com/accounts/"+active_user.username()+"/friends";
+            login_area.getElementsByClassName("friends_online_count")[0].innerHTML=active_user.friendsOnlineCount();
+            document.getElementById("my-messages-link").href="http://www.kongregate.com/accounts/"+active_user.username()+"/messages";
+            var uc=active_user.unreadShoutsCount()+active_user.unreadWhispersCount()+active_user.unreadGameMessagesCount();
+            if(uc>0){ document.getElementById("profile_control_unread_message_count").innerHTML=uc; }
+            login_area.getElementsByClassName("settings profile_control")[0].getElementsByTagName("ul").firstElementChild.firstElementChild.href="http://www.kongregate.com/accounts/"+active_user.username()+"/edit";
+        }
+    }
+
+    function ThingsToDoAtTheEnd(){
+        if(typeof(active_user)!="undefined"){
+            TimeToLogin(active_user);
+        }
+        else{ setTimeout(function(){ ThingsToDoAtTheEnd(); },1000); }
+    };
+    ThingsToDoAtTheEnd();
 
 })();
