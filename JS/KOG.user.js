@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    http://tampermonkey.net/
-// @version      0.5
+// @version      0.51
 // @description  Gone but not forgotten
 // @author       Fancy2209, Matrix4348
 // @match         *://www.kongregate.com/*
@@ -2939,10 +2939,9 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                               node.parentElement.insertBefore(pw, node);
                               node.remove();
                           }
-                          else if(v9==0 && document.body){
-                            
-                            body.classList.remove('lang_other', 'lang_en');
-                            body.classList.add('new_home', 'no_subwrap', 'grid960');
+                          else if(v9==0 && node==document.body){
+                            node.classList.remove('lang_other', 'lang_en');
+                            node.classList.add('new_home', 'no_subwrap', 'grid960');
                           }
                       }
                   }
