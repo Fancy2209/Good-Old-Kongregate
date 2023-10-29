@@ -28,8 +28,8 @@
 <!--============ #header ============-->
 <div id="header">
   <div id="header_logo">
-<h3 id="playing"><strong></strong> online playing <strong></strong> free games!</h3>
-<h2 title="Kongregate">
+  <h3 id="playing"><strong>8,218</strong> people online playing <strong>128,477</strong> free games!</h3>
+  <h2 title="Kongregate">
 <a class="spritesite spriteall" title="Kongregate" id="kong_header_link" href="http://www.kongregate.com/">Kongregate</a>
 </h2>
 </div>
