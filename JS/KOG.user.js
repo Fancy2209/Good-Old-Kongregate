@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    http://tampermonkey.net/
-// @version      0.60
+// @version      0.61
 // @description  Gone but not forgotten
 // @author       Fancy2209, Matrix4348
 // @match         *://www.kongregate.com/*
@@ -834,7 +834,7 @@ kong_ads.displayAd("kong_home_af_728x90");}
   
 <div data-game-impression-game-id="299519" data-game-impression-unit-type="latest_games" data-game-impression-position="0" data-game-impression-depth="0" class="game js-game-hover">
   <a class="hover_game_info" href="https://www.kongregate.com/games/HolydayStudios/firestone?haref=HP_HNG_firestone">
-    <img class="game_icon image" title="" alt="Play Firestone Idle RPG" width="250" height="200" src="https://cdn3.kongcdn.com/game_icons/0070/0986/borisBattleCry250x200.png?i10c=img.resize(width:250,height:200)">
+    <img class="game_icon image" title="" alt="Play Firestone Idle RPG" width="250" height="200" src="https://cdn3.kongcdn.com/game_icons/0070/1398/Kongregate_-_Halloween_Event_-_Appicon2023.png?i10c=img.resize(width:250,height:200)">
     <span class="info">
       <strong class="title truncate">Firestone Idle RPG</strong>
       <ul class="tags">
@@ -882,7 +882,7 @@ kong_ads.displayAd("kong_home_af_728x90");}
   
 <div data-game-impression-game-id="283352" data-game-impression-unit-type="latest_games" data-game-impression-position="3" data-game-impression-depth="0" class="game js-game-hover">
   <a class="hover_game_info" href="https://www.kongregate.com/games/towardsmars/dungeon-crusher-soul-hunters?haref=HP_HNG_dungeon-crusher-soul-hunters">
-    <img class="game_icon image" title="" alt="Play Dungeon Crusher: Soul Hunters" width="250" height="200" src="https://cdn1.kongcdn.com/game_icons/0068/2266/GrassHooper_30_pfr_128_color.gif?i10c=img.resize(width:250,height:200)">
+    <img class="game_icon image" title="" alt="Play Dungeon Crusher: Soul Hunters" width="250" height="200" src="https://cdn4.kongcdn.com/game_icons/0070/1388/Dc.gif?i10c=img.resize(width:250,height:200)">
     <span class="info">
       <strong class="title truncate">Dungeon Crusher: Soul Hunters</strong>
       <ul class="tags">
@@ -1300,7 +1300,7 @@ It's...
           
   
 <div data-game-impression-game-id="266462" data-game-impression-unit-type="popular_games" data-game-impression-position="1" data-game-impression-depth="2" class="game pam js-game-hover" id="highest_rated_game_266462">
-  <a class="game_browser_icon game_ico_outer" href="https://www.kongregate.com/games/Juppiomenz/bit-heroes"><img class="game_icon" title="Bit Heroes" alt="Play Bit Heroes" width="171" height="137" src="https://cdn2.kongcdn.com/game_icons/0069/3588/webicon.png?i10c=img.resize(width:171,height:137)"></a>
+  <a class="game_browser_icon game_ico_outer" href="https://www.kongregate.com/games/Juppiomenz/bit-heroes"><img class="game_icon" title="Bit Heroes" alt="Play Bit Heroes" width="171" height="137" src="https://cdn2.kongcdn.com/game_icons/0070/1394/BHQ.gif?i10c=img.resize(width:171,height:137)"></a>
   <!-- Title -->
   <strong class="title">
     <a class="play_link" href="https://www.kongregate.com/games/Juppiomenz/bit-heroes">
@@ -1480,7 +1480,7 @@ It's...
 
 <li data-game-impression-game-id="271381" data-game-impression-unit-type="most_played_games" data-game-impression-position="1" class="js-game-hover game-pod-med">
   <a class="hover_game_info" href="https://www.kongregate.com/games/Throwdown/animation-throwdown?haref=HP_MPG_animation-throwdown">
-    <img class="game_icon" title="Animation Throwdown" alt="Play Animation Throwdown" width="93" height="74" src="https://cdn4.kongcdn.com/game_icons/0068/8584/image__7_.png?i10c=img.resize(width:93)">
+    <img class="game_icon" title="Animation Throwdown" alt="Play Animation Throwdown" width="93" height="74" src="https://cdn4.kongcdn.com/game_icons/0070/1395/ezgif.com-resize__25_.gif?i10c=img.resize(width:93)">
     <span class="title">
       <span class="txt truncate hover_game_info">Animation Throwdown</span>
     </span>
@@ -1496,7 +1496,7 @@ It's...
 
 <li data-game-impression-game-id="266462" data-game-impression-unit-type="most_played_games" data-game-impression-position="2" class="js-game-hover game-pod-med">
   <a class="hover_game_info" href="https://www.kongregate.com/games/Juppiomenz/bit-heroes?haref=HP_MPG_bit-heroes">
-    <img class="game_icon" title="Bit Heroes" alt="Play Bit Heroes" width="93" height="74" src="https://cdn2.kongcdn.com/game_icons/0069/3588/webicon.png?i10c=img.resize(width:93)">
+    <img class="game_icon" title="Bit Heroes" alt="Play Bit Heroes" width="93" height="74" src="https://cdn2.kongcdn.com/game_icons/0070/1394/BHQ.gif?i10c=img.resize(width:93)">
     <span class="title">
       <span class="txt truncate hover_game_info">Bit Heroes</span>
     </span>
@@ -1544,7 +1544,7 @@ It's...
 
 <li data-game-impression-game-id="271381" data-game-impression-unit-type="community_favorites" data-game-impression-position="0" class="js-game-hover game-pod-med">
   <a class="hover_game_info" href="https://www.kongregate.com/games/Throwdown/animation-throwdown?haref=HP_CF_animation-throwdown">
-    <img class="game_icon" title="Animation Throwdown" alt="Play Animation Throwdown" width="93" height="74" src="https://cdn4.kongcdn.com/game_icons/0068/8584/image__7_.png?i10c=img.resize(width:93)">
+    <img class="game_icon" title="Animation Throwdown" alt="Play Animation Throwdown" width="93" height="74" src="https://cdn4.kongcdn.com/game_icons/0070/1395/ezgif.com-resize__25_.gif?i10c=img.resize(width:93)">
     <span class="title">
       <span class="txt truncate hover_game_info">Animation Throwdown</span>
     </span>
@@ -1560,7 +1560,7 @@ It's...
 
 <li data-game-impression-game-id="266462" data-game-impression-unit-type="community_favorites" data-game-impression-position="1" class="js-game-hover game-pod-med">
   <a class="hover_game_info" href="https://www.kongregate.com/games/Juppiomenz/bit-heroes?haref=HP_CF_bit-heroes">
-    <img class="game_icon" title="Bit Heroes" alt="Play Bit Heroes" width="93" height="74" src="https://cdn2.kongcdn.com/game_icons/0069/3588/webicon.png?i10c=img.resize(width:93)">
+    <img class="game_icon" title="Bit Heroes" alt="Play Bit Heroes" width="93" height="74" src="https://cdn2.kongcdn.com/game_icons/0070/1394/BHQ.gif?i10c=img.resize(width:93)">
     <span class="title">
       <span class="txt truncate hover_game_info">Bit Heroes</span>
     </span>
@@ -1576,7 +1576,7 @@ It's...
 
 <li data-game-impression-game-id="299519" data-game-impression-unit-type="community_favorites" data-game-impression-position="2" class="js-game-hover game-pod-med">
   <a class="hover_game_info" href="https://www.kongregate.com/games/HolydayStudios/firestone?haref=HP_CF_firestone">
-    <img class="game_icon" title="Firestone Idle RPG" alt="Play Firestone Idle RPG" width="93" height="74" src="https://cdn4.kongcdn.com/game_icons/0070/0986/borisBattleCry250x200.png?i10c=img.resize(width:93)">
+    <img class="game_icon" title="Firestone Idle RPG" alt="Play Firestone Idle RPG" width="93" height="74" src="https://cdn3.kongcdn.com/game_icons/0070/1398/Kongregate_-_Halloween_Event_-_Appicon2023.png?i10c=img.resize(width:93)">
     <span class="title">
       <span class="txt truncate hover_game_info">Firestone Idle RPG</span>
     </span>
@@ -1651,7 +1651,7 @@ It's...
         
           <tr data-game-impression-game-id="271381" data-game-impression-unit-type="top_games_by_category" data-game-impression-position="1" class="game_hover js-game-hover ">
 <td class="sm_game_icon">
-  <a href="https://www.kongregate.com/games/Throwdown/animation-throwdown?haref=HP_Card_animation-throwdown"><img class="game_icon" title="Animation Throwdown" alt="Play Animation Throwdown" width="26" height="21" src="https://cdn2.kongcdn.com/game_icons/0068/8584/image__7_.png?i10c=img.resize(width:26,height:21)"></a>
+  <a href="https://www.kongregate.com/games/Throwdown/animation-throwdown?haref=HP_Card_animation-throwdown"><img class="game_icon" title="Animation Throwdown" alt="Play Animation Throwdown" width="26" height="21" src="https://cdn2.kongcdn.com/game_icons/0070/1394/BHQ.gif?i10c=img.resize(width:26,height:21)"></a>
 </td>
 <td class="browse_game_title">
   <p>
@@ -2155,7 +2155,7 @@ It's...
         
           <tbody><tr data-game-impression-game-id="266462" data-game-impression-unit-type="top_games_by_category" data-game-impression-position="0" class="game_hover js-game-hover graybg">
 <td class="sm_game_icon">
-  <a href="https://www.kongregate.com/games/Juppiomenz/bit-heroes?haref=HP_MMO_bit-heroes"><img class="game_icon" title="Bit Heroes" alt="Play Bit Heroes" width="26" height="21" src="https://cdn3.kongcdn.com/game_icons/0069/3588/webicon.png?i10c=img.resize(width:26,height:21)"></a>
+  <a href="https://www.kongregate.com/games/Juppiomenz/bit-heroes?haref=HP_MMO_bit-heroes"><img class="game_icon" title="Bit Heroes" alt="Play Bit Heroes" width="26" height="21" src="https://cdn2.kongcdn.com/game_icons/0070/1394/BHQ.gif?i10c=img.resize(width:26,height:21)"></a>
 </td>
 <td class="browse_game_title">
   <p>
@@ -2297,7 +2297,7 @@ It's...
         
           <tr data-game-impression-game-id="266462" data-game-impression-unit-type="top_games_by_category" data-game-impression-position="2" class="game_hover js-game-hover ">
 <td class="sm_game_icon">
-  <a href="https://www.kongregate.com/games/Juppiomenz/bit-heroes"><img class="game_icon" title="Bit Heroes" alt="Play Bit Heroes" width="26" height="21" src="https://cdn3.kongcdn.com/game_icons/0069/3588/webicon.png?i10c=img.resize(width:26,height:21)"></a>
+  <a href="https://www.kongregate.com/games/Juppiomenz/bit-heroes"><img class="game_icon" title="Bit Heroes" alt="Play Bit Heroes" width="26" height="21" src="https://cdn2.kongcdn.com/game_icons/0070/1394/BHQ.gif?i10c=img.resize(width:26,height:21)"></a>
 </td>
 <td class="browse_game_title">
   <p>
@@ -2843,33 +2843,33 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
   observer.observe(targetNode, config);
 
   function TimeToLogin(active_user){
-        if(active_user.id()>0){
-            document.getElementById("guest_user_welcome_content").style.display="none";
-            var login_area=document.getElementById("nav_welcome_box");
-            login_area.style.display="";
-            var av=document.createElement("img"); av.src=active_user.avatarUrl();
-            login_area.getElementsByClassName("profile profile_control")[0].firstElementChild.href="http://www.kongregate.com/accounts/"+active_user.username();
-            document.getElementById("small_avatar_placeholder").appendChild(av);
-            login_area.getElementsByClassName("username_holder")[0].innerHTML=active_user.username();
-            document.getElementById("mini-profile-level").innerHTML=active_user.level();
-            login_area.getElementsByClassName("play-laters-count")[0].innerHTML=active_user.playLatersCount();
-            login_area.getElementsByClassName("favorites-count-link")[0].href="http://www.kongregate.com/accounts/"+active_user.username()+"/favorites";
-            login_area.getElementsByClassName("favorites-count")[0].innerHTML=active_user.favoritesCount();
-            login_area.getElementsByClassName("friends_online_link")[0].href="http://www.kongregate.com/accounts/"+active_user.username()+"/friends";
-            login_area.getElementsByClassName("friends_online_count")[0].innerHTML=active_user.friendsOnlineCount();
-            document.getElementById("my-messages-link").href="http://www.kongregate.com/accounts/"+active_user.username()+"/messages";
-            var uc=active_user.unreadShoutsCount()+active_user.unreadWhispersCount()+active_user.unreadGameMessagesCount();
-            if(uc>0){ document.getElementById("profile_control_unread_message_count").innerHTML=uc; }
-            login_area.getElementsByClassName("settings profile_control")[0].getElementsByTagName("ul").firstElementChild.firstElementChild.href="http://www.kongregate.com/accounts/"+active_user.username()+"/edit";
-        }
+    if(active_user.id()>0){
+        document.getElementById("guest_user_welcome_content").style.display="none";
+        var login_area=document.getElementById("nav_welcome_box");
+        login_area.style.display="";
+        var av=document.createElement("img"); av.src=active_user.avatarUrl();
+        login_area.getElementsByClassName("profile profile_control")[0].firstElementChild.href="http://www.kongregate.com/accounts/"+active_user.username();
+        document.getElementById("small_avatar_placeholder").appendChild(av);
+        login_area.getElementsByClassName("username_holder")[0].innerHTML=active_user.username();
+        document.getElementById("mini-profile-level").innerHTML=active_user.level();
+        login_area.getElementsByClassName("play-laters-count")[0].innerHTML=active_user.playLatersCount();
+        login_area.getElementsByClassName("favorites-count-link")[0].href="http://www.kongregate.com/accounts/"+active_user.username()+"/favorites";
+        login_area.getElementsByClassName("favorites-count")[0].innerHTML=active_user.favoritesCount();
+        login_area.getElementsByClassName("friends_online_link")[0].href="http://www.kongregate.com/accounts/"+active_user.username()+"/friends";
+        login_area.getElementsByClassName("friends_online_count")[0].innerHTML=active_user.friendsOnlineCount();
+        document.getElementById("my-messages-link").href="http://www.kongregate.com/accounts/"+active_user.username()+"/messages";
+        var uc=active_user.unreadShoutsCount()+active_user.unreadWhispersCount()+active_user.unreadGameMessagesCount();
+        if(uc>0){ document.getElementById("profile_control_unread_message_count").innerHTML=uc; }
+        login_area.getElementsByClassName("settings profile_control")[0].getElementsByTagName("ul").firstElementChild.firstElementChild.href="http://www.kongregate.com/accounts/"+active_user.username()+"/edit";
     }
+}
 
-    function ThingsToDoAtTheEnd(){
-        if(typeof(active_user)!="undefined"){
-            TimeToLogin(active_user);
-        }
-        else{ setTimeout(function(){ ThingsToDoAtTheEnd(); },1000); }
-    };
-    ThingsToDoAtTheEnd();
+function ThingsToDoAtTheEnd(){
+    if(typeof(active_user)!="undefined"){
+        TimeToLogin(active_user);
+    }
+    else{ setTimeout(function(){ ThingsToDoAtTheEnd(); },1000); }
+};
+ThingsToDoAtTheEnd();
 
 })();
