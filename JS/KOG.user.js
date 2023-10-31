@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    http://tampermonkey.net/
-// @version      0.61
+// @version      0.62
 // @description  Gone but not forgotten
 // @author       Fancy2209, Matrix4348
 // @match         *://www.kongregate.com/*
@@ -25,505 +25,626 @@
   goodKongCSS.setAttribute('data-turbo-track', 'reload');
 
   const headerWrap = `
-<!--============ #header ============-->
-<div id="header">
-  <div id="header_logo">
-  <h3 id="playing"><strong>8,218</strong> people online playing <strong>128,477</strong> free games!</h3>
+    <!--============ #header ============-->
+      <div id="header">
+        <div id="header_logo">
+  <h3 id="playing"><strong>21,236</strong> online playing <strong>128,695</strong> free games!</h3>
   <h2 title="Kongregate">
-<a class="spritesite spriteall" title="Kongregate" id="kong_header_link" href="https://www.kongregate.com/">Kongregate</a>
-</h2>
+    <a class="spritesite spriteall" title="Kongregate" id="kong_header_link" href="https://www.kongregate.com/">Kongregate</a>
+  </h2>
 </div>
 
-  <div id="new_nav_wrapper">
+        <div id="new_nav_wrapper">
 
 <!-- Welcome Start -->
 <div id="welcome">
 
-<!-- User Welcome Start -->
-<ul id="nav_welcome_box" class="welcome-user" style="display:none">
-<!-- Mini Profile Start -->
-<li class="profile profile_control">
-<a href="https://www.kongregate.com/accounts/Guest">
-  <span id="small_avatar_placeholder"></span>
-  <span class="username_holder"></span> <span id="mini-profile-level"></span>
+  <!-- User Welcome Start -->
+  <ul id="nav_welcome_box" class="welcome-user" style="display:none">
+    <!-- Mini Profile Start -->
+    <li class="profile profile_control">
+      <a href="https://www.kongregate.com/accounts/Guest">
+        <span id="small_avatar_placeholder"></span>
+        <span class="username_holder"></span> <span id="mini-profile-level"></span>
 </a>    </li>
-<!-- Mini Profile End -->
-<!-- Playlist Start -->
-<li class="playlist">
-<a class="play-laters-count-link" href="https://www.kongregate.com/my_playlist">
-  <span aria-hidden="true" class="kong_ico mrs">p</span><span class="play-laters-count">0</span>
+    <!-- Mini Profile End -->
+    <!-- Playlist Start -->
+    <li class="playlist">
+      <a class="play-laters-count-link" href="https://www.kongregate.com/my_playlist">
+        <span aria-hidden="true" class="kong_ico mrs">p</span><span class="play-laters-count">0</span>
 </a>    </li>
-<!-- Playlist End -->
-<!-- Favorites Start -->
-<li class="favorites">
-<a class="favorites-count-link" href="https://www.kongregate.com/accounts/Guest/favorites">
-  <span aria-hidden="true" class="kong_ico mrs">l</span><span class="favorites-count">0</span>
+    <!-- Playlist End -->
+    <!-- Favorites Start -->
+    <li class="favorites">
+      <a class="favorites-count-link" href="https://www.kongregate.com/accounts/Guest/favorites">
+        <span aria-hidden="true" class="kong_ico mrs">l</span><span class="favorites-count">0</span>
 </a>    </li>
-<!-- Favorites End -->
-<!-- Friends Start -->
-<li class="friends_online friends">
-<a class="friends_online_link" href="https://www.kongregate.com/accounts/Guest/friends">
-  <span aria-hidden="true" class="kong_ico mrs">f</span><span class="friends_online_count"></span>
+    <!-- Favorites End -->
+    <!-- Friends Start -->
+    <li class="friends_online friends">
+      <a class="friends_online_link" href="https://www.kongregate.com/accounts/Guest/friends">
+        <span aria-hidden="true" class="kong_ico mrs">f</span><span class="friends_online_count"></span>
 </a>    </li>
-<!-- Friends End -->
-<!-- Messages Start -->
-<li class="messages">
-<a class="my-messages" id="my-messages-link" href="https://www.kongregate.com/accounts/Guest/messages">        <span id="profile_bar_messages">
-    <span aria-hidden="true" class="kong_ico">m</span><span id="profile_control_unread_message_count" class="msg-count"></span>
-  </span>
+    <!-- Friends End -->
+    <!-- Blocks Start -->
+    <li class="blocks" style="display:none" id="blocks">
+      <a href="https://www.kongregate.com/accounts/Guest/blocks_transactions">        <svg xmlns="https://www.w3.org/2000/svg" viewBox="0 0 110 110" class="blocks_ico">
+  <path fill="#2996CC" d="M99.3.2H33.5c-2.4 0-4.7.9-6.5 2.5l-.2.2-.4.4L3.2 26.5l-.4.4C1.1 28.7.1 31.1.1 33.6v65.8c0 5.4 4.4 9.8 9.8 9.8h65.8c2.8 0 5.5-1.2 7.4-3.4l22.5-22.5c2.2-1.9 3.4-4.6 3.4-7.4V10c.1-5.3-4.2-9.7-9.5-9.8h-.2z"></path>
+  <path d="M99.2 68.6H33.5c-2.9 0-5.6 1.3-7.5 3.4L3.5 94.6C1.6 96.2.4 98.4.1 100.9c.6 4.9 4.7 8.6 9.7 8.7h65.8c2.8 0 5.5-1.2 7.4-3.4l22.5-22.5c1.9-1.6 3.1-3.8 3.4-6.3-.5-5-4.7-8.8-9.7-8.8z" opacity=".2"></path>
+  <path class="block-ico__optional" d="M30.7 23.4v-6.9c0-.6.4-1 1-1s1 .4 1 1v6.9c0 .6-.4 1-1 1-.5 0-1-.4-1-.9v-.1zm-11.1 69c.2-.2 8.6-8.6 8.8-8.9 2.9-3 4.3-3.7 9.2-3.7h10.1c1.3 0 2-2 0-2h-5.2c-8.5 0-9.8-2.9-9.8-9.8V52.5c0-.6-.4-1-1-1s-1 .4-1 1v21.2c.1 2.5-.7 5-2.3 6.9v.1c-.5.6-1 1.1-1.5 1.6l-8.9 9c-.7.9.5 2.3 1.6 1.1zm-5.9 6c.7-.8.7-.8 1.9-2.2.8-.9-.4-2.5-1.4-1.2-1.4 1.7-1.1 1.3-1.7 2-1.1 1.3.3 2.5 1.2 1.4z" opacity=".3"></path>
+  <path fill="#A54942" d="M99.2 19H33.5c-2.9 0-5.6 1.2-7.5 3.4L3.5 44.9C1.6 46.5.4 48.7.1 51.2c.6 4.9 4.7 8.6 9.7 8.7h65.8c2.8 0 5.5-1.2 7.4-3.4L105.5 34c1.9-1.6 3.1-3.8 3.4-6.3-.5-5-4.7-8.7-9.7-8.7z"></path>
+  <path fill="#FFB4A3" d="M105.7 33.9L83.2 56.4c-1.9 2.2-4.6 3.4-7.4 3.4H10C4.6 59.8.2 55.4.2 50v21.3c0 5.4 4.4 9.8 9.8 9.8h65.8c2.8 0 5.5-1.2 7.4-3.4l22.5-22.5c2.2-1.9 3.4-4.6 3.4-7.4V26.5c0 2.8-1.2 5.6-3.4 7.4z"></path>
+  <path fill="#FFF" d="M69.6 59.8h5.2V81h-5.2V59.8z"></path>
+  <path class="block-ico__optional" fill="#FFDDD7" d="M64.7 59.7h2.9v21.2h-2.9V59.7zm-50.7 0h17.6v21.2H14V59.7z"></path>
+  <path fill="#FFF" d="M26.7 59.7h2.9v21.2h-2.9z"></path>
+  <path fill="#EA8A7A" d="M105.7 33.9L91.5 48.1v21.3l14.2-14.2c2.2-1.9 3.4-4.6 3.4-7.4V26.5c0 2.8-1.2 5.5-3.4 7.4zM86.9 52.7l-3.7 3.7c-.7.8-1.6 1.5-2.5 2.1v21.3c1-.5 1.8-1.2 2.5-2.1l3.7-3.7V52.7z"></path>
+  <path fill="#C16863" d="M105.7 33.9l-3.8 3.8v21.2l3.8-3.8c2.2-1.9 3.4-4.6 3.4-7.4V26.5c0 2.8-1.2 5.5-3.4 7.4z"></path>
+  <path fill="#2996CC" d="M109.1 10c0-5.4-4.4-9.8-9.8-9.8H33.5c-2.4 0-4.7.9-6.5 2.5l-.2.2-.4.4L3.2 26.5l-.4.4C1.1 28.7.1 31.1.1 33.6V50c0 5.4 4.4 9.8 9.8 9.8h65.8c2.8 0 5.5-1.2 7.4-3.4l22.4-22.5c2.2-1.9 3.4-4.6 3.4-7.4l.2-16.5z" opacity=".8"></path>
+  <path fill="#FFF" d="M23.6 102.4c3-.2 4.6-6.1-.8-6.1-3.6 0-8.6-1.7-8.8-4.8-.4-5.9-7-6.5-7 .6.1 12.2 9.1 10.7 16.6 10.3z" opacity=".2"></path>
+  <path fill="#FFF" d="M33.2.2c-2.4 0-4.7.9-6.5 2.5l-.2.2-.4.4-13.7 13.6c-7 6.9 20.9 6.8 32.3 3.5 21.3-6 48.7-.3 51.4-20.2H33.2z" opacity=".27"></path>
+  <path fill="#FFF" d="M81.7 86.8c.6 0 1 .4 1 1V92c0 .6-.4 1-1 1s-1-.4-1-1v-4.2c0-.6.4-1 1-1zm-1 9.8V96c0-.6.4-1 1-1s1 .4 1 1v.7c0 .6-.4 1-1 1s-1-.5-1-1.1zm12.2-77.8c2.3-2.2 4.4-4.6 6.4-7.1.7-.9-.3-2.5-1.4-1.2-2.2 2.6-5.3 5.4-6.2 7s.2 2.2 1.2 1.3zM26.1 27h12.8c.6 0 1 .4 1 1s-.4 1-1 1H26.1c-.6 0-1-.4-1-1 0-.5.4-1 .9-1h.1zm-5.2 0h1.3c.6 0 1 .4 1 1s-.4 1-1 1h-1.3c-.6 0-1-.4-1-1 0-.5.4-1 .9-1h.1z" opacity=".55"></path>
+  <path fill="#FFF" d="M85.6 22.7C82.2 26.2 81 27 75.8 27H45c-1.3 0-2 2 0 2h25.8c8.5 0 9.8 2.9 9.8 9.8v13.7c0 .6.4 1 1 1s1-.4 1-1V33.2c-.1-2.5.7-5 2.3-6.9v-.1c.5-.5 1.6-1.8 2.2-2.5.8-.8-.4-2.2-1.5-1z" opacity=".61"></path>
+  <g class="block-ico__optional">
+    <path d="M55.5 100.9c14.7 1.9 34.3-24.6-3.9-17.1-11 2.2-22.8 13.7 3.9 17.1z" opacity=".14"></path>
+    <circle cx="100" cy="73" r="1.6" fill="#FFF" opacity=".35"></circle>
+    <path fill="#FFF" d="M9.4 59.7h2v21.2h-2z"></path>
+    <path fill="#FFF" d="M105.7 33.9L83.2 56.4c-1.9 2.2-4.6 3.4-7.4 3.4H10C4.6 59.8.2 55.4.2 50v2c0 5.4 4.4 9.8 9.8 9.8h65.8c2.8 0 5.5-1.2 7.4-3.4l22.5-22.5c2.2-1.9 3.4-4.6 3.4-7.4v-2c0 2.9-1.2 5.6-3.4 7.4z"></path>
+    <path fill="#A54942" d="M105.7 53.5L83.2 76c-1.9 2.2-4.6 3.4-7.4 3.4H10C4.6 79.4.2 75 .2 69.6v2c0 5.4 4.4 9.8 9.8 9.8h65.8c2.8 0 5.5-1.2 7.4-3.4l22.5-22.5c2.2-1.9 3.5-4.6 3.4-7.5v-2c.1 2.9-1.2 5.6-3.4 7.5z"></path>
+    <path fill="#FFF" d="M33.7 85.7l.8 1.5 1.4.8-1.4.8-.8 1.4-.8-1.4-1.4-.8 1.4-.8.8-1.5zm32.4 3.4l.9 1.8 1.8 1-1.8.9-.9 1.9-1-1.9-1.8-.9 1.8-1 1-1.8zm25.5-14.2l.7 1.5 1.5.8-1.5.8-.7 1.4-.8-1.4-1.5-.8 1.5-.8.8-1.5zM32 35.2l2 3.7 3.7 2.2-3.7 2-2 3.9-2.2-3.9-3.7-2 3.7-2.2 2.2-3.7z"></path>
+    <circle cx="52.3" cy="6.6" r="1.2" fill="#FFF" opacity=".37"></circle>
+    <circle cx="66" cy="47.8" r="3.1" fill="#FFF" opacity=".35"></circle>
+    <circle cx="48.5" cy="39.8" r="2.1" fill="#FFF" opacity=".35"></circle>
+    <path fill="#FFF" d="M36.2 6c-5.3.7-11.4 4.6-8.6 9.1s9.7-.5 14-3.4S55.2 3.5 36.2 6z" opacity=".37"></path>
+    <path fill="#FFF" d="M84.5 12.5c-18.1-.2-9.1 4.5-5.2 4.5 5.5-.1 11.5.7 11.2 6.3-.6 8.8 8.7 11.5 9.4.9.6-8-4.1-11.6-15.4-11.7z" opacity=".14"></path>
+    <path fill="#FFF" d="M88.6 5.3l.8 1.4 1.4.9-1.4.7-.8 1.5-.8-1.5-1.4-.7 1.4-.9.8-1.4z"></path>
+    <path fill="#FFF" d="M7.4 38.1c.6 0 1 .4 1 1v8.8c0 .6-.4 1-1 1s-1-.4-1-1v-8.8c.1-.5.5-.9 1-1z" opacity=".7"></path>
+    <path fill="#FFF" d="M65 15.5l.9 1.5 1.6 1-1.6.8-.9 1.7-.9-1.7-1.6-.8 1.6-1 .9-1.5z"></path>
+    <path fill="#FFF" d="M1.1 47.3c-.4 0-.8-.4-.8-.8v-5.2c-.1-.4.3-.8.7-.9.4 0 .9.3.9.7v5.4c.1.4-.3.8-.8.8zm0-9.7c-.4 0-.8-.4-.8-.8v-3.5c0-2.6 1-5.1 2.7-7l.1-.1.4-.4L26.2 3.2l.4-.4.1-.1.1-.1C28.7.9 31.2 0 33.7 0h9.8c.4 0 .8.3.8.8 0 .4-.4.8-.8.8h-9.8c-2.1 0-4.2.8-5.8 2.2l-.1.1-.1.1-.4.4L4.7 27c-.1.1-.3.2-.4.4C2.8 29 2 31.2 2 33.4v3.5c-.1.4-.5.8-.9.7zm53.5-36h-6.1c-.4 0-.8-.4-.8-.8s.3-.8.8-.8h6.1c.4 0 .8.3.8.8.1.5-.3.8-.8.8zm53.9 9.6c-.4 0-.8-.3-.8-.8 0-4.9-3.9-8.8-8.8-8.8H60.7c-.4 0-.8-.4-.8-.8s.4-.8.8-.8h38.2c5.7 0 10.4 4.7 10.4 10.4 0 .4-.4.8-.8.8zm0 10.5c-.4 0-.8-.4-.8-.8v-6c0-.4.4-.8.8-.8s.8.4.8.8v6c0 .4-.4.8-.8.8z" opacity=".6"></path>
+    <circle cx="46.8" cy="86.7" r="1.6" fill="#FFF" opacity=".35"></circle>
+    <path fill="#FFF" d="M7.4 84.6c.6 0 1 .4 1 1v12.7c0 .6-.4 1-1 1s-1-.4-1-1V85.5c.1-.5.5-.9 1-.9z" opacity=".7"></path>
+    <path fill="#FFF" d="M54.2 103.8c0 .6-.4 1-1 1H40.5c-.6 0-1-.4-1-1s.4-1 1-1h12.7c.5 0 1 .5 1 1zm7.8 0c0 .6-.4 1-1 1h-2.9c-.6 0-1-.4-1-1s.4-1 1-1H61c.5 0 1 .5 1 1z" opacity=".76"></path>
+    <path d="M108.5 68.8c-.4 0-.8-.3-.8-.8V57.5c0-.4.4-.8.8-.8s.8.4.8.8V68c0 .4-.3.8-.8.8zm-24.4 36.3c-.2 0-.4-.1-.6-.2-.3-.3-.3-.8 0-1.1l21-21c2-1.7 3.1-4.2 3.2-6.8v-1.6c0-.4.4-.8.8-.8s.8.4.8.8V76c0 3.1-1.4 6-3.7 8l-21 21c-.2 0-.3.1-.5.1zm-9 4.9h-9c-.4 0-.8-.3-.8-.8 0-.4.4-.8.8-.8h9c1.7 0 3.3-.5 4.7-1.4.4-.2.9-.2 1.1.2.2.4.2.9-.2 1.1l-.1.1c-1.6 1-3.6 1.6-5.5 1.6zm-13.7 0H10.6C4.8 110 0 105.2 0 99.4v-6.2c0-.4.4-.8.8-.8s.8.4.8.8v6.2c0 5 4 9 9 9h50.8c.4 0 .8.4.8.8s-.4.8-.8.8z" opacity=".4"></path>
+    <path fill="#FFF" d="M1.1 68.8c-.4 0-.8-.3-.8-.8v-6.1c-.1-.4.3-.8.7-.9.4 0 .9.3.9.7V68c.1.5-.3.8-.8.8.1 0 .1.1 0 0z"></path>
+    <path fill="#A54942" d="M108.4 46c-.4 0-.8-.4-.8-.8v-8.8c0-.4.4-.8.8-.8s.8.3.8.8v8.8c0 .4-.3.8-.8.8z"></path>
+  </g>
+</svg>
+
+        <span id="blocks_balance"></span>
 </a>    </li>
-<!-- Messages End -->
-<!-- Settings Start -->
-<li class="settings profile_control">
-<span aria-hidden="true" class="kong_ico">s</span>
-<ul>
-  <li>
-    <a href="https://www.kongregate.com/accounts/Guest/edit">Settings</a>
-  </li>
-  <li>
-    <a id="welcome_box_sign_out" href="#" onclick="signoutFromSite(); return false;">Sign Out</a>
-    <script>
+    <!-- Blocks End -->
+    <!-- Messages Start -->
+    <li class="messages">
+      <a class="my-messages" id="my-messages-link" href="https://www.kongregate.com/accounts/Guest/messages">        <span id="profile_bar_messages">
+          <span aria-hidden="true" class="kong_ico">m</span><span id="profile_control_unread_message_count" class="msg-count"></span>
+        </span>
+</a>    </li>
+    <!-- Messages End -->
+    <!-- Settings Start -->
+    <li class="settings profile_control">
+      <span aria-hidden="true" class="kong_ico">s</span>
+      <ul>
+        <li>
+          <a href="https://www.kongregate.com/accounts/Guest/edit">Settings</a>
+        </li>
+        <li>
+          <a id="welcome_box_sign_out" href="#" onclick="signoutFromSite(); return false;">Sign Out</a>
+          <script>
 //<![CDATA[
-      function signoutFromSite() {
-        $('welcome_box_sign_out_indicator').show();
-        $('welcome_box_sign_out').hide();
+            function signoutFromSite() {
+              $('welcome_box_sign_out_indicator').show();
+              $('welcome_box_sign_out').hide();
 
-        var fb_uid = active_user.getAttributes().facebook_uid,
-            fb_auth_response = fb_uid && FB.getAuthResponse();
+              var fb_uid = active_user.getAttributes().facebook_uid,
+                  fb_auth_response = fb_uid && FB.getAuthResponse();
 
-        if (fb_auth_response && fb_auth_response.userID == fb_uid) {
-          FB.logout(function() { signoutFromSite(); });
-          return false;
-        }
+              if (fb_auth_response && fb_auth_response.userID == fb_uid) {
+                FB.logout(function() { signoutFromSite(); });
+                return false;
+              }
 
-        new Ajax.Request("/session", {
-          method: 'delete',
-          onComplete: function(request) {
-            var newLoc = request.responseJSON.path;
+              new Ajax.Request("/session", {
+                method: 'delete',
+                onComplete: function(request) {
+                  var newLoc = request.responseJSON.path;
 
-            if (newLoc != document.location) {
-              document.location = newLoc;
-            } else {
-              document.location.reload();
+                  if (newLoc != document.location) {
+                    document.location = newLoc;
+                  } else {
+                    document.location.reload();
+                  }
+                }
+              });
+
+              return false;
             }
-          }
-        });
-
-        return false;
-      }
 
 //]]>
 </script>          <span id="welcome_box_sign_out_indicator" class="spinner spinner_inverse" style="display:none" title="loading…">​</span>
-  </li>
-</ul>
-</li>
-<!-- Settings End -->
-</ul>
-<!-- User Welcome End -->
+        </li>
+      </ul>
+    </li>
+    <!-- Settings End -->
+  </ul>
+  <!-- User Welcome End -->
 
-<!-- Guest Welcome Start -->
-<div id="guest_user_welcome_content" class="welcome-guest regtextSml" style="">
-<form id="nav_sign_in" onsubmit="if(window.DynamicFrameTarget){ new DynamicFrameTarget({form: this, callback: user_status.sessionStatus});}" action="https://www.kongregate.com/session" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="7MNLS7SbhmwyZG7/uDUqOhGx4iBUFcBMiRJBHfE8b5c5jwNgs72IDYFW5o+TYdq6+zzRiEE6lsuVGr13IVQMjQ==">
+  <!-- Guest Welcome Start -->
+  <div id="guest_user_welcome_content" class="welcome-guest regtextSml" style="">
+    <form id="nav_sign_in" onsubmit="if(window.DynamicFrameTarget){ new DynamicFrameTarget({form: this, callback: user_status.sessionStatus});}" action="https://www.kongregate.com/session" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="77llzYUs1GeOeyMF4wdShlHR+fDWMl3KmcMapfIKat8zBrqQCLbgDSecN02WbGgiVl1dJFiFwYO044rAKkJRDg==">
 
-<input type="hidden" name="from_welcome_box" id="from_welcome_box" value="true">
-<a title="Sign in with Facebook" class="facebook_signin_small sprite_facebook mrs" onclick="new FacebookAuthenticator({}); return false;" href="#">Sign in</a>
-  <strong><a class="js-activate-inline-registration" href="#">Register</a></strong>
-or
-<label for="welcome_username_label">Sign in:</label>
-<span class="fields">
-  <span class="field">
-    <label id="welcome_username_label" for="welcome_username" class="text_label" style="">Username or email</label>
-    <input type="text" name="username" id="welcome_username" value="" title="Username or email" tabindex="3" class="text_field">
-  </span>
-  <span class="field">
-    <label id="welcome_password_label" for="welcome_password" class="text_label" style="">Password</label>
-    <input type="password" name="password" id="welcome_password" value="" title="Password" tabindex="4" class="text_field">
-  </span>
-  <input type="submit" value="Sign In" tabindex="5" id="welcome_box_sign_in_button" class="submit spriteall spritesite" onclick="try{}catch(e){};if(!this.elem_welcome_box_sign_in_button){this.elem_welcome_box_sign_in_button=$('welcome_box_sign_in_button');this.spin_welcome_box_sign_in_button=$('welcome_box_sign_in_button_spinner');this.restore=function(t){return function(){t.elem_welcome_box_sign_in_button.show();t.spin_welcome_box_sign_in_button.hide();Event.stopObserving(window, 'unload', t.restore);}}(this);}this.elem_welcome_box_sign_in_button.hide();this.spin_welcome_box_sign_in_button.show();Event.observe(window, 'unload', this.restore);"><span id="welcome_box_sign_in_button_spinner" class="spinner spinner_inverse" style="display:none" title="loading…">​</span>
-  <span id="remember_holder" style="display:none;">
-    <input type="checkbox" name="remember_me" id="welcome_remember_me" value="true" class="imgMini" tabindex="6" checked="checked"> <label for="welcome_remember_me" id="welcome_remember_label" class="bd">Remember me</label>
-  </span>
-  <span id="forgot_holder" style="display:none;">
-    <a class="password_recovery" tabindex="7" href="#" onclick="active_user.activatePasswordRecovery();; return false;">Forgot password?</a>
-  </span>
-</span>
+      <input type="hidden" name="from_welcome_box" id="from_welcome_box" value="true">
+      <a title="Sign in with Facebook" class="facebook_signin_small sprite_facebook mrs" onclick="new FacebookAuthenticator({}); return false;" href="#">Sign in</a>
+      <strong><a class="js-activate-inline-registration" href="#">Register</a></strong>
+      or
+      <label for="welcome_username_label">Sign in:</label>
+      <span class="fields">
+        <span class="field">
+          <label id="welcome_username_label" for="welcome_username" class="text_label" style="">Username or email</label>
+          <input type="text" name="username" id="welcome_username" value="" title="Username or email" tabindex="3" class="text_field">
+        </span>
+        <span class="field">
+          <label id="welcome_password_label" for="welcome_password" class="text_label" style="">Password</label>
+          <input type="password" name="password" id="welcome_password" value="" title="Password" tabindex="4" class="text_field">
+        </span>
+        <input type="submit" value="Sign In" tabindex="5" id="welcome_box_sign_in_button" class="submit spriteall spritesite" onclick="try{}catch(e){};if(!this.elem_welcome_box_sign_in_button){this.elem_welcome_box_sign_in_button=$('welcome_box_sign_in_button');this.spin_welcome_box_sign_in_button=$('welcome_box_sign_in_button_spinner');this.restore=function(t){return function(){t.elem_welcome_box_sign_in_button.show();t.spin_welcome_box_sign_in_button.hide();Event.stopObserving(window, 'unload', t.restore);}}(this);}this.elem_welcome_box_sign_in_button.hide();this.spin_welcome_box_sign_in_button.show();Event.observe(window, 'unload', this.restore);" data-disable-with="Sign In"><span id="welcome_box_sign_in_button_spinner" class="spinner spinner_inverse" style="display:none" title="loading…">​</span>
+        <span id="remember_holder" style="display:none;">
+          <input type="checkbox" name="remember_me" id="welcome_remember_me" value="true" class="imgMini" tabindex="6" checked="checked"> <label for="welcome_remember_me" id="welcome_remember_label" class="bd">Remember me</label>
+        </span>
+        <span id="forgot_holder" style="display:none;">
+          <a class="password_recovery" tabindex="7" href="#" onclick="active_user.activatePasswordRecovery();; return false;">Forgot password?</a>
+        </span>
+      </span>
 </form>  </div>
-<!-- Guest Welcome End -->
+  <!-- Guest Welcome End -->
 
 </div>
 <!-- Welcome End -->
 
 
-<ul class="main_navigation js-nav">
-<!-- Start Games -->
+  <ul class="main_navigation js-nav">
+    <!-- Start Games -->
 <li id="main_nav_games" class="main_nav_item guest">
-<a class="main_nav_top_item" href="https://www.kongregate.com/games">Games</a>
-<div class="main_nav_menu" style="left: -583.433px; width: 1536px;"><div class="main_nav_menu_inner">
+  <a class="main_nav_top_item" href="https://www.kongregate.com/games">Games</a>
+  <div class="main_nav_menu" style="left: -663.433px; width: 1696px;"><div class="main_nav_menu_inner">
 
-<!-- Recent Games Start -->
-<div id="main_nav_games_im_playing" class="main_nav_category my_games_block mrl">
-<strong class="game_block_link">
-<a href="" data-metric-tracker="js-wa-tc-Navigation-Recently_Played"><tr8n translation_key_id="7532" id="4807e18418b9a568274a246a5cf46b5d">Recently Played »</tr8n></a>
+  <!-- Recent Games Start -->
+  <div id="main_nav_games_im_playing" class="main_nav_category my_games_block mrl">
+    <strong class="game_block_link">
+  <a href="" data-metric-tracker="js-wa-tc-Navigation-Recently_Played"><tr8n translation_key_id="7532" id="4807e18418b9a568274a246a5cf46b5d">Recently Played »</tr8n></a>
 </strong>
 
-<a class="no_games_block" href="https://www.kongregate.com/games">
-<span class="plus kong_ico" aria-hidden="true">+</span>
-<strong class="title"><tr8n translation_key_id="4769" id="b048eb653574275ade0a3a0f8e3ccec7">Recently Played Games</tr8n></strong>
-<span class="desc"><tr8n translation_key_id="7429" id="2042ef2dfbc1df02c574f00b2063a484">Start playing now.</tr8n></span>
-</a>
+  <a class="no_games_block" href="https://www.kongregate.com/games">
+    <span class="plus kong_ico" aria-hidden="true">+</span>
+    <strong class="title"><tr8n translation_key_id="4769" id="b048eb653574275ade0a3a0f8e3ccec7">Recently Played Games</tr8n></strong>
+    <span class="desc"><tr8n translation_key_id="7429" id="2042ef2dfbc1df02c574f00b2063a484">Start playing now.</tr8n></span>
+  </a>
 
+  </div>
+  <!-- Recent Games End -->
+  <!-- Recommended Games Start -->
+  <div id="main_nav_recommended_games" class="main_nav_category my_games_block mrl">
+    <strong class="game_block_link">
+      <a href="" data-metric-tracker="js-wa-tc-Navigation-Recommended"><tr8n translation_key_id="7430" id="47a7290cf0c4e3789335f6f622a9fd4c">My Recommended »</tr8n></a>
+    </strong>
 
-</div>
-<!-- Recent Games End -->
-<!-- Recommended Games Start -->
-<div id="main_nav_recommended_games" class="main_nav_category my_games_block mrl">
-<strong class="game_block_link">
-<a href="" data-metric-tracker="js-wa-tc-Navigation-Recommended"><tr8n translation_key_id="7430" id="47a7290cf0c4e3789335f6f622a9fd4c">My Recommended »</tr8n></a>
-</strong>
+      <a class="no_games_block" href="https://www.kongregate.com/games">
+        <span class="plus kong_ico" aria-hidden="true">+</span>
+        <strong class="title"><tr8n translation_key_id="4682" id="d55e2658c6436b84daaf2004789d2023">Recommended Games</tr8n></strong>
+        <span class="desc"><tr8n translation_key_id="7429" id="2042ef2dfbc1df02c574f00b2063a484">Start playing now.</tr8n></span>
+      </a>
 
-<a class="no_games_block" href="https://www.kongregate.com/games">
-  <span class="plus kong_ico" aria-hidden="true">+</span>
-  <strong class="title"><tr8n translation_key_id="4682" id="d55e2658c6436b84daaf2004789d2023">Recommended Games</tr8n></strong>
-  <span class="desc"><tr8n translation_key_id="7429" id="2042ef2dfbc1df02c574f00b2063a484">Start playing now.</tr8n></span>
-</a>
-
-</div>
-<!-- Recommended Games End -->
-<!-- Playlist Games Start -->
-<div id="main_nav_my_playlist" class="main_nav_category my_games_block mrl">
-<strong class="game_block_link">
-<a href="" class="js-wa-tc-Navigation-Playlist"><tr8n translation_key_id="7431" id="d09ef4787d5e3c0182b7048923d4f3da">My Playlist »</tr8n></a>
-</strong>
-<a class="no_games_block js-activate-inline-registration" href="#">
-<span class="plus kong_ico" aria-hidden="true">+</span>
-<strong class="title"><span class="icon kong_ico" aria-hidden="true">p</span> <tr8n translation_key_id="6448" id="6ffe6d4f4800e3db93218cc72e5ef57d">My Playlist</tr8n></strong>
-<span class="desc"><tr8n translation_key_id="7432" id="0d41cf5977b5fa2c321f4b936fd2e377">Register to save games to play later.</tr8n></span>
-</a>
-</div>
-<!-- Playlist Games End -->
-
-
-<!-- Categories Start -->
-<dl id="main_nav_games_categories" class="main_nav_category">
-<dt class="main_nav_category_title pbs"><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/games"><tr8n translation_key_id="4807" id="2862bedfd879c3e77bcf3c6f7e316c64">Categories</tr8n></a></dt>
-<dd class="mtm">
-<ul class="main_nav_category_list">
-<li class="featured"><a data-metric-tracker="js-wa-tc-Navigation-Feature" href="https://www.kongregate.com/top-rated-games"><tr8n translation_key_id="4828" id="d760a8e9c05f22489e400f153123ea74">Top Rated</tr8n></a></li>
-<li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/action-games"><tr8n translation_key_id="4675" id="7de879de63eac1879d6b22a01629d8b8">Action</tr8n></a></li>
-<li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/multiplayer-games"><tr8n translation_key_id="4676" id="6fc7cdec9e54d4dc28874899ce6f3282">Multiplayer</tr8n></a></li>
-<li class="featured"><a data-metric-tracker="js-wa-tc-Navigation-Feature" href="https://www.kongregate.com/top-rated-games?sort=newest"><tr8n translation_key_id="8261" id="1dc823e083cd4aa6f232df5b735cb48f">Hot New</tr8n></a></li>
-<li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/mmo-games"><tr8n translation_key_id="4815" id="6a828d3342cb6db551dec15b122dc248">MMO</tr8n></a></li>
-<li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/adventure-rpg-games"><tr8n translation_key_id="5183" id="e134b45f61a33f4231408c64ff4eb1a2">Adventure &amp; RPG</tr8n></a></li>
-<li class="featured">
-
-    <a data-metric-tracker="js-wa-tc-Navigation-Feature" class="js-activate-inline-registration" href="#">
-      <span><tr8n translation_key_id="4827" id="c9282553bdba249264f8036eb2028fa2">My Favorites</tr8n></span>
+  </div>
+  <!-- Recommended Games End -->
+  <!-- Playlist Games Start -->
+  <div id="main_nav_my_playlist" class="main_nav_category my_games_block mrl">
+    <strong class="game_block_link">
+      <a href="" class="js-wa-tc-Navigation-Playlist"><tr8n translation_key_id="7431" id="d09ef4787d5e3c0182b7048923d4f3da">My Playlist »</tr8n></a>
+    </strong>
+    <a class="no_games_block js-activate-inline-registration" href="#">
+      <span class="plus kong_ico" aria-hidden="true">+</span>
+      <strong class="title"><span class="icon kong_ico" aria-hidden="true">p</span> <tr8n translation_key_id="6448" id="6ffe6d4f4800e3db93218cc72e5ef57d">My Playlist</tr8n></strong>
+      <span class="desc"><tr8n translation_key_id="7432" id="0d41cf5977b5fa2c321f4b936fd2e377">Register to save games to play later.</tr8n></span>
     </a>
+  </div>
+  <!-- Playlist Games End -->
 
-</li>
-<li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/strategy-defense-games"><tr8n translation_key_id="5181" id="8fba9d10e45c3816fa83ed3a98f79c24">Strategy &amp; Defense</tr8n></a></li>
-<li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/shooter-games"><tr8n translation_key_id="4672" id="9a9a0e97bf92631df74b693c6135186e">Shooter</tr8n></a></li>
-<li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/upgrades-games"><tr8n translation_key_id="4708" id="8d2564251030e2620672229fd1e48a8e">Upgrades</tr8n></a></li>
-<li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/tower-defense-games"><tr8n translation_key_id="4763" id="cc86fa28967243b8c989ff0a1563075f">Tower Defense</tr8n></a></li>
-<li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/sports-racing-games"><tr8n translation_key_id="6769" id="1782db50f2860b6a686db1688b7c9126">Sports/Racing</tr8n></a></li>
-<li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/5-minute-games"><tr8n translation_key_id="4913" id="9728c0927120cc818a1f472fa4039ac9">5 Minute</tr8n></a></li>
-<li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/zombie-games"><tr8n translation_key_id="4707" id="6f03cc72aefac9210ffb6942eef4cfc1">Zombie</tr8n></a></li>
-<li class="more"><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/games"><tr8n translation_key_id="7427" id="b53d385fbd99e2f1e3ed3b3697890cbd">More Categories</tr8n></a></li>
-</ul>
-</dd>
-<dd class="main_nav_sub">
-<p class="main_nav_sub_title mbs"><em><tr8n translation_key_id="8262" id="2859792c0789a0161121358f8d091211">For Developers:</tr8n></em></p>
-<ul class="main_nav_sub_links">
-<li><a data-metric-tracker="js-wa-tc-Navigation-Developers" href="https://www.kongregate.com/games/new"><tr8n translation_key_id="8263" id="f588fd0640156fb6b9a7de8ae8000f0e">Upload your game</tr8n></a></li>
-<li><a data-metric-tracker="js-wa-tc-Navigation-Developers" href="http://developers.kongregate.com/" target="_blank"><tr8n translation_key_id="7426" id="ab4bc56938c0b465ebde30e946f9fab3">Developers Center</tr8n></a></li>
-</ul>
-</dd>
+  <!-- Categories Start -->
+<dl id="main_nav_games_categories" class="main_nav_category">
+  <dt class="main_nav_category_title pbs"><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/games"><tr8n translation_key_id="4807" id="2862bedfd879c3e77bcf3c6f7e316c64">Categories</tr8n></a></dt>
+  <dd class="mtm">
+    <ul class="main_nav_category_list">
+      <li class="featured"><a data-metric-tracker="js-wa-tc-Navigation-Feature" href="https://www.kongregate.com/top-rated-games"><tr8n translation_key_id="4828" id="d760a8e9c05f22489e400f153123ea74">Top Rated</tr8n></a></li>
+      <li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/action-games"><tr8n translation_key_id="4675" id="7de879de63eac1879d6b22a01629d8b8">Action</tr8n></a></li>
+      <li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/multiplayer-games"><tr8n translation_key_id="4676" id="6fc7cdec9e54d4dc28874899ce6f3282">Multiplayer</tr8n></a></li>
+      <li class="featured"><a data-metric-tracker="js-wa-tc-Navigation-Feature" href="https://www.kongregate.com/top-rated-games?sort=newest"><tr8n translation_key_id="8261" id="1dc823e083cd4aa6f232df5b735cb48f">Hot New</tr8n></a></li>
+      <li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/mmo-games"><tr8n translation_key_id="4815" id="6a828d3342cb6db551dec15b122dc248">MMO</tr8n></a></li>
+      <li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/adventure-rpg-games"><tr8n translation_key_id="5183" id="e134b45f61a33f4231408c64ff4eb1a2">Adventure &amp; RPG</tr8n></a></li>
+      <li class="featured">
+
+          <a data-metric-tracker="js-wa-tc-Navigation-Feature" class="js-activate-inline-registration" href="#">
+            <span><tr8n translation_key_id="4827" id="c9282553bdba249264f8036eb2028fa2">My Favorites</tr8n></span>
+          </a>
+
+      </li>
+      <li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/strategy-defense-games"><tr8n translation_key_id="5181" id="8fba9d10e45c3816fa83ed3a98f79c24">Strategy &amp; Defense</tr8n></a></li>
+      <li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/shooter-games"><tr8n translation_key_id="4672" id="9a9a0e97bf92631df74b693c6135186e">Shooter</tr8n></a></li>
+      <li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/idle-games"><tr8n translation_key_id="4878" id="b025742cae655e6ca5b1b64e217ecfa1">Idle</tr8n></a></li>
+      <li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/upgrades-games"><tr8n translation_key_id="4708" id="8d2564251030e2620672229fd1e48a8e">Upgrades</tr8n></a></li>
+      <li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/tower-defense-games"><tr8n translation_key_id="4763" id="cc86fa28967243b8c989ff0a1563075f">Tower Defense</tr8n></a></li>
+      <li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/sports-racing-games"><tr8n translation_key_id="6769" id="1782db50f2860b6a686db1688b7c9126">Sports/Racing</tr8n></a></li>
+      <li><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/5-minute-games"><tr8n translation_key_id="4913" id="9728c0927120cc818a1f472fa4039ac9">5 Minute</tr8n></a></li>
+      <li class="more"><a data-metric-tracker="js-wa-tc-Navigation-Categories" href="https://www.kongregate.com/games"><tr8n translation_key_id="7427" id="b53d385fbd99e2f1e3ed3b3697890cbd">More Categories</tr8n></a></li>
+    </ul>
+  </dd>
+  <dd class="main_nav_sub">
+    <p class="main_nav_sub_title mbs"><em><tr8n translation_key_id="8262" id="2859792c0789a0161121358f8d091211">For Developers:</tr8n></em></p>
+    <ul class="main_nav_sub_links">
+      <li><a data-metric-tracker="js-wa-tc-Navigation-Developers" href="https://www.kongregate.com/games/new"><tr8n translation_key_id="8263" id="f588fd0640156fb6b9a7de8ae8000f0e">Upload your game</tr8n></a></li>
+      <li><a data-metric-tracker="js-wa-tc-Navigation-Developers" href="https://developers.kongregate.com/" target="_blank"><tr8n translation_key_id="7426" id="ab4bc56938c0b465ebde30e946f9fab3">Developers Center</tr8n></a></li>
+    </ul>
+  </dd>
 </dl>
 <!-- Categories End -->
-
-</div>
-</div>
+</div></div>
 </li>
 <!-- End Games -->
 
-<!-- Start Achievements -->
+    <!-- Start Achievements -->
 <li id="main_nav_achievements" class="main_nav_item guest">
-<a class="main_nav_top_item" href="https://www.kongregate.com/badges">Achievements</a>
-<div class="main_nav_menu" style="left: -583.433px; width: 1536px;"><div class="main_nav_menu_inner">
-<!-- BoTD Start -->
-<dl id="main_nav_achievements_botd" class="main_nav_category mrl">
-<dt class="main_nav_category_title pbs"><a href="https://www.kongregate.com/badges" data-metric-tracker="js-wa-tc-Navigation-Badge_of_the_Day"><tr8n translation_key_id="7900" id="f2fb1c8230059751b989a7e6c6ea1c8d">Badge of the Day »</tr8n></a></dt>
-<dd class="mtm">
-<p class="h6 intro mbs"><em><tr8n translation_key_id="7433" id="c94274836d3b878f8635c596be052201">Score 2x points</tr8n><span class="powerup_rewards_botd_upsell"> &amp; <strong class="spritesite textreplace"><tr8n translation_key_id="7434" id="492c29f00b8b94d6357fea2b60706fbc">PowerUp</tr8n></strong><tr8n translation_key_id="7435" id="6f4c259259babe3020fbd7af666f99e6"> rewards points</tr8n></span>!</em></p>
-<div class="botd_outer media click_box regtextSml">
-<div class="badge img mlm">
-  <div class="badge_image">
-    <a href="https://www.kongregate.com/games/nerdook/i-am-an-insane-rogue-ai" class="badge_link" data-metric-tracker="js-wa-tc-Navigation-Badge_of_the_Day">
-      <img alt="Binary Morality" src="https://cdn2.kongcdn.com/badge_icons/0000/2583/rogue_ai_easy.png" class="img">
-    </a>
-  </div>
-  <div class="badge_border">
-    <a href="https://www.kongregate.com/games/nerdook/i-am-an-insane-rogue-ai" class="badge_link" data-metric-tracker="js-wa-tc-Navigation-Badge_of_the_Day">
-      <span class="incomplete spritegame spriteall">Badge of the Day</span>
-    </a>
-  </div>
-  <div class="badge_of_the_day_overlay">
-    <a href="https://www.kongregate.com/games/nerdook/i-am-an-insane-rogue-ai" class="badge_link" data-metric-tracker="js-wa-tc-Navigation-Badge_of_the_Day">
-      <span class="spriteall botd_badge_id_1292">Badge of the Day</span>
-    </a>
-  </div>
-</div>
-<p class="bd">
-  <strong><a href="https://www.kongregate.com/games/nerdook/i-am-an-insane-rogue-ai" class="game_link click_link" data-metric-tracker="js-wa-tc-Navigation-Badge_of_the_Day">Binary Morality</a></strong>
-  Complete a level through both violent and pacifist means in <a href="https://www.kongregate.com/games/nerdook/i-am-an-insane-rogue-ai" data-metric-tracker="js-wa-tc-Navigation-Badge_of_the_Day">I Am An Insane Rogue AI</a>
-</p>
-</div>
-</dd>
+  <a class="main_nav_top_item" href="https://www.kongregate.com/badges">Achievements</a>
+  <div class="main_nav_menu" style="left: -663.433px; width: 1696px;"><div class="main_nav_menu_inner">
+  <!-- BoTD Start -->
+  <dl id="main_nav_achievements_botd" class="main_nav_category mrl">
+  <dt class="main_nav_category_title pbs"><a href="https://www.kongregate.com/badges" data-metric-tracker="js-wa-tc-Navigation-Badge_of_the_Day"><tr8n translation_key_id="7900" id="f2fb1c8230059751b989a7e6c6ea1c8d">Badge of the Day »</tr8n></a></dt>
+  <dd class="mtm">
+    <p class="h6 intro mbs"><em><tr8n translation_key_id="7433" id="c94274836d3b878f8635c596be052201">Score 2x points</tr8n>!</em></p>
+    <div class="botd_outer media click_box regtextSml">
+      <div class="badge img mlm">
+        <div class="badge_image">
+          <a href="https://www.kongregate.com/games/fazecat/paladog" class="badge_link" data-metric-tracker="js-wa-tc-Navigation-Badge_of_the_Day">
+            <img alt="Wagon Wheel" src="https://cdn2.kongcdn.com/badge_icons/0000/4031/Paladog_1.png" class="img">
+          </a>
+        </div>
+        <div class="badge_border">
+          <a href="https://www.kongregate.com/games/fazecat/paladog" class="badge_link" data-metric-tracker="js-wa-tc-Navigation-Badge_of_the_Day">
+            <span class="incomplete spritegame spriteall">Badge of the Day</span>
+          </a>
+        </div>
+        <div class="badge_of_the_day_overlay">
+          <a href="https://www.kongregate.com/games/fazecat/paladog" class="badge_link" data-metric-tracker="js-wa-tc-Navigation-Badge_of_the_Day">
+            <span class="spriteall botd_badge_id_2016">Badge of the Day</span>
+          </a>
+        </div>
+        <svg class="block-ico block-ico--simple badge_blocks force" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 110 110">
+          <path fill="#2996CC" d="M99.3.2H33.5c-2.4 0-4.7.9-6.5 2.5l-.2.2-.4.4L3.2 26.5l-.4.4C1.1 28.7.1 31.1.1 33.6v65.8c0 5.4 4.4 9.8 9.8 9.8h65.8c2.8 0 5.5-1.2 7.4-3.4l22.5-22.5c2.2-1.9 3.4-4.6 3.4-7.4V10c.1-5.3-4.2-9.7-9.5-9.8h-.2z"></path>
+          <path d="M99.2 68.6H33.5c-2.9 0-5.6 1.3-7.5 3.4L3.5 94.6C1.6 96.2.4 98.4.1 100.9c.6 4.9 4.7 8.6 9.7 8.7h65.8c2.8 0 5.5-1.2 7.4-3.4l22.5-22.5c1.9-1.6 3.1-3.8 3.4-6.3-.5-5-4.7-8.8-9.7-8.8z" opacity=".2"></path>
+          <path class="block-ico__optional" d="M30.7 23.4v-6.9c0-.6.4-1 1-1s1 .4 1 1v6.9c0 .6-.4 1-1 1-.5 0-1-.4-1-.9v-.1zm-11.1 69c.2-.2 8.6-8.6 8.8-8.9 2.9-3 4.3-3.7 9.2-3.7h10.1c1.3 0 2-2 0-2h-5.2c-8.5 0-9.8-2.9-9.8-9.8V52.5c0-.6-.4-1-1-1s-1 .4-1 1v21.2c.1 2.5-.7 5-2.3 6.9v.1c-.5.6-1 1.1-1.5 1.6l-8.9 9c-.7.9.5 2.3 1.6 1.1zm-5.9 6c.7-.8.7-.8 1.9-2.2.8-.9-.4-2.5-1.4-1.2-1.4 1.7-1.1 1.3-1.7 2-1.1 1.3.3 2.5 1.2 1.4z" opacity=".3"></path>
+          <path fill="#A54942" d="M99.2 19H33.5c-2.9 0-5.6 1.2-7.5 3.4L3.5 44.9C1.6 46.5.4 48.7.1 51.2c.6 4.9 4.7 8.6 9.7 8.7h65.8c2.8 0 5.5-1.2 7.4-3.4L105.5 34c1.9-1.6 3.1-3.8 3.4-6.3-.5-5-4.7-8.7-9.7-8.7z"></path>
+          <path fill="#FFB4A3" d="M105.7 33.9L83.2 56.4c-1.9 2.2-4.6 3.4-7.4 3.4H10C4.6 59.8.2 55.4.2 50v21.3c0 5.4 4.4 9.8 9.8 9.8h65.8c2.8 0 5.5-1.2 7.4-3.4l22.5-22.5c2.2-1.9 3.4-4.6 3.4-7.4V26.5c0 2.8-1.2 5.6-3.4 7.4z"></path>
+          <path fill="#FFF" d="M69.6 59.8h5.2V81h-5.2V59.8z"></path>
+          <path class="block-ico__optional" fill="#FFDDD7" d="M64.7 59.7h2.9v21.2h-2.9V59.7zm-50.7 0h17.6v21.2H14V59.7z"></path>
+          <path fill="#FFF" d="M26.7 59.7h2.9v21.2h-2.9z"></path>
+          <path fill="#EA8A7A" d="M105.7 33.9L91.5 48.1v21.3l14.2-14.2c2.2-1.9 3.4-4.6 3.4-7.4V26.5c0 2.8-1.2 5.5-3.4 7.4zM86.9 52.7l-3.7 3.7c-.7.8-1.6 1.5-2.5 2.1v21.3c1-.5 1.8-1.2 2.5-2.1l3.7-3.7V52.7z"></path>
+          <path fill="#C16863" d="M105.7 33.9l-3.8 3.8v21.2l3.8-3.8c2.2-1.9 3.4-4.6 3.4-7.4V26.5c0 2.8-1.2 5.5-3.4 7.4z"></path>
+          <path fill="#2996CC" d="M109.1 10c0-5.4-4.4-9.8-9.8-9.8H33.5c-2.4 0-4.7.9-6.5 2.5l-.2.2-.4.4L3.2 26.5l-.4.4C1.1 28.7.1 31.1.1 33.6V50c0 5.4 4.4 9.8 9.8 9.8h65.8c2.8 0 5.5-1.2 7.4-3.4l22.4-22.5c2.2-1.9 3.4-4.6 3.4-7.4l.2-16.5z" opacity=".8"></path>
+          <path fill="#FFF" d="M23.6 102.4c3-.2 4.6-6.1-.8-6.1-3.6 0-8.6-1.7-8.8-4.8-.4-5.9-7-6.5-7 .6.1 12.2 9.1 10.7 16.6 10.3z" opacity=".2"></path>
+          <path fill="#FFF" d="M33.2.2c-2.4 0-4.7.9-6.5 2.5l-.2.2-.4.4-13.7 13.6c-7 6.9 20.9 6.8 32.3 3.5 21.3-6 48.7-.3 51.4-20.2H33.2z" opacity=".27"></path>
+          <path fill="#FFF" d="M81.7 86.8c.6 0 1 .4 1 1V92c0 .6-.4 1-1 1s-1-.4-1-1v-4.2c0-.6.4-1 1-1zm-1 9.8V96c0-.6.4-1 1-1s1 .4 1 1v.7c0 .6-.4 1-1 1s-1-.5-1-1.1zm12.2-77.8c2.3-2.2 4.4-4.6 6.4-7.1.7-.9-.3-2.5-1.4-1.2-2.2 2.6-5.3 5.4-6.2 7s.2 2.2 1.2 1.3zM26.1 27h12.8c.6 0 1 .4 1 1s-.4 1-1 1H26.1c-.6 0-1-.4-1-1 0-.5.4-1 .9-1h.1zm-5.2 0h1.3c.6 0 1 .4 1 1s-.4 1-1 1h-1.3c-.6 0-1-.4-1-1 0-.5.4-1 .9-1h.1z" opacity=".55"></path>
+          <path fill="#FFF" d="M85.6 22.7C82.2 26.2 81 27 75.8 27H45c-1.3 0-2 2 0 2h25.8c8.5 0 9.8 2.9 9.8 9.8v13.7c0 .6.4 1 1 1s1-.4 1-1V33.2c-.1-2.5.7-5 2.3-6.9v-.1c.5-.5 1.6-1.8 2.2-2.5.8-.8-.4-2.2-1.5-1z" opacity=".61"></path>
+          <g class="block-ico__optional">
+            <path d="M55.5 100.9c14.7 1.9 34.3-24.6-3.9-17.1-11 2.2-22.8 13.7 3.9 17.1z" opacity=".14"></path>
+            <circle cx="100" cy="73" r="1.6" fill="#FFF" opacity=".35"></circle>
+            <path fill="#FFF" d="M9.4 59.7h2v21.2h-2z"></path>
+            <path fill="#FFF" d="M105.7 33.9L83.2 56.4c-1.9 2.2-4.6 3.4-7.4 3.4H10C4.6 59.8.2 55.4.2 50v2c0 5.4 4.4 9.8 9.8 9.8h65.8c2.8 0 5.5-1.2 7.4-3.4l22.5-22.5c2.2-1.9 3.4-4.6 3.4-7.4v-2c0 2.9-1.2 5.6-3.4 7.4z"></path>
+            <path fill="#A54942" d="M105.7 53.5L83.2 76c-1.9 2.2-4.6 3.4-7.4 3.4H10C4.6 79.4.2 75 .2 69.6v2c0 5.4 4.4 9.8 9.8 9.8h65.8c2.8 0 5.5-1.2 7.4-3.4l22.5-22.5c2.2-1.9 3.5-4.6 3.4-7.5v-2c.1 2.9-1.2 5.6-3.4 7.5z"></path>
+            <path fill="#FFF" d="M33.7 85.7l.8 1.5 1.4.8-1.4.8-.8 1.4-.8-1.4-1.4-.8 1.4-.8.8-1.5zm32.4 3.4l.9 1.8 1.8 1-1.8.9-.9 1.9-1-1.9-1.8-.9 1.8-1 1-1.8zm25.5-14.2l.7 1.5 1.5.8-1.5.8-.7 1.4-.8-1.4-1.5-.8 1.5-.8.8-1.5zM32 35.2l2 3.7 3.7 2.2-3.7 2-2 3.9-2.2-3.9-3.7-2 3.7-2.2 2.2-3.7z"></path>
+            <circle cx="52.3" cy="6.6" r="1.2" fill="#FFF" opacity=".37"></circle>
+            <circle cx="66" cy="47.8" r="3.1" fill="#FFF" opacity=".35"></circle>
+            <circle cx="48.5" cy="39.8" r="2.1" fill="#FFF" opacity=".35"></circle>
+            <path fill="#FFF" d="M36.2 6c-5.3.7-11.4 4.6-8.6 9.1s9.7-.5 14-3.4S55.2 3.5 36.2 6z" opacity=".37"></path>
+            <path fill="#FFF" d="M84.5 12.5c-18.1-.2-9.1 4.5-5.2 4.5 5.5-.1 11.5.7 11.2 6.3-.6 8.8 8.7 11.5 9.4.9.6-8-4.1-11.6-15.4-11.7z" opacity=".14"></path>
+            <path fill="#FFF" d="M88.6 5.3l.8 1.4 1.4.9-1.4.7-.8 1.5-.8-1.5-1.4-.7 1.4-.9.8-1.4z"></path>
+            <path fill="#FFF" d="M7.4 38.1c.6 0 1 .4 1 1v8.8c0 .6-.4 1-1 1s-1-.4-1-1v-8.8c.1-.5.5-.9 1-1z" opacity=".7"></path>
+            <path fill="#FFF" d="M65 15.5l.9 1.5 1.6 1-1.6.8-.9 1.7-.9-1.7-1.6-.8 1.6-1 .9-1.5z"></path>
+            <path fill="#FFF" d="M1.1 47.3c-.4 0-.8-.4-.8-.8v-5.2c-.1-.4.3-.8.7-.9.4 0 .9.3.9.7v5.4c.1.4-.3.8-.8.8zm0-9.7c-.4 0-.8-.4-.8-.8v-3.5c0-2.6 1-5.1 2.7-7l.1-.1.4-.4L26.2 3.2l.4-.4.1-.1.1-.1C28.7.9 31.2 0 33.7 0h9.8c.4 0 .8.3.8.8 0 .4-.4.8-.8.8h-9.8c-2.1 0-4.2.8-5.8 2.2l-.1.1-.1.1-.4.4L4.7 27c-.1.1-.3.2-.4.4C2.8 29 2 31.2 2 33.4v3.5c-.1.4-.5.8-.9.7zm53.5-36h-6.1c-.4 0-.8-.4-.8-.8s.3-.8.8-.8h6.1c.4 0 .8.3.8.8.1.5-.3.8-.8.8zm53.9 9.6c-.4 0-.8-.3-.8-.8 0-4.9-3.9-8.8-8.8-8.8H60.7c-.4 0-.8-.4-.8-.8s.4-.8.8-.8h38.2c5.7 0 10.4 4.7 10.4 10.4 0 .4-.4.8-.8.8zm0 10.5c-.4 0-.8-.4-.8-.8v-6c0-.4.4-.8.8-.8s.8.4.8.8v6c0 .4-.4.8-.8.8z" opacity=".6"></path>
+            <circle cx="46.8" cy="86.7" r="1.6" fill="#FFF" opacity=".35"></circle>
+            <path fill="#FFF" d="M7.4 84.6c.6 0 1 .4 1 1v12.7c0 .6-.4 1-1 1s-1-.4-1-1V85.5c.1-.5.5-.9 1-.9z" opacity=".7"></path>
+            <path fill="#FFF" d="M54.2 103.8c0 .6-.4 1-1 1H40.5c-.6 0-1-.4-1-1s.4-1 1-1h12.7c.5 0 1 .5 1 1zm7.8 0c0 .6-.4 1-1 1h-2.9c-.6 0-1-.4-1-1s.4-1 1-1H61c.5 0 1 .5 1 1z" opacity=".76"></path>
+            <path d="M108.5 68.8c-.4 0-.8-.3-.8-.8V57.5c0-.4.4-.8.8-.8s.8.4.8.8V68c0 .4-.3.8-.8.8zm-24.4 36.3c-.2 0-.4-.1-.6-.2-.3-.3-.3-.8 0-1.1l21-21c2-1.7 3.1-4.2 3.2-6.8v-1.6c0-.4.4-.8.8-.8s.8.4.8.8V76c0 3.1-1.4 6-3.7 8l-21 21c-.2 0-.3.1-.5.1zm-9 4.9h-9c-.4 0-.8-.3-.8-.8 0-.4.4-.8.8-.8h9c1.7 0 3.3-.5 4.7-1.4.4-.2.9-.2 1.1.2.2.4.2.9-.2 1.1l-.1.1c-1.6 1-3.6 1.6-5.5 1.6zm-13.7 0H10.6C4.8 110 0 105.2 0 99.4v-6.2c0-.4.4-.8.8-.8s.8.4.8.8v6.2c0 5 4 9 9 9h50.8c.4 0 .8.4.8.8s-.4.8-.8.8z" opacity=".4"></path>
+            <path fill="#FFF" d="M1.1 68.8c-.4 0-.8-.3-.8-.8v-6.1c-.1-.4.3-.8.7-.9.4 0 .9.3.9.7V68c.1.5-.3.8-.8.8.1 0 .1.1 0 0z"></path>
+            <path fill="#A54942" d="M108.4 46c-.4 0-.8-.4-.8-.8v-8.8c0-.4.4-.8.8-.8s.8.3.8.8v8.8c0 .4-.3.8-.8.8z"></path>
+          </g>
+        </svg>
+      </div>
+      <p class="bd">
+        <strong><a href="https://www.kongregate.com/games/fazecat/paladog" class="game_link click_link" data-metric-tracker="js-wa-tc-Navigation-Badge_of_the_Day">Wagon Wheel</a></strong>
+        Beat level 1-6 in <a href="https://www.kongregate.com/games/fazecat/paladog" data-metric-tracker="js-wa-tc-Navigation-Badge_of_the_Day">Paladog</a>
+      </p>
+    </div>
+  </dd>
+</dl>
+  <!-- BoTD End -->
+  <!-- Challenge Start -->
+
+
+      <dl id="main_nav_achievements_kongpanion" class="main_nav_category mrl">
+  <dt class="main_nav_category_title pbs"><a href="https://www.kongregate.com/kongpanions"><tr8n translation_key_id="8177" id="8e1112e01fe72e9148e7d78fca5c11a6">This Week's Kongpanion</tr8n> »</a></dt>
+  <dd class="mtm">
+    <div class="media click_block">
+      <img src="https://cdn4.kongcdn.com/assets/kongpanion_icons/0000/0717/bubblebath.png?i10c=img.resize(height:60)" class="img">
+      <p class="bd">
+        <strong><a href="https://www.kongregate.com/kongpanions" class="game_link click_link">Bubbles</a></strong>
+        <tr8n translation_key_id="8178" id="766ece2586d7b671db3a075453f4ae15">Complete the Badge of the Day to unlock the Kongpanion!</tr8n>
+      </p>
+    </div>
+  </dd>
 </dl>
 
-<!-- BoTD End -->
-<!-- Challenge Start -->
 
-<dl id="main_nav_achievements_challenge" class="main_nav_category mrl">
-<dt class="main_nav_category_title pbs"><a href="https://www.kongregate.com/current_challenges"><tr8n translation_key_id="5187" id="3f47b3b7f80b1f3553ede8d36f21a9f1">Current Challenge</tr8n> »</a></dt>
-<dd class="mtm">
-<div class="media click_block">
-<a href="https://www.kongregate.com/games/synapticon/spellstone">
-  <img alt="Swords and Spells" src="https://cdn3.kongcdn.com/assets/items/0014/9302/swordsandsoulsitem_40x40.png" class="img">
-</a>
-<p class="bd">
-  <strong><a href="https://www.kongregate.com/games/synapticon/spellstone" class="game_link click_link">Swords and Spells</a></strong>
-  Complete the third campaign node to unlock the Ragnarok spell in "Swords and Souls"!
-</p>
-</div>
-</dd>
-</dl>
+  <!-- Challenge End -->
+  <!-- Recently Badged Start -->
+  <dl id="main_nav_achievements_recent" class="main_nav_category mrl">
+    <dt class="main_nav_category_title pbs"><a data-metric-tracker="js-wa-tc-Navigation-Recently_Badged" href="https://www.kongregate.com/badges?sort=newest"><tr8n translation_key_id="7436" id="fc67e5f67528c92e4015eb0453c8b7fb">Recently Badged Games</tr8n> »</a></dt>
+    <dd class="mtm">
+      <ul class="main_nav_recently_badge_list">
 
+          <li class="game">
+  <a href="https://www.kongregate.com/games/VasantJ/wolfs-bane-2" class="media" data-metric-tracker="js-wa-tc-Navigation-Recently_Badged">
+    <img alt="Play Wolf's Bane 2" src="https://cdn4.kongcdn.com/game_icons/0069/6133/TitleScreen.png?i10c=img.resize(width:250)" class="img">
+    <span class="bd">
+      <strong class="game_link">Wolf's Bane 2</strong>
+      <span class="badge_count"><span class="badge_icon spritesite mrs"></span>1 Badge</span>
 
-<!-- Challenge End -->
-<!-- Recently Badged Start -->
-<dl id="main_nav_achievements_recent" class="main_nav_category mrl">
-<dt class="main_nav_category_title pbs"><a data-metric-tracker="js-wa-tc-Navigation-Recently_Badged" href="https://www.kongregate.com/badges?sort=newest"><tr8n translation_key_id="7436" id="fc67e5f67528c92e4015eb0453c8b7fb">Recently Badged Games</tr8n> »</a></dt>
-<dd class="mtm">
-<ul class="main_nav_recently_badge_list">
-
-    <li class="game">
-<a href="https://www.kongregate.com/games/mrudi/trader-of-stories-chapter-1" class="media" data-metric-tracker="js-wa-tc-Navigation-Recently_Badged">
-<img alt="Play Trader of Stories - Chapter 1" src="https://cdn4.kongcdn.com/game_icons/0066/0760/game-icon-kongregate.jpg?i10c=img.resize(width:250)" class="img">
-<span class="bd">
-<strong class="game_link">Trader of Stories - Chapter 1</strong>
-<span class="badge_count"><span class="badge_icon spritesite mrs"></span>1 Badge</span>
-</span>
-</a>
+    </span>
+  </a>
 </li>
 
+          <li class="game">
+  <a href="https://www.kongregate.com/games/VasantJ/medieval-chronicles-8" class="media" data-metric-tracker="js-wa-tc-Navigation-Recently_Badged">
+    <img alt="Play Medieval Chronicles 8" src="https://cdn3.kongcdn.com/game_icons/0069/4347/TitleScreen.png?i10c=img.resize(width:250)" class="img">
+    <span class="bd">
+      <strong class="game_link">Medieval Chronicles 8</strong>
+      <span class="badge_count"><span class="badge_icon spritesite mrs"></span>1 Badge</span>
 
-    <li class="game">
-<a href="https://www.kongregate.com/games/Gibton/apple-worm" class="media" data-metric-tracker="js-wa-tc-Navigation-Recently_Badged">
-<img alt="Play Apple Worm" src="https://cdn3.kongcdn.com/game_icons/0065/9998/apple-worm_Kong_250x200.png?i10c=img.resize(width:250)" class="img">
-<span class="bd">
-<strong class="game_link">Apple Worm</strong>
-<span class="badge_count"><span class="badge_icon spritesite mrs"></span>1 Badge</span>
-</span>
-</a>
+    </span>
+  </a>
 </li>
 
+          <li class="game">
+  <a href="https://www.kongregate.com/games/PeachTreeOath/loot-loop-loot" class="media" data-metric-tracker="js-wa-tc-Navigation-Recently_Badged">
+    <img alt="Play Loot Loop Loot" src="https://cdn1.kongcdn.com/game_icons/0069/7620/full.gif?i10c=img.resize(width:250)" class="img">
+    <span class="bd">
+      <strong class="game_link">Loot Loop Loot</strong>
+      <span class="badge_count"><span class="badge_icon spritesite mrs"></span>2 Badges</span>
 
-    <li class="game">
-<a href="https://www.kongregate.com/games/rzuf79/frog-fable" class="media" data-metric-tracker="js-wa-tc-Navigation-Recently_Badged">
-<img alt="Play Frog Fable" src="https://cdn1.kongcdn.com/game_icons/0065/8941/kong_icon.png?i10c=img.resize(width:250)" class="img">
-<span class="bd">
-<strong class="game_link">Frog Fable</strong>
-<span class="badge_count"><span class="badge_icon spritesite mrs"></span>2 Badges</span>
-</span>
-</a>
+    </span>
+  </a>
 </li>
 
+      </ul>
+    </dd>
+  </dl>
+  <!-- Recently Badged End -->
+  <!-- Badges Start -->
+  <dl id="main_nav_achievements_badges" class="main_nav_category">
+    <dt class="main_nav_category_title pbs"><a href="https://www.kongregate.com/badges" data-metric-tracker="js-wa-tc-Navigation-Badges"><tr8n translation_key_id="7901" id="054590d4aef073d8ef230443545d4380">Badges »</tr8n></a></dt>
+    <dd class="mtm">
+      <ul class="main_nav_category_list">
+        <li><a href="https://www.kongregate.com/recommended-badges" class="js-activate-inline-registration" data-metric-tracker="js-wa-tc-Navigation-Badges"><tr8n translation_key_id="7438" id="9859f3aafcd74c696a79ce257f3b9411">Recommended for Me</tr8n></a></li>
+        <li><a href="https://www.kongregate.com/badges?category=action" data-metric-tracker="js-wa-tc-Navigation-Badges"><tr8n translation_key_id="7439" id="4858c0ea44fa081c2b98a433e5ed0847">Action Badges</tr8n></a></li>
+        <li><a href="https://www.kongregate.com/badges?sort=least_awarded" data-metric-tracker="js-wa-tc-Navigation-Badges"><tr8n translation_key_id="7440" id="68c8e9cbdafd71b9e9b069080025c142">Rarest Badges</tr8n></a></li>
+        <li><a href="https://www.kongregate.com/badges?category=sports-racing" data-metric-tracker="js-wa-tc-Navigation-Badges"><tr8n translation_key_id="7441" id="efecfb8578673700c4b30d0fd48f0e37">Racing Badges</tr8n></a></li>
+        <li><a href="https://www.kongregate.com/badges?sort=easiest&amp;filter_by=unearned" data-metric-tracker="js-wa-tc-Navigation-Badges"><tr8n translation_key_id="7442" id="71c811dd6b7602f35eedcfbc9eb2ee7b">Easiest Unearned</tr8n></a></li>
+        <li><a href="https://www.kongregate.com/badges?category=puzzle" data-metric-tracker="js-wa-tc-Navigation-Badges"><tr8n translation_key_id="7443" id="2d708b1a80f5b6d1f1fdbb1bc6e3b785">Puzzle Badges</tr8n></a></li>
+        <li><a href="https://www.kongregate.com/badges?sort=newest" data-metric-tracker="js-wa-tc-Navigation-Badges"><tr8n translation_key_id="7444" id="2b1df9f5bd73b11e3945d4e9387a5b13">Newest Badges</tr8n></a></li>
+        <li class="more"><a href="https://www.kongregate.com/badges" data-metric-tracker="js-wa-tc-Navigation-Badges"><tr8n translation_key_id="5192" id="6815fd55fca416ee4676b660dfc129f4">All Badges</tr8n></a></li>
+      </ul>
+    </dd>
+  </dl>
+  <!-- Badges End -->
+  <!-- Quests Start -->
+  <dl id="main_nav_quests" class="main_nav_category mtl">
+    <dt class="main_nav_category_title pbs"><a href="https://www.kongregate.com/badge_quests/your_first" data-metric-tracker="js-wa-tc-Navigation-Quests"><tr8n translation_key_id="7902" id="6b749ba95f9b50ca75d5a8b0cfec66d9">Quests »</tr8n></a></dt>
+    <dd class="mtm">
+      <ul class="main_nav_category_list">
+        <li><a href="https://www.kongregate.com/badge_quests/your_first" data-metric-tracker="js-wa-tc-Navigation-Quests"><tr8n translation_key_id="7445" id="e3705f31a25fb33858729308b23f74f6">All Quests</tr8n></a></li>
 
-</ul>
-</dd>
-</dl>
-<!-- Recently Badged End -->
-<!-- Badges Start -->
-<dl id="main_nav_achievements_badges" class="main_nav_category">
-<dt class="main_nav_category_title pbs"><a href="https://www.kongregate.com/badges" data-metric-tracker="js-wa-tc-Navigation-Badges"><tr8n translation_key_id="7901" id="054590d4aef073d8ef230443545d4380">Badges »</tr8n></a></dt>
-<dd class="mtm">
-<ul class="main_nav_category_list">
-  <li><a href="https://www.kongregate.com/recommended-badges" class="js-activate-inline-registration" data-metric-tracker="js-wa-tc-Navigation-Badges"><tr8n translation_key_id="7438" id="9859f3aafcd74c696a79ce257f3b9411">Recommended for Me</tr8n></a></li>
-  <li><a href="https://www.kongregate.com/badges?category=action" data-metric-tracker="js-wa-tc-Navigation-Badges"><tr8n translation_key_id="7439" id="4858c0ea44fa081c2b98a433e5ed0847">Action Badges</tr8n></a></li>
-  <li><a href="https://www.kongregate.com/badges?sort=least_awarded" data-metric-tracker="js-wa-tc-Navigation-Badges"><tr8n translation_key_id="7440" id="68c8e9cbdafd71b9e9b069080025c142">Rarest Badges</tr8n></a></li>
-  <li><a href="https://www.kongregate.com/badges?category=sports-racing" data-metric-tracker="js-wa-tc-Navigation-Badges"><tr8n translation_key_id="7441" id="efecfb8578673700c4b30d0fd48f0e37">Racing Badges</tr8n></a></li>
-  <li><a href="https://www.kongregate.com/badges?sort=easiest&amp;filter_by=unearned" data-metric-tracker="js-wa-tc-Navigation-Badges"><tr8n translation_key_id="7442" id="71c811dd6b7602f35eedcfbc9eb2ee7b">Easiest Unearned</tr8n></a></li>
-  <li><a href="https://www.kongregate.com/badges?category=puzzle" data-metric-tracker="js-wa-tc-Navigation-Badges"><tr8n translation_key_id="7443" id="2d708b1a80f5b6d1f1fdbb1bc6e3b785">Puzzle Badges</tr8n></a></li>
-  <li><a href="https://www.kongregate.com/badges?sort=newest" data-metric-tracker="js-wa-tc-Navigation-Badges"><tr8n translation_key_id="7444" id="2b1df9f5bd73b11e3945d4e9387a5b13">Newest Badges</tr8n></a></li>
-  <li class="more"><a href="https://www.kongregate.com/badges" data-metric-tracker="js-wa-tc-Navigation-Badges"><tr8n translation_key_id="5192" id="6815fd55fca416ee4676b660dfc129f4">All Badges</tr8n></a></li>
-</ul>
-</dd>
-</dl>
-<!-- Badges End -->
-<!-- Quests Start -->
-<dl id="main_nav_quests" class="main_nav_category mtl">
-<dt class="main_nav_category_title pbs"><a href="https://www.kongregate.com/badge_quests/your_first" data-metric-tracker="js-wa-tc-Navigation-Quests"><tr8n translation_key_id="7902" id="6b749ba95f9b50ca75d5a8b0cfec66d9">Quests »</tr8n></a></dt>
-<dd class="mtm">
-<ul class="main_nav_category_list">
-  <li><a href="https://www.kongregate.com/badge_quests/your_first" data-metric-tracker="js-wa-tc-Navigation-Quests"><tr8n translation_key_id="7445" id="e3705f31a25fb33858729308b23f74f6">All Quests</tr8n></a></li>
-
-</ul>
-</dd>
-</dl>
-<!-- Quests End -->
-</div>
-</div>
+      </ul>
+    </dd>
+  </dl>
+  <!-- Quests End -->
+</div></div>
 </li>
 <!-- End Achievements -->
 
-<!-- Start My Kong -->
+    <!-- Start My Kong -->
 <li id="main_nav_mykong" class="main_nav_item guest">
-<a class="main_nav_top_item" href="https://www.kongregate.com/community">My Kong</a>
-<div class="main_nav_menu" style="left: -583.433px; width: 1536px;">
-<div class="main_nav_menu_inner">
-<!-- Account Info Start -->
-<dl id="main_nav_mykong_activity" class="main_nav_category mrl">
-<dt class="main_nav_category_title pbs"><tr8n translation_key_id="7446" id="85519d4cd4c1ead401d71f1858bceacb">Trending with Friends</tr8n></dt>
-<dd id="main_nav_activity_upsell" class="mtm">
-<p><strong><tr8n translation_key_id="5199" id="fe64e4ecfe0910330496613639d3db60">Activity Feed</tr8n></strong></p>
-<p class="media regtextLrg">
-  <span class="img kong_ico" aria-hidden="true">g</span>
-  <span class="bd"><a href="https://www.kongregate.com/accounts/new"><tr8n translation_key_id="5167" id="be74407479cbeb47bda87703c271b676">Register</tr8n></a><tr8n translation_key_id="7447" id="cca66629ddc45d5fc515c8c815cf244a"> or </tr8n><a href="#" class="js-activate-inline-login"><tr8n translation_key_id="7448" id="9c0695235a34d0a39eaad64474598f49">sign in</tr8n></a><tr8n translation_key_id="7449" id="2a43f38813add6736d2835dcaf51a230"> to start receiving activity updates from around Kongregate!</tr8n></span>
-</p>
-</dd>
-</dl>
-<!-- Account Info End -->
-<!-- Forums Start -->
-<dl id="main_nav_mykong_forums" class="main_nav_category">
-<dt class="main_nav_category_title pbs"><a href="https://www.kongregate.com/forums"><tr8n translation_key_id="7903" id="0407960c13a31fbf9f8d2b3e256a6f8d">Forums »</tr8n></a></dt>
-<dd class="mtm">
-<ul class="main_nav_category_list">
-  <li><a data-metric-tracker="js-wa-tc-Navigation-Forums" href="https://www.kongregate.com/forums/1-kongregate">Kongregate</a></li>
+  <a class="main_nav_top_item" href="https://www.kongregate.com/community">My Kong</a>
+  <div class="main_nav_menu" style="left: -663.433px; width: 1696px;">
+  <div class="main_nav_menu_inner">
+  <!-- Account Info Start -->
+  <dl id="main_nav_mykong_activity" class="main_nav_category mrl">
+    <dt class="main_nav_category_title pbs"><tr8n translation_key_id="7446" id="85519d4cd4c1ead401d71f1858bceacb">Trending with Friends</tr8n></dt>
+    <dd id="main_nav_activity_upsell" class="mtm">
+      <p><strong><tr8n translation_key_id="5199" id="fe64e4ecfe0910330496613639d3db60">Activity Feed</tr8n></strong></p>
+      <p class="media regtextLrg">
+        <span class="img kong_ico" aria-hidden="true">g</span>
+        <span class="bd"><a href="#" class="js-activate-inline-registration"><tr8n translation_key_id="5167" id="be74407479cbeb47bda87703c271b676">Register</tr8n></a><tr8n translation_key_id="7447" id="cca66629ddc45d5fc515c8c815cf244a"> or </tr8n><a href="#" class="js-activate-inline-login"><tr8n translation_key_id="7448" id="9c0695235a34d0a39eaad64474598f49">sign in</tr8n></a><tr8n translation_key_id="7449" id="2a43f38813add6736d2835dcaf51a230"> to start receiving activity updates from around Kongregate!</tr8n></span>
+      </p>
+    </dd>
+  </dl>
+  <!-- Account Info End -->
+  <!-- Forums Start -->
+  <dl id="main_nav_mykong_forums" class="main_nav_category">
+    <dt class="main_nav_category_title pbs"><a href="https://www.kongregate.com/forums"><tr8n translation_key_id="7903" id="0407960c13a31fbf9f8d2b3e256a6f8d">Forums »</tr8n></a></dt>
+    <dd class="mtm">
+      <ul class="main_nav_category_list">
+        <li><a data-metric-tracker="js-wa-tc-Navigation-Forums" href="https://www.kongregate.com/forums/1-kongregate">Kongregate</a></li>
 <li><a data-metric-tracker="js-wa-tc-Navigation-Forums" href="https://www.kongregate.com/forums/games">Game Forums</a></li>
 <li><a data-metric-tracker="js-wa-tc-Navigation-Forums" href="https://www.kongregate.com/forums/3-general-gaming">General Gaming</a></li>
 <li><a data-metric-tracker="js-wa-tc-Navigation-Forums" href="https://www.kongregate.com/forums/7-technical-support">Tech Support</a></li>
 <li><a data-metric-tracker="js-wa-tc-Navigation-Forums" href="https://www.kongregate.com/forums/4-game-programming">Game Development</a></li>
-
-  <li class="more"><a class="js-wa-tc-Navigation-Forums" href="https://www.kongregate.com/forums">All Forums</a></li>
-
-</ul>
-</dd>
-</dl>
-<!-- Forums End -->
+        <li class="more"><a class="js-wa-tc-Navigation-Forums" href="https://www.kongregate.com/forums">All Forums</a></li>
+      </ul>
+    </dd>
+  </dl>
+  <!-- Forums End -->
 </div>
-
-
 </div>
 </li>
 <!-- End My Kong -->
 
-<!-- Start Dev -->
-<li id="main_nav_dev" class="main_nav_item guest">
-<a class="main_nav_top_item" href="http://developers.kongregate.com/">Dev</a>
-<div class="main_nav_menu" style="left: -583.433px; width: 1536px;">
-<div class="main_nav_menu_inner">
-<a class="nav--dev-upload" href="https://www.kongregate.com/games/new">Upload Your Game</a>
-<p class="nav--dev-tagline">
-  <strong>Kongregate is a community-driven browser games portal with an open platform for all web games.</strong>
-  Get your games in front of thousands of users while monetizing through ads and virtual goods.
-  <a href="https://www.kongregate.com/docs/why-kong/welcome">Learn more »</a>
-</p>
-<ul class="nav--dev-links">
-  <li>
-    <a href="http://developers.kongregate.com/">
-    <h3>Visit our developers site »</h3>
-    <p>Learn more about our publishing program -<br>
-      we help game developers get their games out to millions of users on multiple platforms.</p>
+    <!-- Start Dev -->
+<li id="main_nav_dev" class="main_nav_item has-bounty-link guest">
+  <a class="main_nav_top_item" href="https://developers.kongregate.com/">Dev</a>
+  <div class="main_nav_menu" style="left: -663.433px; width: 1696px;">
+    <div class="main_nav_menu_inner">
+      <ul class="nav--dev-links">
+        <li>
+          <h3>Host Your Game on Kongregate</h3>
+          <p class="mbm">An open platform for all web games! Get your games in front of thousands of users while monetizing through ads and virtual goods.</p>
+          <p>Find <a href="https://docs.kongregate.com/">documentation and support</a> to get you started.</p>
+          <a class="nav--dev-btn" href="https://www.kongregate.com/games/new">Upload Your Game</a>
+        </li>
+        <li>
+          <h3>Our Publishing Program</h3>
+          <p class="mbm">With our publishing program, we can help get your games to millions of users on multiple platforms!</p><p>
+          </p><p>Also check our <a href="https://blog.kongregate.com/">developers blog</a>, where we publish new content weekly on game/data analysis, engineering and design insights, and more.</p>
+          <a class="nav--dev-btn" href="https://developers.kongregate.com/">Visit Our Developers Site</a>
+        </li>
+        <li class="nav-dev-blocks">
+          <a class="nav-dev-blocks__link" href="https://www.kongregate.com/badge_bounties">
+            <strong class="nav-dev-blocks__label mam">
+              Set <svg xmlns="https://www.w3.org/2000/svg" viewBox="0 0 110 110" class="block-ico block-ico--simple">
+  <path fill="#2996CC" d="M99.3.2H33.5c-2.4 0-4.7.9-6.5 2.5l-.2.2-.4.4L3.2 26.5l-.4.4C1.1 28.7.1 31.1.1 33.6v65.8c0 5.4 4.4 9.8 9.8 9.8h65.8c2.8 0 5.5-1.2 7.4-3.4l22.5-22.5c2.2-1.9 3.4-4.6 3.4-7.4V10c.1-5.3-4.2-9.7-9.5-9.8h-.2z"></path>
+  <path d="M99.2 68.6H33.5c-2.9 0-5.6 1.3-7.5 3.4L3.5 94.6C1.6 96.2.4 98.4.1 100.9c.6 4.9 4.7 8.6 9.7 8.7h65.8c2.8 0 5.5-1.2 7.4-3.4l22.5-22.5c1.9-1.6 3.1-3.8 3.4-6.3-.5-5-4.7-8.8-9.7-8.8z" opacity=".2"></path>
+  <path class="block-ico__optional" d="M30.7 23.4v-6.9c0-.6.4-1 1-1s1 .4 1 1v6.9c0 .6-.4 1-1 1-.5 0-1-.4-1-.9v-.1zm-11.1 69c.2-.2 8.6-8.6 8.8-8.9 2.9-3 4.3-3.7 9.2-3.7h10.1c1.3 0 2-2 0-2h-5.2c-8.5 0-9.8-2.9-9.8-9.8V52.5c0-.6-.4-1-1-1s-1 .4-1 1v21.2c.1 2.5-.7 5-2.3 6.9v.1c-.5.6-1 1.1-1.5 1.6l-8.9 9c-.7.9.5 2.3 1.6 1.1zm-5.9 6c.7-.8.7-.8 1.9-2.2.8-.9-.4-2.5-1.4-1.2-1.4 1.7-1.1 1.3-1.7 2-1.1 1.3.3 2.5 1.2 1.4z" opacity=".3"></path>
+  <path fill="#A54942" d="M99.2 19H33.5c-2.9 0-5.6 1.2-7.5 3.4L3.5 44.9C1.6 46.5.4 48.7.1 51.2c.6 4.9 4.7 8.6 9.7 8.7h65.8c2.8 0 5.5-1.2 7.4-3.4L105.5 34c1.9-1.6 3.1-3.8 3.4-6.3-.5-5-4.7-8.7-9.7-8.7z"></path>
+  <path fill="#FFB4A3" d="M105.7 33.9L83.2 56.4c-1.9 2.2-4.6 3.4-7.4 3.4H10C4.6 59.8.2 55.4.2 50v21.3c0 5.4 4.4 9.8 9.8 9.8h65.8c2.8 0 5.5-1.2 7.4-3.4l22.5-22.5c2.2-1.9 3.4-4.6 3.4-7.4V26.5c0 2.8-1.2 5.6-3.4 7.4z"></path>
+  <path fill="#FFF" d="M69.6 59.8h5.2V81h-5.2V59.8z"></path>
+  <path class="block-ico__optional" fill="#FFDDD7" d="M64.7 59.7h2.9v21.2h-2.9V59.7zm-50.7 0h17.6v21.2H14V59.7z"></path>
+  <path fill="#FFF" d="M26.7 59.7h2.9v21.2h-2.9z"></path>
+  <path fill="#EA8A7A" d="M105.7 33.9L91.5 48.1v21.3l14.2-14.2c2.2-1.9 3.4-4.6 3.4-7.4V26.5c0 2.8-1.2 5.5-3.4 7.4zM86.9 52.7l-3.7 3.7c-.7.8-1.6 1.5-2.5 2.1v21.3c1-.5 1.8-1.2 2.5-2.1l3.7-3.7V52.7z"></path>
+  <path fill="#C16863" d="M105.7 33.9l-3.8 3.8v21.2l3.8-3.8c2.2-1.9 3.4-4.6 3.4-7.4V26.5c0 2.8-1.2 5.5-3.4 7.4z"></path>
+  <path fill="#2996CC" d="M109.1 10c0-5.4-4.4-9.8-9.8-9.8H33.5c-2.4 0-4.7.9-6.5 2.5l-.2.2-.4.4L3.2 26.5l-.4.4C1.1 28.7.1 31.1.1 33.6V50c0 5.4 4.4 9.8 9.8 9.8h65.8c2.8 0 5.5-1.2 7.4-3.4l22.4-22.5c2.2-1.9 3.4-4.6 3.4-7.4l.2-16.5z" opacity=".8"></path>
+  <path fill="#FFF" d="M23.6 102.4c3-.2 4.6-6.1-.8-6.1-3.6 0-8.6-1.7-8.8-4.8-.4-5.9-7-6.5-7 .6.1 12.2 9.1 10.7 16.6 10.3z" opacity=".2"></path>
+  <path fill="#FFF" d="M33.2.2c-2.4 0-4.7.9-6.5 2.5l-.2.2-.4.4-13.7 13.6c-7 6.9 20.9 6.8 32.3 3.5 21.3-6 48.7-.3 51.4-20.2H33.2z" opacity=".27"></path>
+  <path fill="#FFF" d="M81.7 86.8c.6 0 1 .4 1 1V92c0 .6-.4 1-1 1s-1-.4-1-1v-4.2c0-.6.4-1 1-1zm-1 9.8V96c0-.6.4-1 1-1s1 .4 1 1v.7c0 .6-.4 1-1 1s-1-.5-1-1.1zm12.2-77.8c2.3-2.2 4.4-4.6 6.4-7.1.7-.9-.3-2.5-1.4-1.2-2.2 2.6-5.3 5.4-6.2 7s.2 2.2 1.2 1.3zM26.1 27h12.8c.6 0 1 .4 1 1s-.4 1-1 1H26.1c-.6 0-1-.4-1-1 0-.5.4-1 .9-1h.1zm-5.2 0h1.3c.6 0 1 .4 1 1s-.4 1-1 1h-1.3c-.6 0-1-.4-1-1 0-.5.4-1 .9-1h.1z" opacity=".55"></path>
+  <path fill="#FFF" d="M85.6 22.7C82.2 26.2 81 27 75.8 27H45c-1.3 0-2 2 0 2h25.8c8.5 0 9.8 2.9 9.8 9.8v13.7c0 .6.4 1 1 1s1-.4 1-1V33.2c-.1-2.5.7-5 2.3-6.9v-.1c.5-.5 1.6-1.8 2.2-2.5.8-.8-.4-2.2-1.5-1z" opacity=".61"></path>
+  <g class="block-ico__optional">
+    <path d="M55.5 100.9c14.7 1.9 34.3-24.6-3.9-17.1-11 2.2-22.8 13.7 3.9 17.1z" opacity=".14"></path>
+    <circle cx="100" cy="73" r="1.6" fill="#FFF" opacity=".35"></circle>
+    <path fill="#FFF" d="M9.4 59.7h2v21.2h-2z"></path>
+    <path fill="#FFF" d="M105.7 33.9L83.2 56.4c-1.9 2.2-4.6 3.4-7.4 3.4H10C4.6 59.8.2 55.4.2 50v2c0 5.4 4.4 9.8 9.8 9.8h65.8c2.8 0 5.5-1.2 7.4-3.4l22.5-22.5c2.2-1.9 3.4-4.6 3.4-7.4v-2c0 2.9-1.2 5.6-3.4 7.4z"></path>
+    <path fill="#A54942" d="M105.7 53.5L83.2 76c-1.9 2.2-4.6 3.4-7.4 3.4H10C4.6 79.4.2 75 .2 69.6v2c0 5.4 4.4 9.8 9.8 9.8h65.8c2.8 0 5.5-1.2 7.4-3.4l22.5-22.5c2.2-1.9 3.5-4.6 3.4-7.5v-2c.1 2.9-1.2 5.6-3.4 7.5z"></path>
+    <path fill="#FFF" d="M33.7 85.7l.8 1.5 1.4.8-1.4.8-.8 1.4-.8-1.4-1.4-.8 1.4-.8.8-1.5zm32.4 3.4l.9 1.8 1.8 1-1.8.9-.9 1.9-1-1.9-1.8-.9 1.8-1 1-1.8zm25.5-14.2l.7 1.5 1.5.8-1.5.8-.7 1.4-.8-1.4-1.5-.8 1.5-.8.8-1.5zM32 35.2l2 3.7 3.7 2.2-3.7 2-2 3.9-2.2-3.9-3.7-2 3.7-2.2 2.2-3.7z"></path>
+    <circle cx="52.3" cy="6.6" r="1.2" fill="#FFF" opacity=".37"></circle>
+    <circle cx="66" cy="47.8" r="3.1" fill="#FFF" opacity=".35"></circle>
+    <circle cx="48.5" cy="39.8" r="2.1" fill="#FFF" opacity=".35"></circle>
+    <path fill="#FFF" d="M36.2 6c-5.3.7-11.4 4.6-8.6 9.1s9.7-.5 14-3.4S55.2 3.5 36.2 6z" opacity=".37"></path>
+    <path fill="#FFF" d="M84.5 12.5c-18.1-.2-9.1 4.5-5.2 4.5 5.5-.1 11.5.7 11.2 6.3-.6 8.8 8.7 11.5 9.4.9.6-8-4.1-11.6-15.4-11.7z" opacity=".14"></path>
+    <path fill="#FFF" d="M88.6 5.3l.8 1.4 1.4.9-1.4.7-.8 1.5-.8-1.5-1.4-.7 1.4-.9.8-1.4z"></path>
+    <path fill="#FFF" d="M7.4 38.1c.6 0 1 .4 1 1v8.8c0 .6-.4 1-1 1s-1-.4-1-1v-8.8c.1-.5.5-.9 1-1z" opacity=".7"></path>
+    <path fill="#FFF" d="M65 15.5l.9 1.5 1.6 1-1.6.8-.9 1.7-.9-1.7-1.6-.8 1.6-1 .9-1.5z"></path>
+    <path fill="#FFF" d="M1.1 47.3c-.4 0-.8-.4-.8-.8v-5.2c-.1-.4.3-.8.7-.9.4 0 .9.3.9.7v5.4c.1.4-.3.8-.8.8zm0-9.7c-.4 0-.8-.4-.8-.8v-3.5c0-2.6 1-5.1 2.7-7l.1-.1.4-.4L26.2 3.2l.4-.4.1-.1.1-.1C28.7.9 31.2 0 33.7 0h9.8c.4 0 .8.3.8.8 0 .4-.4.8-.8.8h-9.8c-2.1 0-4.2.8-5.8 2.2l-.1.1-.1.1-.4.4L4.7 27c-.1.1-.3.2-.4.4C2.8 29 2 31.2 2 33.4v3.5c-.1.4-.5.8-.9.7zm53.5-36h-6.1c-.4 0-.8-.4-.8-.8s.3-.8.8-.8h6.1c.4 0 .8.3.8.8.1.5-.3.8-.8.8zm53.9 9.6c-.4 0-.8-.3-.8-.8 0-4.9-3.9-8.8-8.8-8.8H60.7c-.4 0-.8-.4-.8-.8s.4-.8.8-.8h38.2c5.7 0 10.4 4.7 10.4 10.4 0 .4-.4.8-.8.8zm0 10.5c-.4 0-.8-.4-.8-.8v-6c0-.4.4-.8.8-.8s.8.4.8.8v6c0 .4-.4.8-.8.8z" opacity=".6"></path>
+    <circle cx="46.8" cy="86.7" r="1.6" fill="#FFF" opacity=".35"></circle>
+    <path fill="#FFF" d="M7.4 84.6c.6 0 1 .4 1 1v12.7c0 .6-.4 1-1 1s-1-.4-1-1V85.5c.1-.5.5-.9 1-.9z" opacity=".7"></path>
+    <path fill="#FFF" d="M54.2 103.8c0 .6-.4 1-1 1H40.5c-.6 0-1-.4-1-1s.4-1 1-1h12.7c.5 0 1 .5 1 1zm7.8 0c0 .6-.4 1-1 1h-2.9c-.6 0-1-.4-1-1s.4-1 1-1H61c.5 0 1 .5 1 1z" opacity=".76"></path>
+    <path d="M108.5 68.8c-.4 0-.8-.3-.8-.8V57.5c0-.4.4-.8.8-.8s.8.4.8.8V68c0 .4-.3.8-.8.8zm-24.4 36.3c-.2 0-.4-.1-.6-.2-.3-.3-.3-.8 0-1.1l21-21c2-1.7 3.1-4.2 3.2-6.8v-1.6c0-.4.4-.8.8-.8s.8.4.8.8V76c0 3.1-1.4 6-3.7 8l-21 21c-.2 0-.3.1-.5.1zm-9 4.9h-9c-.4 0-.8-.3-.8-.8 0-.4.4-.8.8-.8h9c1.7 0 3.3-.5 4.7-1.4.4-.2.9-.2 1.1.2.2.4.2.9-.2 1.1l-.1.1c-1.6 1-3.6 1.6-5.5 1.6zm-13.7 0H10.6C4.8 110 0 105.2 0 99.4v-6.2c0-.4.4-.8.8-.8s.8.4.8.8v6.2c0 5 4 9 9 9h50.8c.4 0 .8.4.8.8s-.4.8-.8.8z" opacity=".4"></path>
+    <path fill="#FFF" d="M1.1 68.8c-.4 0-.8-.3-.8-.8v-6.1c-.1-.4.3-.8.7-.9.4 0 .9.3.9.7V68c.1.5-.3.8-.8.8.1 0 .1.1 0 0z"></path>
+    <path fill="#A54942" d="M108.4 46c-.4 0-.8-.4-.8-.8v-8.8c0-.4.4-.8.8-.8s.8.3.8.8v8.8c0 .4-.3.8-.8.8z"></path>
+  </g>
+</svg>
+ Block Bounties on your game’s badges!
+            </strong>
+            <span class="nav-dev-blocks__btn mam">
+              Set Bounties
+            </span>
+</a>          <a class="nav-dev-blocks__link" href="https://www.kongregate.com/promoted_listings">
+            <strong class="nav-dev-blocks__label mam">
+              Market your games on Kongregate with Promoted Listings!
+            </strong>
+            <span class="nav-dev-blocks__btn mam">
+              Create Listings
+            </span>
 </a>        </li>
-  <li>
-    <a href="https://www.kongregate.com/blog">
-    <h3>Read Our Blog »</h3>
-    <p>We publish new content weekly, on game/data analysis, case studies, engineering solutions, and design insights.</p>
-</a>        </li>
-  <li>
-    <a href="https://docs.kongregate.com/">
-    <h3>Access Documentation »</h3>
-    <p>Get everything you need to know about how to implement our APIs and SDKs into your game.</p>
-</a>        </li>
-</ul>
-</div>
-</div>
+      </ul>
+    </div>
+  </div>
 </li>
 <!-- End Dev -->
 
-<!-- #search -->
+    <!-- #search -->
 <li class="search" id="search_bar">
 <form onsubmit="$('nav_search_submit_button').onclick();" id="search" class="search" action="https://www.kongregate.com/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">    <dl>
-<dt><div style="position:relative" id="game_title_chooser_outer"><input type="text" name="q" id="game_title" value="" tabindex="1" class="hintable game_title hinted_value" title="Search games &amp; more" autocomplete="off"><div style="display:none;" id="game_title_snapshot" class="game_chooser_selected"></div><div style="z-index: 20000; display: none;" id="game_title_auto_complete" class="game_chooser"></div><script>
+      <dt><div style="position:relative" id="game_title_chooser_outer"><input type="text" name="q" id="game_title" value="" tabindex="1" class="hintable game_title hinted_value" title="Search games &amp; more" autocomplete="off"><div style="display:none;" id="game_title_snapshot" class="game_chooser_selected"></div><div style="z-index: 20000; display: none;" id="game_title_auto_complete" class="game_chooser"></div><script>
 //<![CDATA[
 var game_title_auto_completer=new Ajax.CachedAutocompleter("game_title","game_title_auto_complete","/games/search?site_search=true",{"paramName":"search","method":"get","onShow":function(element,update){update.show();},"onHide":function(element,update){update.hide();},"minChars":3,"noAutoDefault":false,"forceActivation":true,"frequency":0.1,"callback":function(element,value){return game_indicator(element,value)},"afterUpdateElement":function(element,value){(function(m) { $("nav_search_submit_button").onclick(); game_title_auto_completer.submitted = true; document.location = m.url; })(eval('(' + value.down('.metadata').innerHTML + ')'));}});$('game_title').up('form').observe('submit', function() { if ('' == $('game_title').value) { $('search_game_id').value = ''; }});
 //]]>
 </script></div></dt>
-<dd><input type="submit" value="Search" id="nav_search_submit_button" tabindex="2" class="spritesite" onclick="try{}catch(e){};if(!this.elem_nav_search_submit_button){this.elem_nav_search_submit_button=$('nav_search_submit_button');this.spin_nav_search_submit_button=$('nav_search_submit_button_spinner');this.restore=function(t){return function(){t.elem_nav_search_submit_button.show();t.spin_nav_search_submit_button.hide();Event.stopObserving(window, 'unload', t.restore);}}(this);}this.elem_nav_search_submit_button.hide();this.spin_nav_search_submit_button.show();Event.observe(window, 'unload', this.restore);"><span id="nav_search_submit_button_spinner" class="spinner spinner_inverse" style="display:none" title="loading…">​</span></dd>
-</dl>
-<script>
+    <dd><input type="submit" value="Search" id="nav_search_submit_button" tabindex="2" class="spritesite" onclick="try{}catch(e){};if(!this.elem_nav_search_submit_button){this.elem_nav_search_submit_button=$('nav_search_submit_button');this.spin_nav_search_submit_button=$('nav_search_submit_button_spinner');this.restore=function(t){return function(){t.elem_nav_search_submit_button.show();t.spin_nav_search_submit_button.hide();Event.stopObserving(window, 'unload', t.restore);}}(this);}this.elem_nav_search_submit_button.hide();this.spin_nav_search_submit_button.show();Event.observe(window, 'unload', this.restore);" data-disable-with="Search"><span id="nav_search_submit_button_spinner" class="spinner spinner_inverse" style="display:none" title="loading…">​</span></dd>
+  </dl>
+  <script>
 //<![CDATA[
 
-game_title_auto_completer.hide = game_title_auto_completer.hide.wrap(
-function(hide) {
-  Shim.hide('game_title_auto_completer');
-  hide();
-  $$('.hide_ad_always').invoke('show');
-}
-);
+    game_title_auto_completer.hide = game_title_auto_completer.hide.wrap(
+      function(hide) {
+        Shim.hide('game_title_auto_completer');
+        hide();
+        $$('.hide_ad_always').invoke('show');
+      }
+    );
 
-game_title_auto_completer.show = game_title_auto_completer.show.wrap(
-function(show) {
-  show();
-  $$('.hide_ad_always').invoke('hide');
-  Shim.shimElement(this.update, 'game_title_auto_completer');
-});
+    game_title_auto_completer.show = game_title_auto_completer.show.wrap(
+      function(show) {
+        show();
+        $$('.hide_ad_always').invoke('hide');
+        Shim.shimElement(this.update, 'game_title_auto_completer');
+    });
 
-game_title_auto_completer.options.onComplete = game_title_auto_completer.options.onComplete.wrap(function(original, args){
-original(args)
-this.index = this.entryCount-1;
-this.render()
-}.bind(game_title_auto_completer))
+    game_title_auto_completer.options.onComplete = game_title_auto_completer.options.onComplete.wrap(function(original, args){
+      original(args)
+      this.index = this.entryCount-1;
+      this.render()
+    }.bind(game_title_auto_completer))
 
-Event.observe(game_title_auto_completer.element, 'keyup', function(event){
-if(!this.active && !this.submitted && event.keyCode == Event.KEY_RETURN){
-  document.location = "/search?q=" + $('game_title').getValue()
-  event.stop()
-} else if(event.keyCode == Event.KEY_BACKSPACE){
-  this.index = this.entryCount-1;
-  this.render()
-}
-}.bind(game_title_auto_completer))
+    Event.observe(game_title_auto_completer.element, 'keyup', function(event){
+      if(!this.active && !this.submitted && event.keyCode == Event.KEY_RETURN){
+        document.location = "/search?q=" + $('game_title').getValue()
+        event.stop()
+      } else if(event.keyCode == Event.KEY_BACKSPACE){
+        this.index = this.entryCount-1;
+        this.render()
+      }
+    }.bind(game_title_auto_completer))
 
-game_title_auto_completer.options.noAutoDefault = true
+    game_title_auto_completer.options.noAutoDefault = true
 
-function game_indicator(element,value) {
-if (!game_title_auto_completer.active) {
-  $$('.game_chooser').first().update($('game_chooser_loading').innerHTML);
-  $$('.game_chooser').first().show();
-  $$('.game_chooser li.all').first().observe('click', function(e) { $('#search').submit(); });
-  $$('.hide_ad_always').invoke('hide');
-}
-return value;
-}
+    function game_indicator(element,value) {
+      if (!game_title_auto_completer.active) {
+        $$('.game_chooser').first().update($('game_chooser_loading').innerHTML);
+        $$('.game_chooser').first().show();
+        $$('.game_chooser li.all').first().observe('click', function(e) { $('#search').submit(); });
+        $$('.hide_ad_always').invoke('hide');
+      }
+      return value;
+    }
 
 //]]>
 </script>  <div id="game_chooser_loading" style="display:none"><ul>
-<li class="loading"><div><span class="spinner">​</span></div></li>
-<li class="all"><a href="#" onclick="return false;"><span style="display:none"></span><span class="informal"><strong>see more results »</strong>
-  <span class="metadata" style="display:none;">{"url":"/search"}</span>
-  <div class="clear"></div></span></a>
-</li>
+  <li class="loading"><div><span class="spinner">​</span></div></li>
+    <li class="all"><a href="#" onclick="return false;"><span style="display:none"></span><span class="informal"><strong>see more results »</strong>
+        <span class="metadata" style="display:none;">{"url":"/search"}</span>
+        <div class="clear"></div></span></a>
+    </li>
 </ul>
 <span style="display:block;clear:both;"></span>
 </div>
 </form></li><!-- /#search -->
 
-</ul>
+  </ul>
 </div>
 
-</div><!--============ /#header ============-->
+      </div><!--============ /#header ============-->
 `;
   const subwrap = `
 <!--============ #footer ============-->
@@ -2830,46 +2951,83 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                               node.remove();
                           }
                           else if(v9==0 && node==document.body){
-                            node.classList.remove('lang_other', 'lang_en');
-                            node.classList.add('new_home', 'no_subwrap', 'grid960');
-                          }
-                      }
-                  }
-              }
-          }
-      }
-  };
-  var observer = new MutationObserver(callback);
-  observer.observe(targetNode, config);
+                                v9=1;
+                                node.classList.remove('lang_other', 'lang_en');
+                                node.classList.add('new_home', 'no_subwrap', 'grid960');
+                            }
+                            else if(v10==0 && (node.src||"").search("konstruct.min.js")>-1){
+                                v10=1;
+                                node.remove();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    };
+    var observer = new MutationObserver(callback);
+    observer.observe(targetNode, config);
 
-  function TimeToLogin(active_user){
-    if(active_user.id()>0){
-        document.getElementById("guest_user_welcome_content").style.display="none";
-        var login_area=document.getElementById("nav_welcome_box");
-        login_area.style.display="";
-        var av=document.createElement("img"); av.src=active_user.avatarUrl();
-        login_area.getElementsByClassName("profile profile_control")[0].firstElementChild.href="http://www.kongregate.com/accounts/"+active_user.username();
-        document.getElementById("small_avatar_placeholder").appendChild(av);
-        login_area.getElementsByClassName("username_holder")[0].innerHTML=active_user.username();
-        document.getElementById("mini-profile-level").innerHTML=active_user.level();
-        login_area.getElementsByClassName("play-laters-count")[0].innerHTML=active_user.playLatersCount();
-        login_area.getElementsByClassName("favorites-count-link")[0].href="http://www.kongregate.com/accounts/"+active_user.username()+"/favorites";
-        login_area.getElementsByClassName("favorites-count")[0].innerHTML=active_user.favoritesCount();
-        login_area.getElementsByClassName("friends_online_link")[0].href="http://www.kongregate.com/accounts/"+active_user.username()+"/friends";
-        login_area.getElementsByClassName("friends_online_count")[0].innerHTML=active_user.friendsOnlineCount();
-        document.getElementById("my-messages-link").href="http://www.kongregate.com/accounts/"+active_user.username()+"/messages";
-        var uc=active_user.unreadShoutsCount()+active_user.unreadWhispersCount()+active_user.unreadGameMessagesCount();
-        if(uc>0){ document.getElementById("profile_control_unread_message_count").innerHTML=uc; }
-        login_area.getElementsByClassName("settings profile_control")[0].getElementsByTagName("ul").firstElementChild.firstElementChild.href="http://www.kongregate.com/accounts/"+active_user.username()+"/edit";
+    function TimeToLogin(active_user){
+        function updatePlaylist() {
+            var e = active_user.playLatersCount();
+            $$(".play-laters-count-link").each(function (t) {
+                (t.title = e + " games in your playlist."), t.down(".play-laters-count").update(e);
+            });
+        }
+        function updateFavorites() {
+            var e = active_user.favoritesCount();
+            $$(".favorites-count-link").each(function (t) {
+                (t.title = e + " favorites."), t.down(".favorites-count").update(e);
+            });
+        }
+        function updateFriendInfo(e) {
+            e.select(".friends_online_count").each(function (e) {
+                e.update(active_user.friendsOnlineCount());
+            }),
+                active_user.friendsOnlineCount() > 0
+                ? e.select(".friends_online_link").each(function (e) {
+                e.title = active_user.friendsOnlineNames();
+            })
+            : e.select(".friends_online_link").each(function (e) {
+                e.title = "No friends online.";
+            });
+        }
+        var e = active_user.getAttributes(), t = $("welcome");
+        if (active_user.isAuthenticated() && t!=null) {
+            updateFriendInfo(t), updatePlaylist(), updateFavorites();
+            var n = new Element("img").writeAttribute({ id: "welcome_box_small_user_avatar", src: e.avatar_url, title: e.username, name: "user_avatar", alt: "Avatar for " + e.username, height: 28, width: 28 });
+            t.down("span#small_avatar_placeholder").update(n),
+                t.select(".facebook_nav_item").each(function (e) {
+                active_user.isFacebookConnected() && e.hide();
+            }),
+                $("mini-profile-level").writeAttribute({ class: "spritesite levelbug level_" + e.level, title: "Level " + e.level }),
+                active_user.populateUserSpecificLinks(t),
+                t.select(".username_holder").each(function (e) {
+                e.update(active_user.username());
+            });
+            var a = active_user.unreadShoutsCount() + active_user.unreadWhispersCount() + active_user.unreadGameMessagesCount();
+            a > 0 &&
+                ($("profile_bar_messages").addClassName("alert_messages"),
+                 $("profile_control_unread_message_count").update(a),
+                 $("profile_control_unread_message_count").addClassName("mls has_messages"),
+                 $("my-messages-link").setAttribute("title", active_user.unreadShoutsCount() + " shouts, " + active_user.unreadWhispersCount() + " whispers"),
+                 0 !== active_user.unreadWhispersCount()
+                 ? $("my-messages-link").setAttribute("href", "/accounts/" + active_user.username() + "/private_messages")
+                 : 0 !== active_user.unreadGameMessagesCount() && $("my-messages-link").setAttribute("href", "/accounts/" + active_user.username() + "/game_messages")),
+                null !== active_user.chipsBalance() , ($("blocks_balance").update(active_user.chipsBalance()), $("blocks").show()),
+                $("guest_user_welcome_content").hide(),
+                $("nav_welcome_box").show();
+        }
+        else{ setTimeout(function(){ TimeToLogin(active_user); },1000); }
     }
-}
 
-function ThingsToDoAtTheEnd(){
-    if(typeof(active_user)!="undefined"){
-        TimeToLogin(active_user);
-    }
-    else{ setTimeout(function(){ ThingsToDoAtTheEnd(); },1000); }
-};
-ThingsToDoAtTheEnd();
+    function ThingsToDoAtTheEnd(){
+        if(typeof(active_user)!="undefined"){
+            TimeToLogin(active_user);
+        }
+        else{ setTimeout(function(){ ThingsToDoAtTheEnd(); },1000); }
+    };
+    ThingsToDoAtTheEnd();
 
 })();
