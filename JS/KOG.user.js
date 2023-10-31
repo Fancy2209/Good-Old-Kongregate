@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    http://tampermonkey.net/
-// @version      0.64
+// @version      0.65
 // @description  Gone but not forgotten
 // @author       Fancy2209, Matrix4348
 // @match         *://www.kongregate.com/*
@@ -773,7 +773,7 @@ $j( document ).ready(function() {
 </a>
 <ul class="footer_sub clearfix">
 <li class="kongregate_copyright">
-  <span>© 2018 </span>
+  <span>© 2023 </span>
   <a class="spriteall spritesite" href="https://www.kongregate.com/">Kongregate</a>
 </li>
 <li class="footer_mtg--logo spritesite textreplace">An MTG company</li>
