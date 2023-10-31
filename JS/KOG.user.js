@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    http://tampermonkey.net/
-// @version      0.63
+// @version      0.64
 // @description  Gone but not forgotten
 // @author       Fancy2209, Matrix4348
 // @match         *://www.kongregate.com/*
@@ -2914,9 +2914,7 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                           }
                           else if(v3==0 && node.id=="footer" && node.tagName=="K-FOOTER"){
                               v3=1;
-                              let n=document.createElement("div");
-                              n.id="footer";
-                              n.innerHTML=subwrap;
+                              node.innerHTML=subwrap;
                               node.parentElement.insertBefore(n, node);
                               node.remove();
                           }
