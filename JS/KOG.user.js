@@ -2891,7 +2891,7 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
 </div>
 `;
 
-  var v1=0, v2=0, v3=0, v4=0, v5=0, v6=0, v7=0, v8=0, v9=0;
+  var v1=0, v2=0, v3=0, v4=0, v5=0, v6=0, v7=0, v8=0, v9=0, v10=0;
   var targetNode = document;
   var config = { childList: true, subtree: true };
   var callback = (mutationList, observer) => {
@@ -2928,13 +2928,13 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                           else if(v5==0 && node.tagName=="LINK" && node.rel=="stylesheet" && node.href.search("application_merged")>-1 && node.getAttribute("data-turbo-track")=="reload"){
                               v5=1;
                               node.remove();
-                              goodKongCSS.href = 'https://web.archive.org/web/20220929041450id_/https://cdn2.kongcdn.com/compiled-assets/application_merged-a67554df6c1f13a74ac9c9905653492539c4567a18b17f4e1ca5fa9e37e2c194.css';
+                              goodKongCSS.href = 'https://fancy2209.github.io/KOG/Main.css';
                               document.head.appendChild(goodKongCSS);
                           }
                           else if(v6==0 && node.tagName=="LINK" && node.rel=="stylesheet" && node.href.search("gamepage_merged")>-1 && node.getAttribute("data-turbo-track")=="reload"){
                               v6=1;
                               node.remove();
-                              goodKongCSS.href = 'https://web.archive.org/web/20221109060717id_/https://cdn4.kongcdn.com/compiled-assets/gamepage_merged-ef563bc058e7e90cd0a2e1f8a744e354f5404b5e2a48491589b610e949d74c97.css';
+                              goodKongCSS.href = 'https://fancy2209.github.io/KOG/GamePage.css';
                               document.head.appendChild(goodKongCSS);
                           }
                           else if(v7==0 && node.tagName=="LINK" && node.rel=="stylesheet" && node.href.search("application-")>-1 && node.getAttribute("data-turbo-track")=="reload"){
@@ -2950,7 +2950,7 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                               node.parentElement.insertBefore(pw, node);
                               node.remove();
                           }
-                          else if(v9==0 && node==document.body){
+                          else if(v9==0 && node==document.body && document.getElementById("home")){
                                 v9=1;
                                 node.classList.remove('lang_other', 'lang_en');
                                 node.classList.add('new_home', 'no_subwrap', 'grid960');
