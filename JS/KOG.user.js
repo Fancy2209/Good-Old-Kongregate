@@ -2912,10 +2912,10 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                               v2=1;
                               node.remove();
                           }
-                          else if(v3==0 && node.id=="subwrap" && node.parentNode==document.body){
+                          else if(v3==0 && node.id=="footer" && node.tagName=="K-FOOTER"){
                               v3=1;
                               let n=document.createElement("div");
-                              n.id="subwrap";
+                              n.id="footer";
                               n.innerHTML=subwrap;
                               node.parentElement.insertBefore(n, node);
                               node.remove();
