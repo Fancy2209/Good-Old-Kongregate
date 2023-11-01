@@ -1,13 +1,14 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    http://tampermonkey.net/
-// @version      0.66
+// @version      0.67
 // @description  Gone but not forgotten
 // @author       Fancy2209, Matrix4348
 // @match         *://www.kongregate.com/*
 // @icon         https://cdn1.kongcdn.com/compiled-assets/favicos/favico-196-de563d6c4856efb7ac5060666510e5e50b2382593b724b802a6c6c53c1971e8c.png
 // @grant        none
 // @run-at       document-start
+// @require      https://code.jquery.com/jquery-1.9.1.js
 // ==/UserScript==
 
 (function() {
