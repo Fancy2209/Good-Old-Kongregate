@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    http://tampermonkey.net/
-// @version      0.65
+// @version      0.66
 // @description  Gone but not forgotten
 // @author       Fancy2209, Matrix4348
 // @match         *://www.kongregate.com/*
@@ -2915,8 +2915,6 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                           else if(v3==0 && node.id=="footer" && node.tagName=="K-FOOTER"){
                               v3=1;
                               node.innerHTML=subwrap;
-                              node.parentElement.insertBefore(n, node);
-                              node.remove();
                           }
                           else if (v4==0 && node.tagName=="LINK" && node.rel=="icon"){
                               v4=1;
@@ -2966,7 +2964,7 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
     var observer = new MutationObserver(callback);
     observer.observe(targetNode, config);
 
-    function TimeToLogin(active_user){
+    function TimeToLogin(){
         function updatePlaylist() {
             var e = active_user.playLatersCount();
             $$(".play-laters-count-link").each(function (t) {
@@ -2991,19 +2989,20 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                 e.title = "No friends online.";
             });
         }
-        var e = active_user.getAttributes(), t = $("welcome");
-        if (active_user.isAuthenticated() && t!=null) {
+
+        var go=0, t = $("welcome");
+        if(typeof(active_user)!="undefined"){
+            if (active_user.isAuthenticated() && t!=null){ go=1; }
+        }
+        if(go){
+            var e = active_user.getAttributes();
             updateFriendInfo(t), updatePlaylist(), updateFavorites();
             var n = new Element("img").writeAttribute({ id: "welcome_box_small_user_avatar", src: e.avatar_url, title: e.username, name: "user_avatar", alt: "Avatar for " + e.username, height: 28, width: 28 });
             t.down("span#small_avatar_placeholder").update(n),
-                t.select(".facebook_nav_item").each(function (e) {
-                active_user.isFacebookConnected() && e.hide();
-            }),
+                t.select(".facebook_nav_item").each(function (e) { active_user.isFacebookConnected() && e.hide(); }),
                 $("mini-profile-level").writeAttribute({ class: "spritesite levelbug level_" + e.level, title: "Level " + e.level }),
                 active_user.populateUserSpecificLinks(t),
-                t.select(".username_holder").each(function (e) {
-                e.update(active_user.username());
-            });
+                t.select(".username_holder").each(function (e) { e.update(active_user.username()); });
             var a = active_user.unreadShoutsCount() + active_user.unreadWhispersCount() + active_user.unreadGameMessagesCount();
             a > 0 &&
                 ($("profile_bar_messages").addClassName("alert_messages"),
@@ -3017,14 +3016,21 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                 $("guest_user_welcome_content").hide(),
                 $("nav_welcome_box").show();
         }
-        else{ setTimeout(function(){ TimeToLogin(active_user); },1000); }
+        else{ setTimeout(function(){ TimeToLogin(); },10000); }
+    }
+
+    function ReopenChat(A){ // Not in the mutation observer in case we ever do more than just make the tab reappear.
+        var go=0;
+        if(typeof(holodeck)!="undefined" && document.getElementById("chat_tab")!=null){
+            if(holodeck.ready){ go=1; }
+        }
+        if(go){ document.getElementById("chat_tab").style.display="";}
+        else if(A){ setTimeout(function(B){ ReopenChat(B); },1000, A-1); }
     }
 
     function ThingsToDoAtTheEnd(){
-        if(typeof(active_user)!="undefined"){
-            TimeToLogin(active_user);
-        }
-        else{ setTimeout(function(){ ThingsToDoAtTheEnd(); },1000); }
+        TimeToLogin();
+        ReopenChat(50);
     };
     ThingsToDoAtTheEnd();
 
