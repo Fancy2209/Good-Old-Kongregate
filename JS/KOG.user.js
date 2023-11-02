@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    http://tampermonkey.net/
-// @version      0.67
+// @version      0.68
 // @description  Gone but not forgotten
 // @author       Fancy2209, Matrix4348
 // @match         *://www.kongregate.com/*
@@ -2901,7 +2901,7 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
               for (let mutation of mutationList) {
                   if (mutation.type === 'childList') {
                       for(let node of mutation.addedNodes){
-                          if(v1==0 && node.className=="md:hidden sticky top-0 z-100 group/navbar"){
+                          if(v1==0 && node.tagName=="K-NAVBAR"){
                               v1=1;
                               let n=document.createElement("div");
                               n.id="headerwrap";
@@ -2909,8 +2909,7 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                               node.parentElement.insertBefore(n, node);
                               node.remove();
                           }
-                          else if(v2==0 && node.tagName=="K-NAVBAR"){
-                              v2=1;
+                          else if(v1==1 && node.tagName=="K-NAVBAR"){
                               node.remove();
                           }
                           else if(v3==0 && node.id=="footer" && node.tagName=="K-FOOTER"){
