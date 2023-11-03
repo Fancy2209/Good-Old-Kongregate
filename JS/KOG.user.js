@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    http://tampermonkey.net/
-// @version      0.68
+// @version      0.69
 // @description  Gone but not forgotten
 // @author       Fancy2209, Matrix4348
 // @match         *://www.kongregate.com/*
@@ -15,11 +15,6 @@
   'use strict';
 
   // Find the Things
-
-  var customFavicon = document.createElement('link');
-  customFavicon.type = 'image/png';
-  customFavicon.rel = 'icon';
-  customFavicon.href = 'https://raw.githubusercontent.com/Fancy2209/Good-Old-Kongregate/main/Icon/kong.png'; // Replace with the URL of your custom favicon
 
   var goodKongCSS = document.createElement('link');
   goodKongCSS.rel = 'stylesheet';
@@ -2902,25 +2897,38 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                   if (mutation.type === 'childList') {
                       for(let node of mutation.addedNodes){
                           if(v1==0 && node.tagName=="K-NAVBAR"){
-                              v1=1;
-                              let n=document.createElement("div");
-                              n.id="headerwrap";
-                              n.innerHTML = headerWrap;
-                              node.parentElement.insertBefore(n, node);
-                              node.remove();
-                          }
-                          else if(v1==1 && node.tagName=="K-NAVBAR"){
-                              node.remove();
-                          }
-                          else if(v3==0 && node.id=="footer" && node.tagName=="K-FOOTER"){
-                              v3=1;
-                              node.innerHTML=subwrap;
-                          }
-                          else if (v4==0 && node.tagName=="LINK" && node.rel=="icon"){
-                              v4=1;
-                              node.remove();
-                              document.head.appendChild(customFavicon);
-                          }
+                                v1=1;
+                                let n=document.createElement("div");
+                                n.id="headerwrap";
+                                n.innerHTML = headerWrap;
+                                node.parentElement.insertBefore(n, node);
+                                node.remove();
+                            }
+                            else if(v1==1 && node.tagName=="K-NAVBAR"){
+                                node.remove();
+                            }
+                            else if(v2==0 && node.id=="footer" && node.tagName=="K-FOOTER"){
+                                v2=1;
+                                node.innerHTML=subwrap;
+                            }
+                            else if (v3==0 && node.tagName=="LINK" && node.rel=="icon" && node.type=="image/svg+xml"){
+                                v3=1;
+                                node.remove();
+                                var customIcon = document.createElement('link');
+                                customIcon.type = 'image/svg+xml';
+                                customIcon.rel = 'icon';
+                                customIcon.href = 'https://github.com/Fancy2209/Good-Old-Kongregate/raw/main/Icon/icon.svg';
+                                document.head.appendChild(customIcon);
+                            }
+                            else if (v4==0 && node.tagName=="LINK" && node.rel=="icon"){
+                                v4=1;
+                                node.remove();
+                                var customFavicon = document.createElement('link');
+                                customFavicon.type = 'image/png';
+                                customFavicon.rel = 'icon';
+                                customFavicon.href = 'https://raw.githubusercontent.com/Fancy2209/Good-Old-Kongregate/main/Icon/kong.png'; // Replace with the URL of your custom favicon
+                                document.head.appendChild(customFavicon);
+                            }
                           else if(v5==0 && node.tagName=="LINK" && node.rel=="stylesheet" && node.href.search("application_merged")>-1 && node.getAttribute("data-turbo-track")=="reload"){
                               v5=1;
                               node.remove();
