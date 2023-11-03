@@ -14,6 +14,61 @@
 (function() {
   'use strict';
 
+  function TimeToLogin(){
+    function updatePlaylist() {
+        var e = active_user.playLatersCount();
+        $$(".play-laters-count-link").each(function (t) {
+            (t.title = e + " games in your playlist."), t.down(".play-laters-count").update(e);
+        });
+    }
+    function updateFavorites() {
+        var e = active_user.favoritesCount();
+        $$(".favorites-count-link").each(function (t) {
+            (t.title = e + " favorites."), t.down(".favorites-count").update(e);
+        });
+    }
+    function updateFriendInfo(e) {
+        e.select(".friends_online_count").each(function (e) {
+            e.update(active_user.friendsOnlineCount());
+        }),
+            active_user.friendsOnlineCount() > 0
+            ? e.select(".friends_online_link").each(function (e) {
+            e.title = active_user.friendsOnlineNames();
+        })
+        : e.select(".friends_online_link").each(function (e) {
+            e.title = "No friends online.";
+        });
+    }
+
+    var go=0, t = $("welcome");
+    if(typeof(active_user)!="undefined"){
+        if (active_user.isAuthenticated() && t!=null){ go=1; }
+    }
+    if(go){
+        var e = active_user.getAttributes();
+        updateFriendInfo(t), updatePlaylist(), updateFavorites();
+        var n = new Element("img").writeAttribute({ id: "welcome_box_small_user_avatar", src: e.avatar_url, title: e.username, name: "user_avatar", alt: "Avatar for " + e.username, height: 28, width: 28 });
+        t.down("span#small_avatar_placeholder").update(n),
+            t.select(".facebook_nav_item").each(function (e) { active_user.isFacebookConnected() && e.hide(); }),
+            $("mini-profile-level").writeAttribute({ class: "spritesite levelbug level_" + e.level, title: "Level " + e.level }),
+            active_user.populateUserSpecificLinks(t),
+            t.select(".username_holder").each(function (e) { e.update(active_user.username()); });
+        var a = active_user.unreadShoutsCount() + active_user.unreadWhispersCount() + active_user.unreadGameMessagesCount();
+        a > 0 &&
+            ($("profile_bar_messages").addClassName("alert_messages"),
+             $("profile_control_unread_message_count").update(a),
+             $("profile_control_unread_message_count").addClassName("mls has_messages"),
+             $("my-messages-link").setAttribute("title", active_user.unreadShoutsCount() + " shouts, " + active_user.unreadWhispersCount() + " whispers"),
+             0 !== active_user.unreadWhispersCount()
+             ? $("my-messages-link").setAttribute("href", "/accounts/" + active_user.username() + "/private_messages")
+             : 0 !== active_user.unreadGameMessagesCount() && $("my-messages-link").setAttribute("href", "/accounts/" + active_user.username() + "/game_messages")),
+            null !== active_user.chipsBalance() , ($("blocks_balance").update(active_user.chipsBalance()), $("blocks").show()),
+            $("guest_user_welcome_content").hide(),
+            $("nav_welcome_box").show();
+    }
+    else{ setTimeout(function(){ TimeToLogin(); },10000); }
+}
+
   // Find the Things
 
   var goodKongCSS = document.createElement('link');
@@ -2903,6 +2958,7 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                                 n.innerHTML = headerWrap;
                                 node.parentElement.insertBefore(n, node);
                                 node.remove();
+                                TimeToLogin();
                             }
                             else if(v1==1 && node.tagName=="K-NAVBAR"){
                                 node.remove();
@@ -2972,61 +3028,6 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
     var observer = new MutationObserver(callback);
     observer.observe(targetNode, config);
 
-    function TimeToLogin(){
-        function updatePlaylist() {
-            var e = active_user.playLatersCount();
-            $$(".play-laters-count-link").each(function (t) {
-                (t.title = e + " games in your playlist."), t.down(".play-laters-count").update(e);
-            });
-        }
-        function updateFavorites() {
-            var e = active_user.favoritesCount();
-            $$(".favorites-count-link").each(function (t) {
-                (t.title = e + " favorites."), t.down(".favorites-count").update(e);
-            });
-        }
-        function updateFriendInfo(e) {
-            e.select(".friends_online_count").each(function (e) {
-                e.update(active_user.friendsOnlineCount());
-            }),
-                active_user.friendsOnlineCount() > 0
-                ? e.select(".friends_online_link").each(function (e) {
-                e.title = active_user.friendsOnlineNames();
-            })
-            : e.select(".friends_online_link").each(function (e) {
-                e.title = "No friends online.";
-            });
-        }
-
-        var go=0, t = $("welcome");
-        if(typeof(active_user)!="undefined"){
-            if (active_user.isAuthenticated() && t!=null){ go=1; }
-        }
-        if(go){
-            var e = active_user.getAttributes();
-            updateFriendInfo(t), updatePlaylist(), updateFavorites();
-            var n = new Element("img").writeAttribute({ id: "welcome_box_small_user_avatar", src: e.avatar_url, title: e.username, name: "user_avatar", alt: "Avatar for " + e.username, height: 28, width: 28 });
-            t.down("span#small_avatar_placeholder").update(n),
-                t.select(".facebook_nav_item").each(function (e) { active_user.isFacebookConnected() && e.hide(); }),
-                $("mini-profile-level").writeAttribute({ class: "spritesite levelbug level_" + e.level, title: "Level " + e.level }),
-                active_user.populateUserSpecificLinks(t),
-                t.select(".username_holder").each(function (e) { e.update(active_user.username()); });
-            var a = active_user.unreadShoutsCount() + active_user.unreadWhispersCount() + active_user.unreadGameMessagesCount();
-            a > 0 &&
-                ($("profile_bar_messages").addClassName("alert_messages"),
-                 $("profile_control_unread_message_count").update(a),
-                 $("profile_control_unread_message_count").addClassName("mls has_messages"),
-                 $("my-messages-link").setAttribute("title", active_user.unreadShoutsCount() + " shouts, " + active_user.unreadWhispersCount() + " whispers"),
-                 0 !== active_user.unreadWhispersCount()
-                 ? $("my-messages-link").setAttribute("href", "/accounts/" + active_user.username() + "/private_messages")
-                 : 0 !== active_user.unreadGameMessagesCount() && $("my-messages-link").setAttribute("href", "/accounts/" + active_user.username() + "/game_messages")),
-                null !== active_user.chipsBalance() , ($("blocks_balance").update(active_user.chipsBalance()), $("blocks").show()),
-                $("guest_user_welcome_content").hide(),
-                $("nav_welcome_box").show();
-        }
-        else{ setTimeout(function(){ TimeToLogin(); },10000); }
-    }
-
     function ReopenChat(A){ // Not in the mutation observer in case we ever do more than just make the tab reappear.
         var go=0;
         if(typeof(holodeck)!="undefined" && document.getElementById("chat_tab")!=null){
@@ -3036,10 +3037,7 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
         else if(A){ setTimeout(function(B){ ReopenChat(B); },1000, A-1); }
     }
 
-    function ThingsToDoAtTheEnd(){
-        TimeToLogin();
+        
         ReopenChat(50);
-    };
-    ThingsToDoAtTheEnd();
 
 })();
