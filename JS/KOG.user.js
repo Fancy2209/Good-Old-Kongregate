@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    http://tampermonkey.net/
-// @version      0.70
+// @version      0.71
 // @description  Gone but not forgotten
 // @author       Fancy2209, Matrix4348
 // @match         *://www.kongregate.com/*
@@ -210,12 +210,12 @@
   <!-- Recent Games Start -->
   <div id="main_nav_games_im_playing" class="main_nav_category my_games_block mrl">
     <strong class="game_block_link">
-  <a id="GOK_recently_played" href="" data-metric-tracker="js-wa-tc-Navigation-Recently_Played"><tr8n translation_key_id="7532" id="4807e18418b9a568274a246a5cf46b5d">Recently Played »</tr8n></a>
+  <a id="GOK_recently_played" href="https://www.kongregate.com/games" data-metric-tracker="js-wa-tc-Navigation-Recently_Played"><tr8n translation_key_id="7532" id="4807e18418b9a568274a246a5cf46b5d">Recently Played »</tr8n></a>
 </strong>
 
        <a id="GOK_no_recently_played_game" class="no_games_block" href="https://www.kongregate.com/games">
         <span class="plus kong_ico" aria-hidden="true">+</span>
-        <strong class="title"><tr8n translation_key_id="4682" id="d55e2658c6436b84daaf2004789d2023">Recommended Games</tr8n></strong>
+        <strong class="title"><tr8n translation_key_id="4682" id="d55e2658c6436b84daaf2004789d2023">Recently Played Games</tr8n></strong>
         <span class="desc"><tr8n translation_key_id="7429" id="2042ef2dfbc1df02c574f00b2063a484">Start playing now.</tr8n></span>
       </a>
 
@@ -247,12 +247,12 @@
   <!-- Playlist Games Start -->
   <div id="main_nav_my_playlist" class="main_nav_category my_games_block mrl">
     <strong class="game_block_link">
-      <a id="GOK_playlist" href="" class="js-wa-tc-Navigation-Playlist"><tr8n translation_key_id="7431" id="d09ef4787d5e3c0182b7048923d4f3da">My Playlist »</tr8n></a>
+      <a id="GOK_playlist" href="#" class="js-wa-tc-Navigation-Playlist"><tr8n translation_key_id="7431" id="d09ef4787d5e3c0182b7048923d4f3da">My Playlist »</tr8n></a>
     </strong>
     <a id="GOK_no_playlist" class="no_games_block js-activate-inline-registration" href="#">
       <span class="plus kong_ico" aria-hidden="true">+</span>
       <strong class="title"><span class="icon kong_ico" aria-hidden="true">p</span> <tr8n translation_key_id="6448" id="6ffe6d4f4800e3db93218cc72e5ef57d">My Playlist</tr8n></strong>
-      <span class="desc"><tr8n translation_key_id="7432" id="0d41cf5977b5fa2c321f4b936fd2e377">Register to save games to play later.</tr8n></span>
+      <span id="GOK_no_playlist_text" class="desc"><tr8n translation_key_id="7432" id="0d41cf5977b5fa2c321f4b936fd2e377">Register to save games to play later.</tr8n></span>
     </a>
     <a id="GOK_playlist_1" href="" class="main mbs" data-metric-tracker="js-wa-tc-Navigation-Recently_Played" style="display:none">
          <span class="game_icon"><img id="GOK_playlist_1_image" alt="" src=""></span>
@@ -501,9 +501,7 @@ var game_title_auto_completer=new Ajax.CachedAutocompleter("game_title","game_ti
 
       </div><!--============ /#header ============-->
 `;
-    const subwrap = `
-<!--============ #footer ============-->
-<div id="footer" class="clearfix">
+    const footer = `
   <div class="kongregate-logo mbl"><a class="spriteall spritesite kongregate-logo" href="https://www.kongregate.com/">Kongregate</a></div>
 <div class="line">
 <div class="unit size1of2">
@@ -635,7 +633,6 @@ $j( document ).ready(function() {
 </ul>
 
 </div>
-<!--============ /#footer ============-->
 `;
     const homepage_primarywrap =`
   <div id="primarywrap" class="divider">
@@ -2770,7 +2767,12 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                             }
                             else if(v2==0 && node.id=="footer" && node.tagName=="K-FOOTER"){
                                 v2=1;
-                                node.innerHTML=subwrap;
+                                let n=document.createElement("div");
+                                n.id="footer";
+                                n.addClassName("clearfix");
+                                n.innerHTML = footer;
+                                node.parentElement.insertBefore(n, node);
+                                node.remove();
                             }
                             else if (v3==0 && node.tagName=="LINK" && node.rel=="icon" && node.type=="image/svg+xml"){
                                 v3=1;
@@ -2888,7 +2890,7 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
         else{ setTimeout(function(){ TimeToLogin(); },10000); }
     }
 
-    function ReopenChat(A){ // Not in the mutation observer in case we ever do more than just make the tab reappear.
+    function ReopenChat(A){ // Not in the mutation observer in case we ever do more than just making the tab reappear.
         var go=0;
         if(typeof(holodeck)!="undefined" && document.getElementById("chat_tab")!=null){
             if(holodeck.ready){ go=1; }
@@ -2897,46 +2899,38 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
         else if(A){ setTimeout(function(B){ ReopenChat(B); },1000, A-1); }
     }
 
-    /*recently_played: Array(3) [ {…}, {…}, {…} ]
-​​​
-0: Object { title: "Raid Heroes: Total War", icon_path: "https://cdn4.kongcdn.com/game_icons/0070/1189/banner.gif?i10c=img.resize(width:250)", game_path: "/games/thekastudio/raid-heroes-total-war", … }
-​​​​
-game_path: "/games/thekastudio/raid-heroes-total-war"
-​​​​
-icon_path: "https://cdn4.kongcdn.com/game_icons/0070/1189/banner.gif?i10c=img.resize(width:250)"
-​​​​
-metric_category: "Recently_Played"
-​​​​
-title: "Raid Heroes: Total War"*/
     function fill_games_tab(A){
         if(typeof(navigationData)!="undefined"){
-            document.getElementById("GOK_recently_played").setAttribute("href",navigationData.user.recently_played_path);
-            var l=navigationData.games.recently_played.length;
-            if(l>0){
-                document.getElementById("GOK_no_recently_played_game").style.display="none";
-                document.getElementById("GOK_recently_played_1").style.display="";
-                document.getElementById("GOK1_image").setAttribute("src",navigationData.games.recently_played[0].icon_path);
-                document.getElementById("GOK1_name").innerText=navigationData.games.recently_played[0].title;
-                document.getElementById("GOK_recently_played_1").setAttribute("href",navigationData.games.recently_played[0].game_path);
-                for(let k=1; k<l; k++){
-                    document.getElementById("GOK_recently_played_"+(k+1)).setAttribute("href",navigationData.games.recently_played[k].game_path);
-                    document.getElementById("GOK_recently_played_"+(k+1)).innerText=navigationData.games.recently_played[k].title;
-                    document.getElementById("GOK_recently_played_"+(k+1)).style.display="";
+            if(navigationData.user.authenticated){
+                document.getElementById("GOK_recently_played").setAttribute("href",navigationData.user.recently_played_path);
+                var l=navigationData.games.recently_played.length;
+                if(l>0){
+                    document.getElementById("GOK_no_recently_played_game").style.display="none";
+                    document.getElementById("GOK_recently_played_1").style.display="";
+                    document.getElementById("GOK1_image").setAttribute("src",navigationData.games.recently_played[0].icon_path);
+                    document.getElementById("GOK1_name").innerText=navigationData.games.recently_played[0].title;
+                    document.getElementById("GOK_recently_played_1").setAttribute("href",navigationData.games.recently_played[0].game_path);
+                    for(let k=1; k<l; k++){
+                        document.getElementById("GOK_recently_played_"+(k+1)).setAttribute("href",navigationData.games.recently_played[k].game_path);
+                        document.getElementById("GOK_recently_played_"+(k+1)).innerText=navigationData.games.recently_played[k].title;
+                        document.getElementById("GOK_recently_played_"+(k+1)).style.display="";
+                    }
                 }
-            }
-            document.getElementById("GOK_playlist").setAttribute("href",navigationData.user.playlist_path);
-            var p=navigationData.games.playlist.length;
-            if(p>0){
-                document.getElementById("GOK_no_playlist").style.display="none";
-                document.getElementById("GOK_playlist_1").style.display="";
-                document.getElementById("GOK_playlist_1_image").setAttribute("src",navigationData.games.playlist[0].icon_path);
-                document.getElementById("GOK_playlist_1_name").innerText=navigationData.games.playlist[0].title;
-                document.getElementById("GOK_playlist_1").setAttribute("href",navigationData.games.playlist[0].game_path);
-                for(let k=1; k<p; k++){
-                    document.getElementById("GOK_playlist_"+(k+1)).setAttribute("href",navigationData.games.playlist[k].game_path);
-                    document.getElementById("GOK_playlist_"+(k+1)).innerText=navigationData.games.playlist[k].title;
-                    document.getElementById("GOK_playlist_"+(k+1)).style.display="";
+                document.getElementById("GOK_playlist").setAttribute("href",navigationData.user.playlist_path);
+                var p=navigationData.games.playlist.length;
+                if(p>0){
+                    document.getElementById("GOK_no_playlist").style.display="none";
+                    document.getElementById("GOK_playlist_1").style.display="";
+                    document.getElementById("GOK_playlist_1_image").setAttribute("src",navigationData.games.playlist[0].icon_path);
+                    document.getElementById("GOK_playlist_1_name").innerText=navigationData.games.playlist[0].title;
+                    document.getElementById("GOK_playlist_1").setAttribute("href",navigationData.games.playlist[0].game_path);
+                    for(let k=1; k<p; k++){
+                        document.getElementById("GOK_playlist_"+(k+1)).setAttribute("href",navigationData.games.playlist[k].game_path);
+                        document.getElementById("GOK_playlist_"+(k+1)).innerText=navigationData.games.playlist[k].title;
+                        document.getElementById("GOK_playlist_"+(k+1)).style.display="";
+                    }
                 }
+                else{ document.getElementById("GOK_no_playlist_text").innerText="Add games to play them later."; }
             }
         }
         else if(A){ setTimeout(function(B){ fill_games_tab(B); },1000, A-1); }
