@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    http://tampermonkey.net/
-// @version      0.73
+// @version      0.74
 // @description  Gone but not forgotten
 // @author       Fancy2209, Matrix4348
 // @match         *://www.kongregate.com/*
@@ -134,6 +134,14 @@ function replace_css(){
         else if(n.href.search("application-")>-1 && n.getAttribute("data-turbo-track")=="reload"){
             n.remove();
         }
+    }
+}
+
+function replace_favicon(){
+    var I=document.head.getElementsBySelector('link[rel="icon"]');
+    for(let i of I){
+        if(i.type=="image/svg+xml"){ i.href = "https://github.com/Fancy2209/Good-Old-Kongregate/raw/main/Icon/icon.svg"; }
+        else{ i.href = "https://raw.githubusercontent.com/Fancy2209/Good-Old-Kongregate/main/Icon/kong.png"; }
     }
 }
 
@@ -2888,6 +2896,7 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                                 TimeToLogin();
                                 fill_games_tab(50);
                                 replace_css();
+                                replace_favicon();
                             }
                             else if(v1==1 && node.tagName=="K-NAVBAR"){
                                 node.remove();
@@ -2901,23 +2910,13 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                                 node.parentElement.insertBefore(n, node);
                                 node.remove();
                             }
-                            else if (v3==0 && node.tagName=="LINK" && node.rel=="icon" && node.type=="image/svg+xml"){
+                            else if (v3==0 && 0==1){
                                 v3=1;
-                                node.remove();
-                                var customIcon = document.createElement('link');
-                                customIcon.type = 'image/svg+xml';
-                                customIcon.rel = 'icon';
-                                customIcon.href = 'https://github.com/Fancy2209/Good-Old-Kongregate/raw/main/Icon/icon.svg';
-                                document.head.appendChild(customIcon);
+                                // FREE
                             }
-                            else if (v4==0 && node.tagName=="LINK" && node.rel=="icon"){
+                            else if (v4==0 && 0==1){
                                 v4=1;
-                                node.remove();
-                                var customFavicon = document.createElement('link');
-                                customFavicon.type = 'image/png';
-                                customFavicon.rel = 'icon';
-                                customFavicon.href = 'https://raw.githubusercontent.com/Fancy2209/Good-Old-Kongregate/main/Icon/kong.png'; // Replace with the URL of your custom favicon
-                                document.head.appendChild(customFavicon);
+                                // FREE
                             }
                             else if(v5==0 && node.id=="floating_game_holder"){ // MORE WORK NEEDED TO FIX CHANGEs FROM DECEMBER 14TH!
                                 v5=1;
