@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    http://tampermonkey.net/
-// @version      0.72
+// @version      0.73
 // @description  Gone but not forgotten
 // @author       Fancy2209, Matrix4348
 // @match         *://www.kongregate.com/*
@@ -2919,9 +2919,9 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                                 customFavicon.href = 'https://raw.githubusercontent.com/Fancy2209/Good-Old-Kongregate/main/Icon/kong.png'; // Replace with the URL of your custom favicon
                                 document.head.appendChild(customFavicon);
                             }
-                            else if(v5==0 && 0==1){
+                            else if(v5==0 && node.id=="floating_game_holder"){ // MORE WORK NEEDED TO FIX CHANGEs FROM DECEMBER 14TH!
                                 v5=1;
-                                // FREE
+                                document.getElementById("floating_game_holder").parentNode.style.backgroundColor="#2b2b2b";
                             }
                             else if(v6==0 && 0==1){
                                 v6=1;
