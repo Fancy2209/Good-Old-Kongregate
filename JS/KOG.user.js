@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    http://tampermonkey.net/
-// @version      0.74
+// @version      0.75
 // @description  Gone but not forgotten
 // @author       Fancy2209, Matrix4348
 // @match         *://www.kongregate.com/*
@@ -13,6 +13,9 @@
 
 function TimeToLogin(){
     function updatePlaylist() {
+        if(!active_user.playLatersCount){
+            active_user.playLatersCount=function(){ return 0; }
+        }
         var e = active_user.playLatersCount();
         $$(".play-laters-count-link").each(function (t) {
             (t.title = e + " games in your playlist."), t.down(".play-laters-count").update(e);
@@ -92,7 +95,7 @@ function fill_games_tab(A){
                     document.getElementById("GOK_recently_played_"+(k+1)).style.display="";
                 }
             }
-            document.getElementById("GOK_playlist").setAttribute("href",navigationData.user.playlist_path);
+            /*document.getElementById("GOK_playlist").setAttribute("href",navigationData.user.playlist_path);
             var p=navigationData.games.playlist.length;
             if(p>0){
                 document.getElementById("GOK_no_playlist").style.display="none";
@@ -106,7 +109,7 @@ function fill_games_tab(A){
                     document.getElementById("GOK_playlist_"+(k+1)).style.display="";
                 }
             }
-            else{ document.getElementById("GOK_no_playlist_text").innerText="Add games to play them later."; }
+            else{ document.getElementById("GOK_no_playlist_text").innerText="Add games to play them later."; }*/
         }
     }
     else if(A){ setTimeout(function(B){ fill_games_tab(B); },1000, A-1); }
