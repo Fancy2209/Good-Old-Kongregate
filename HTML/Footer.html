@@ -1,0 +1,132 @@
+
+<div class="kongregate-logo mbl"><a class="spriteall spritesite kongregate-logo" href="https://www.kongregate.com/">Kongregate</a></div>
+<div class="line">
+<div class="unit size1of2">
+  <div class="prs">
+    <div class="line footer_links">
+      <div class="unit size1of3">
+        <ul>
+          <li>
+            <a href="https://www.facebook.com/kongregate">Be a Facebook Fan</a>
+            <a class="icon" href="https://www.facebook.com/kongregate">
+              <span class="spriteall spritesite facebook_icon"></span>
+</a>            </li>
+          <li>
+            <a href="http://www.twitter.com/kongregate">Follow Us on Twitter</a>
+            <a class="icon" href="http://www.twitter.com/kongregate">
+              <span class="spriteall spritesite twitter_icon"></span>
+</a>            </li>
+          <li><a href="https://www.kongregate.com/pages/about">About Us</a></li>
+          <li><a href="https://www.kongregate.com/feedbacks/new">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="unit size1of3">
+        <ul class="mhm">
+          <li><a target="_blank" href="https://kong.zendesk.com/hc">Help/FAQ</a></li>
+          <li><a href="https://www.kongregate.com/pages/conduct">Conduct Guidelines</a></li>
+          <li><a href="https://www.kongregate.com/pages/terms">Terms of Service</a></li>
+          <li><a href="https://www.kongregate.com/pages/privacy">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="unit size1of3 lastUnit">
+        <ul>
+          <li><a href="https://www.kongregate.com/games_for_your_site">Games for Your Site</a></li>
+          <li><a href="https://www.kongregate.com/pages/logos-and-branding">Link to Kongregate</a></li>
+          <li><a href="https://www.kongregate.com/pages/jobs">Job Opportunities</a></li>
+          <li><a class="developer_icon spritesite" href="https://www.kongregate.com/games/new">Upload your Game</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <dl class="mtl footer_lang_selector">
+<dt><strong>Language:</strong></dt>
+  <dd class="selector-locale-fr"><a href="https://www.kongregate.com/?set_locale=true" data-lang="fr">Français</a></dd>
+  <dd class="selected-locale-fr" style="display:none;"><strong><span class="flag_ico fr_lang spritesite"></span>Français</strong></dd>
+  <dd class="selector-locale-en-US" style="display: none;"><a href="https://www.kongregate.com/?set_locale=true" data-lang="en-US">English</a></dd>
+  <dd class="selected-locale-en-US"><strong><span class="flag_ico en-US_lang spritesite"></span>English</strong></dd>
+  <dd class="selector-locale-de"><a href="https://www.kongregate.com/?set_locale=true" data-lang="de">Deutsch</a></dd>
+  <dd class="selected-locale-de" style="display:none;"><strong><span class="flag_ico de_lang spritesite"></span>Deutsch</strong></dd>
+</dl>
+
+<script>
+//<![CDATA[
+$j( document ).ready(function() {
+    if(active_user.getsNoTranslations()) return;
+
+    Kongregate.languages = [];
+
+      Kongregate.languages.push({'language': 'Français', 'locale': 'fr', 'default': false});
+      Kongregate.languages.push({'language': 'English', 'locale': 'en-US', 'default': true});
+      Kongregate.languages.push({'language': 'Deutsch', 'locale': 'de', 'default': false});
+
+     $j('.footer_lang_selector').show();
+     $j.each(Kongregate.languages, function(index, value){
+      if(active_user.currentLocale() == value.locale) {
+         $j('.selector-locale-' + value.locale).hide();
+         $j('.selected-locale-' + value.locale).show();
+      }
+    });
+
+    $j('[class^="selector-locale"] a').each(function(){
+      var lang = $j(this).data().lang;
+      var origin = $j(location)[0].protocol + "//" + $j(location)[0].host;
+      var pathname = $j(location)[0].pathname;
+      var queryString = $j(location)[0].search;
+      var anchor = $j(location)[0].hash;
+
+      lang = ((lang == 'en-US') ? '' : '/' + lang);
+
+      if (queryString.indexOf('set_locale=true') == -1) {
+        queryString += ((queryString.length > 0) ? '&' : '?') + 'set_locale=true';
+      }
+
+      var processed = false;
+
+       $j.each(Kongregate.languages, function(index, value){
+        if ((!value['default']) && (pathname.indexOf('/' + value.locale) == 0) && (!processed)) {
+          pathname = pathname.substring(('/' + value.locale).length, pathname.length);
+          processed = true;
+        }
+      });
+
+      if (page_data.create_error) {
+        pathname = pathname + '/new';
+      }
+
+      var url = origin + lang + pathname + queryString + anchor;
+
+      this.href = url;
+    });
+});
+
+//]]>
+</script>
+</div>
+<div class="unit size1of2 lastUnit">
+  <div class="plm">
+    <h4 class="h4 mbs"><a href="#" onclick="lightbox.prototype.initializePremiumMembershipPurchase('footer'); return false;">Kong Plus</a></h4>
+    <div class="media mbm pbm">
+      <a class="spriteall spritesite large_kong_plus_icon img mts" data-test="footer-kplus-ico" href="#" onclick="lightbox.prototype.initializePremiumMembershipPurchase('footer'); return false;">Kong Plus</a>
+      <p class="bd">
+        Get more out of your Kongregate experience.  Take advantage of ad-free gaming, cool profile skins, automatic beta access, and private chat with Kong Plus.
+        <a href="#" onclick="lightbox.prototype.initializePremiumMembershipPurchase('footer'); return false;">Learn more »</a>
+      </p>
+    </div>
+  </div>
+</div>
+</div>
+
+<a class="dev-footer-upsell" href="http://developers.kongregate.com/">
+<span class="logo textreplace">Kongregate Develoeprs</span>
+<span class="message">Are you a game developer? Visit our <em>Developers Site</em> where you can find documentation on our APIs and more information about publishing opportunities to further promote your game.</span>
+<span class="link textreplace">Learn More</span>
+</a>
+<ul class="footer_sub clearfix">
+<li class="kongregate_copyright">
+  <span>© 2023 </span>
+  <a class="spriteall spritesite" href="https://www.kongregate.com/">Kongregate</a>
+</li>
+<li class="footer_mtg--logo spritesite textreplace">An MTG company</li>
+</ul>
+
+</div>
