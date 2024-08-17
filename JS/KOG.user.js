@@ -1,11 +1,10 @@
 // ==UserScript==
 // @name         Good Old Kongregate
-// @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  Gone but not forgotten
 // @author       Fancy2209, Matrix4348
 // @match        *://www.kongregate.com/*
-// @icon         https://cdn1.kongcdn.com/compiled-assets/favicos/favico-196-de563d6c4856efb7ac5060666510e5e50b2382593b724b802a6c6c53c1971e8c.png
+// @icon         https://matrix4348.github.io/logos/kongregate.png
 // @grant        GM_info
 // @grant        GM_getValue
 // @grant        GM_setValue
@@ -24,11 +23,13 @@ if( typeof(GM_unregisterMenuCommand)=="undefined" ){ GM_unregisterMenuCommand=fu
 
 var unsupported_pages = [
     // Use (|/fr|/de) after .com in order to take localized pages into account.
-    // Notes: . is a wildcard for one character, (?!X) means "only if not followed by X", (.*?) means anything
+    // Notes: . is a wildcard for one character, *represents several occurences of what if follows, (?!X) means "only if not followed by X", (.*?) means anything.
+    // Note: (\[A-Za-z0-9_\]) means anything that is a latin letter, arabic digit or underscore.
     "www.kongregate.com(|/fr|/de)/achievements",
     "www.kongregate.com(|/fr|/de)/search",
     "www.kongregate.com(|/fr|/de)/games(?!/.)",
-    "www.kongregate.com((?!/games/)|/fr(?!/games/)|/de(?!/games/))/(.*?)-games", // Target: pages like https://www.kongregate.com/puzzle-games. Use of (?!/games/) because game names could end by "-games" or " games".
+    "www.kongregate.com((?!/games/)|/fr(?!/games/)|/de(?!/games/))/(.*?)-games", // Targets: pages like https://www.kongregate.com/puzzle-games. Use of (?!/games/) because game names could end by "-games" or " games".
+    "www.kongregate.com(|/fr|/de)/games/(\[A-Za-z0-9_\]*)/?(?!.)", // Targets: www.kongregate.com/games/dev and www.kongregate.com/games/dev/ but not www.kongregate.com/games/dev/game
 ];
 
 function is_unsupported(){
@@ -103,10 +104,8 @@ function TimeToLogin(){
     if(go){
         var e = active_user.getAttributes();
         updateFriendInfo(t), updatePlaylist(), updateFavorites();
-        //var n = new Element("img").writeAttribute({ id: "welcome_box_small_user_avatar", src: e.avatar_url, title: e.username, name: "user_avatar", alt: "Avatar for " + e.username, height: 28, width: 28 });
         var n = document.createElement("img"); n.id = "welcome_box_small_user_avatar"; n.src = e.avatar_url; n.title = e.username; n.name = "user_avatar"; n.alt = "Avatar for " + e.username; n.height = 28; n.width = 28;
         t.down("span#small_avatar_placeholder").update(n),
-        //document.getElementById("small_avatar_placeholder").update(n),
             t.select(".facebook_nav_item").each(function (e) { active_user.isFacebookConnected() && e.hide(); }),
             $("mini-profile-level").writeAttribute({ class: "spritesite levelbug level_" + e.level, title: "Level " + e.level }),
             active_user.populateUserSpecificLinks(t),
