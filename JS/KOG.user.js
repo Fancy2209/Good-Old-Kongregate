@@ -1,15 +1,72 @@
 // ==UserScript==
 // @name         Good Old Kongregate
-// @namespace    http://tampermonkey.net/
-// @version      0.75
+// @version      1.0
 // @description  Gone but not forgotten
 // @author       Fancy2209, Matrix4348
-// @match         *://www.kongregate.com/*
-// @icon         https://cdn1.kongcdn.com/compiled-assets/favicos/favico-196-de563d6c4856efb7ac5060666510e5e50b2382593b724b802a6c6c53c1971e8c.png
-// @grant        none
+// @match        *://www.kongregate.com/*
+// @icon         https://matrix4348.github.io/logos/kongregate.png
+// @grant        GM_info
+// @grant        GM_getValue
+// @grant        GM_setValue
+// @grant        GM_registerMenuCommand
+// @grant        GM_unregisterMenuCommand
 // @run-at       document-start
-// @require      https://code.jquery.com/jquery-1.9.1.js
 // ==/UserScript==
+
+// Various GM_* functions disappeared in Greasemonkey 4 (which is the Greasemonkey for modern Firefox), so we will define them as useless functions so the script does not break.
+// I chose not to make them work in Greasemonkey 4 because the workaround (which is NOT hard to implement) would force us to use async functions in some places. This would, in my opinion, needlessly complexify
+// the code.
+if( typeof(GM_getValue)=="undefined" ){ GM_getValue=function(a,b){ return b; }; }
+if( typeof(GM_setValue)=="undefined" ){ GM_setValue=function(){}; }
+if( typeof(GM_registerMenuCommand)=="undefined" ){ GM_registerMenuCommand=function(){}; }
+if( typeof(GM_unregisterMenuCommand)=="undefined" ){ GM_unregisterMenuCommand=function(){}; }
+
+var unsupported_pages = [
+    // Use (|/fr|/de) after .com in order to take localized pages into account.
+    // Notes: . is a wildcard for one character, *represents several occurences of what if follows, (?!X) means "only if not followed by X", (.*?) means anything.
+    // Note: (\[A-Za-z0-9_\]) means anything that is a latin letter, arabic digit or underscore.
+    "www.kongregate.com(|/fr|/de)/achievements",
+    "www.kongregate.com(|/fr|/de)/search",
+    "www.kongregate.com(|/fr|/de)/games(?!/.)",
+    "www.kongregate.com((?!/games/)|/fr(?!/games/)|/de(?!/games/))/(.*?)-games", // Targets: pages like https://www.kongregate.com/puzzle-games. Use of (?!/games/) because game names could end by "-games" or " games".
+    "www.kongregate.com(|/fr|/de)/games/(\[A-Za-z0-9_\]*)/?(?!.)", // Targets: www.kongregate.com/games/dev and www.kongregate.com/games/dev/ but not www.kongregate.com/games/dev/game
+];
+
+function is_unsupported(){
+    var url=document.location.href;
+    for(let p of unsupported_pages){
+        if(url.search(p)>-1){ return true; }
+    }
+    return false;
+}
+
+function PutWarningOnUnsupportedPages(A){
+    if(typeof(document.body?.firstElementChild)!="undefined" && is_unsupported()){
+        var d=document.createElement("div");
+        d.style.textAlign="center";
+        d.style.margin="5px";
+        d.style.fontSize="12px";
+        d.style.fontStyle="italic";
+        var nv=(GM_info.scriptHandler+GM_info.version).toLowerCase().substring(0,13);
+        var good, bad;
+        good="<b>Good Old Kongregate is partly disabled by default on this page because some of its features might completely break it. However, you can toggle the full user script on and off on unsupported pages from the "+GM_info.scriptHandler+" menu (click the extension icon or right click the page).</b>";
+        bad="<b>Good Old Kongregate is partly disabled by default on this page because some of its features might completely break it.</b>"; // Reminder: on Greasemonkey 4, most GM_ functions do not work.
+        d.innerHTML= nv=="greasemonkey4" ? bad : good;
+        document.body.insertBefore(d,document.body.firstElementChild);
+    }
+    else if(A){ setTimeout(function(B){ PutWarningOnUnsupportedPages(B); },1000, A-1); }
+}
+
+function toggle_command(){
+    var x = { true: "Disable Good Old Kongregate on unsupported pages", false:"Enable Good Old Kongregate on unsupported pages" };
+    var e = GM_getValue("enable_on_unsupported",false);
+    GM_unregisterMenuCommand(x[e]);
+    GM_registerMenuCommand(x[!e],toggle_command,{id:x[!e],autoClose:false});
+    GM_setValue("enable_on_unsupported",!e);
+}
+
+var x = { true: "Disable Good Old Kongregate on unsupported pages", false:"Enable Good Old Kongregate on unsupported pages" };
+GM_registerMenuCommand(x[GM_getValue("enable_on_unsupported",false)],toggle_command,{id:x[GM_getValue("enable_on_unsupported",false)],autoClose:false});
 
 function TimeToLogin(){
     function updatePlaylist() {
@@ -47,7 +104,7 @@ function TimeToLogin(){
     if(go){
         var e = active_user.getAttributes();
         updateFriendInfo(t), updatePlaylist(), updateFavorites();
-        var n = new Element("img").writeAttribute({ id: "welcome_box_small_user_avatar", src: e.avatar_url, title: e.username, name: "user_avatar", alt: "Avatar for " + e.username, height: 28, width: 28 });
+        var n = document.createElement("img"); n.id = "welcome_box_small_user_avatar"; n.src = e.avatar_url; n.title = e.username; n.name = "user_avatar"; n.alt = "Avatar for " + e.username; n.height = 28; n.width = 28;
         t.down("span#small_avatar_placeholder").update(n),
             t.select(".facebook_nav_item").each(function (e) { active_user.isFacebookConnected() && e.hide(); }),
             $("mini-profile-level").writeAttribute({ class: "spritesite levelbug level_" + e.level, title: "Level " + e.level }),
@@ -62,11 +119,12 @@ function TimeToLogin(){
              0 !== active_user.unreadWhispersCount()
              ? $("my-messages-link").setAttribute("href", "/accounts/" + active_user.username() + "/private_messages")
              : 0 !== active_user.unreadGameMessagesCount() && $("my-messages-link").setAttribute("href", "/accounts/" + active_user.username() + "/game_messages")),
-            null !== active_user.chipsBalance() , ($("blocks_balance").update(active_user.chipsBalance()), $("blocks").show()),
+            null !== active_user.chipsBalance(),
+            ($("blocks_balance").update(active_user.chipsBalance()), $("blocks").show()),
             $("guest_user_welcome_content").hide(),
             $("nav_welcome_box").show();
     }
-    else{ setTimeout(function(){ TimeToLogin(); },10000); }
+    else{ setTimeout(function(){ TimeToLogin(); },1); }
 }
 
 function ReopenChat(A){
@@ -115,11 +173,11 @@ function fill_games_tab(A){
     else if(A){ setTimeout(function(B){ fill_games_tab(B); },1000, A-1); }
 }
 
-function replace_css(){
+function replace_css(remove_new){
     var N=document.head.getElementsBySelector('link[rel="stylesheet"]');
     for(let n of N){
         if(n.href.search("gamepage_merged")>-1 && n.getAttribute("data-turbo-track")=="reload"){
-            n.remove();
+            if(remove_new){ n.remove(); }
             let goodKongCSS = document.createElement('link');
             goodKongCSS.rel = 'stylesheet';
             goodKongCSS.setAttribute('data-turbo-track', 'reload');
@@ -127,7 +185,7 @@ function replace_css(){
             document.head.appendChild(goodKongCSS);
         }
         else if(n.href.search("application_merged")>-1 && n.getAttribute("data-turbo-track")=="reload"){
-            n.remove();
+            if(remove_new){ n.remove(); }
             let goodKongCSS = document.createElement('link');
             goodKongCSS.rel = 'stylesheet';
             goodKongCSS.setAttribute('data-turbo-track', 'reload');
@@ -135,7 +193,7 @@ function replace_css(){
             document.head.appendChild(goodKongCSS);
         }
         else if(n.href.search("application-")>-1 && n.getAttribute("data-turbo-track")=="reload"){
-            n.remove();
+            if(remove_new){ n.remove(); }
         }
     }
 }
@@ -149,6 +207,7 @@ function replace_favicon(){
 }
 
 function ThingsToDoAtTheEnd(){
+    PutWarningOnUnsupportedPages(50);
     ReopenChat(50);
 };
 
@@ -763,7 +822,7 @@ $j( document ).ready(function() {
 </a>
 <ul class="footer_sub clearfix">
 <li class="kongregate_copyright">
-  <span>© 2023 </span>
+  <span>© 2024 </span>
   <a class="spriteall spritesite" href="https://www.kongregate.com/">Kongregate</a>
 </li>
 <li class="footer_mtg--logo spritesite textreplace">An MTG company</li>
@@ -864,51 +923,7 @@ kong_ads.displayAd("kong_home_af_728x90");}
   <li class="prev"></li>
   <li class="next mls"></li>
 </ol>
-<ul class="home_feat_items">
-        <li data-guest-only="false" data-country-code="non_targeted" data-locale="global" class="home_feat_item featured_content">
-  <style> .fr-template-1layer-bg-Kreds { background:#F5BF41 url('https://cdn3.kongcdn.com/assets/files/0002/8834/KONG_Offerwall_2XCopy_FeatureRoll_2880x650_en_none.png') no-repeat 0 50%; } </style> <div class="copy click_box"> <h3 class="textreplace">Kreds</h3> <a href="https://www.kongregate.com/kreds?haref=FR_Kreds" target="_blank" class="click_link">Play Now!</a> </div> <div class="bg fr-template-1layer-bg-Kreds"></div>
-</li>
-
-        <li data-guest-only="false" data-country-code="non_targeted" data-locale="global" class="home_feat_item featured_content">
-  <style> .fr-template-1layer-bg-RaidHeroesTotalWar { background:#121721 url('https://cdn3.kongcdn.com/assets/files/0002/8818/RHTW.png') no-repeat 0 50%; } </style> <div class="copy click_box"> <h3 class="textreplace">RaidHeroesTotalWar</h3> <a href="https://www.kongregate.com/games/thekastudio/raid-heroes-total-war?haref=FR_RaidHeroesTotalWar" target="_blank" class="click_link">Play Now!</a> </div> <div class="bg fr-template-1layer-bg-RaidHeroesTotalWar"></div>
-</li>
-
-        <li data-guest-only="false" data-country-code="non_targeted" data-locale="global" class="home_feat_item featured_content">
-  <style> .fr-template-1layer-bg-DungeonCrusherSoulHunters { background:#311B3E url('https://cdn1.kongcdn.com/assets/files/0002/8819/DC.png') no-repeat 0 50%; } </style> <div class="copy click_box"> <h3 class="textreplace">DungeonCrusherSoulHunters</h3> <a href="https://www.kongregate.com/games/towardsmars/dungeon-crusher-soul-hunters?haref=FR_DungeonCrusherSoulHunters" target="_blank" class="click_link">Play Now!</a> </div> <div class="bg fr-template-1layer-bg-DungeonCrusherSoulHunters"></div>
-</li>
-
-        <li data-guest-only="false" data-country-code="non_targeted" data-locale="global" class="home_feat_item featured_content">
-  <style> .fr-template-1layer-bg-FirestoneIdleRPG { background:#301D48 url('https://cdn4.kongcdn.com/assets/files/0002/8817/kongregateFeaturedBannerHalloween.png') no-repeat 0 50%; } </style> <div class="copy click_box"> <h3 class="textreplace">FirestoneIdleRPG</h3> <a href="https://www.kongregate.com/games/HolydayStudios/firestone?haref=FR_FirestoneIdleRPG" target="_blank" class="click_link">Play Now!</a> </div> <div class="bg fr-template-1layer-bg-FirestoneIdleRPG"></div>
-
-</li>
-
-        <li data-guest-only="false" data-country-code="non_targeted" data-locale="global" class="home_feat_item featured_content">
-  <style> .fr-template-1layer-bg-MedievalChronicles7 { background:#C34C46 url('https://cdn1.kongcdn.com/assets/files/0002/8839/SUN_HD.png') no-repeat 0 50%; } </style> <div class="copy click_box"> <h3 class="textreplace"> MedievalChronicles7 </h3> <a href="https://www.kongregate.com/games/VasantJ/medieval-chronicles-7?haref=FR_ MedievalChronicles7" target="_blank" class="click_link">Play Now!</a> </div> <div class="bg fr-template-1layer-bg-MedievalChronicles7"></div>
-</li>
-
-        <li data-guest-only="false" data-country-code="non_targeted" data-locale="global" class="home_feat_item featured_content focus">
-  <style> .fr-template-1layer-bg-Discord { background:#202939 url('https://cdn1.kongcdn.com/assets/files/0002/8802/frankongstein_feature_roll.png') no-repeat 0 50%; } </style> <div class="copy click_box"> <h3 class="textreplace">Discord</h3> <a href="https://discord.gg/Kongregate" target="_blank" class="click_link">Create a Kongpanion and share with our community!</a> </div> <div class="bg fr-template-1layer-bg-Discord"></div>
-</li>
-
-        <li data-guest-only="false" data-country-code="non_targeted" data-locale="global" class="home_feat_item featured_content">
-  <style> .fr-template-1layer-bg-BHQ { background:#1B0D28 url('https://cdn2.kongcdn.com/assets/files/0002/8821/getspookywithbhq_banner.png') no-repeat 0 50%; } </style> <div class="copy click_box"> <h3 class="textreplace">BHQ</h3> <a href="https://www.kongregate.com/games/Juppiomenz/bit-heroes?haref=FR_BHQ" target="_blank" class="click_link">Play Now!</a> </div> <div class="bg fr-template-1layer-bg-BHQ"></div>
-</li>
-
-        <li data-guest-only="false" data-country-code="non_targeted" data-locale="global" class="home_feat_item featured_content">
-  <style> .fr-template-1layer-bg-AnimationThrowdown { background:#A1D6EF url('https://cdn3.kongcdn.com/assets/files/0002/8810/AT_FeatureRoll_2880X650.png') no-repeat 0 50%; } </style> <div class="copy click_box"> <h3 class="textreplace">AnimationThrowdown</h3> <a href="https://www.kongregate.com/games/Throwdown/animation-throwdown?haref=FR_AnimationThrowdown" target="_blank" class="click_link">Play Now!</a> </div> <div class="bg fr-template-1layer-bg-AnimationThrowdown"></div>
-</li>
-
-        <li data-guest-only="false" data-country-code="non_targeted" data-locale="global" class="home_feat_item featured_content">
-  <style> .fr-template-1layer-bg-MergestKingdom { background:#7275AF url('https://cdn3.kongcdn.com/assets/files/0002/8822/2280x650_kingdom.jpg') no-repeat 0 50%; } </style> <div class="copy click_box"> <h3 class="textreplace">MergestKingdom</h3> <a href="https://www.kongregate.com/games/CleverApps/mergest-kingdom?haref=FR_MergestKingdom" target="_blank" class="click_link">Play Now!</a> </div> <div class="bg fr-template-1layer-bg-MergestKingdom"></div>
-</li>
-
-        <li data-guest-only="false" data-country-code="non_targeted" data-locale="global" class="home_feat_item featured_content">
-  <style> .fr-template-1layer-bg-Vinterget { background:#7D8A9F url('https://cdn2.kongcdn.com/assets/files/0002/8816/KongregatePic__1_.png') no-repeat 0 50%; } </style> <div class="copy click_box"> <h3 class="textreplace">Vinterget</h3> <a href="https://www.kongregate.com/games/ailwuful/vinterget?haref=FR_Vinterget" target="_blank" class="click_link">Play Now!</a> </div> <div class="bg fr-template-1layer-bg-Vinterget"></div>
-</li>
-
-
-
-  </ul>
+<ul class="home_feat_items"></ul>
 </div>
 
   <!-- Pod Container Start -->
@@ -2898,11 +2913,13 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                                 node.remove();
                                 TimeToLogin();
                                 fill_games_tab(50);
-                                replace_css();
+                                replace_css(!is_unsupported() || GM_getValue("enable_on_unsupported",false));
                                 replace_favicon();
                             }
                             else if(v1==1 && node.tagName=="K-NAVBAR"){
                                 node.remove();
+                                // Note: sitewide_javascripts will raise the following exception: Uncaught TypeError: t(...).parentNode is null
+                                // This does not seem to cause any issue besides polluting the console.
                             }
                             else if(v2==0 && node.id=="footer" && node.tagName=="K-FOOTER"){
                                 v2=1;
@@ -2938,9 +2955,11 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                                 let pw=document.createElement("div");
                                 pw.id="primarywrap";
                                 pw.addClassName("divider");
+                                let banners=node.getElementsByClassName("home_feat_items")[0].innerHTML;
                                 pw.innerHTML=homepage_primarywrap;
                                 node.parentElement.insertBefore(pw, node);
                                 node.remove();
+                                document.getElementsByClassName("home_feat_items")[0].innerHTML=banners;
                             }
                             else if(v9==0 && node==document.body && document.getElementById("home")){
                                 v9=1;
@@ -2949,7 +2968,9 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                             }
                             else if(v10==0 && (node.src||"").search("konstruct.min.js")>-1){
                                 v10=1;
-                                node.remove();
+                                if( !is_unsupported() || GM_getValue("enable_on_unsupported",false) ){
+                                    node.remove();
+                                }
                             }
                         }
                     }
