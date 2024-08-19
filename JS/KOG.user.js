@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
-// @version      1.0
+// @namespace    https://greasyfork.org/users/1206953
+// @version      1.1
 // @description  Gone but not forgotten
 // @author       Fancy2209, Matrix4348
 // @match        *://www.kongregate.com/*
@@ -2901,77 +2902,73 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
     var callback = (mutationList, observer) => {
         for (let mutation of mutationList) {
             for(let node of mutation.addedNodes){
-                for (let mutation of mutationList) {
-                    if (mutation.type === 'childList') {
-                        for(let node of mutation.addedNodes){
-                            if(v1==0 && node.tagName=="K-NAVBAR"){
-                                v1=1;
-                                let n=document.createElement("div");
-                                n.id="headerwrap";
-                                n.innerHTML = headerWrap;
-                                node.parentElement.insertBefore(n, node);
-                                node.remove();
-                                TimeToLogin();
-                                fill_games_tab(50);
-                                replace_css(!is_unsupported() || GM_getValue("enable_on_unsupported",false));
-                                replace_favicon();
-                            }
-                            else if(v1==1 && node.tagName=="K-NAVBAR"){
-                                node.remove();
-                                // Note: sitewide_javascripts will raise the following exception: Uncaught TypeError: t(...).parentNode is null
-                                // This does not seem to cause any issue besides polluting the console.
-                            }
-                            else if(v2==0 && node.id=="footer" && node.tagName=="K-FOOTER"){
-                                v2=1;
-                                let n=document.createElement("div");
-                                n.id="footer";
-                                n.addClassName("clearfix");
-                                n.innerHTML = footer;
-                                node.parentElement.insertBefore(n, node);
-                                node.remove();
-                            }
-                            else if (v3==0 && 0==1){
-                                v3=1;
-                                // FREE
-                            }
-                            else if (v4==0 && 0==1){
-                                v4=1;
-                                // FREE
-                            }
-                            else if(v5==0 && node.id=="floating_game_holder"){ // MORE WORK NEEDED TO FIX CHANGEs FROM DECEMBER 14TH!
-                                v5=1;
-                                document.getElementById("floating_game_holder").parentNode.style.backgroundColor="#2b2b2b";
-                            }
-                            else if(v6==0 && 0==1){
-                                v6=1;
-                                // FREE
-                            }
-                            else if(v7==0 && 0==1){
-                                v7=1;
-                                // FREE
-                            }
-                            else if(v8==0 && document.URL=="https://www.kongregate.com/" && node.tagName=="MAIN"){
-                                v8=1;
-                                let pw=document.createElement("div");
-                                pw.id="primarywrap";
-                                pw.addClassName("divider");
-                                let banners=node.getElementsByClassName("home_feat_items")[0].innerHTML;
-                                pw.innerHTML=homepage_primarywrap;
-                                node.parentElement.insertBefore(pw, node);
-                                node.remove();
-                                document.getElementsByClassName("home_feat_items")[0].innerHTML=banners;
-                            }
-                            else if(v9==0 && node==document.body && document.getElementById("home")){
-                                v9=1;
-                                node.classList.remove('lang_other', 'lang_en');
-                                node.classList.add('new_home', 'no_subwrap', 'grid960');
-                            }
-                            else if(v10==0 && (node.src||"").search("konstruct.min.js")>-1){
-                                v10=1;
-                                if( !is_unsupported() || GM_getValue("enable_on_unsupported",false) ){
-                                    node.remove();
-                                }
-                            }
+                if (mutation.type === 'childList') {
+                    if(v1==0 && node.tagName=="K-NAVBAR"){
+                        v1=1;
+                        let n=document.createElement("div");
+                        n.id="headerwrap";
+                        n.innerHTML = headerWrap;
+                        node.parentElement.insertBefore(n, node);
+                        node.remove();
+                        TimeToLogin();
+                        fill_games_tab(50);
+                        replace_css(!is_unsupported() || GM_getValue("enable_on_unsupported",false));
+                        replace_favicon();
+                    }
+                    else if(v1==1 && node.tagName=="K-NAVBAR"){
+                        node.remove();
+                        // Note: sitewide_javascripts will raise the following exception: Uncaught TypeError: t(...).parentNode is null
+                        // This does not seem to cause any issue besides polluting the console.
+                    }
+                    else if(v2==0 && node.id=="footer" && node.tagName=="K-FOOTER"){
+                        v2=1;
+                        let n=document.createElement("div");
+                        n.id="footer";
+                        n.addClassName("clearfix");
+                        n.innerHTML = footer;
+                        node.parentElement.insertBefore(n, node);
+                        node.remove();
+                    }
+                    else if (v3==0 && 0==1){
+                        v3=1;
+                        // FREE
+                    }
+                    else if (v4==0 && 0==1){
+                        v4=1;
+                        // FREE
+                    }
+                    else if(v5==0 && node.id=="floating_game_holder"){ // MORE WORK NEEDED TO FIX CHANGEs FROM DECEMBER 14TH!
+                        v5=1;
+                        document.getElementById("floating_game_holder").parentNode.style.backgroundColor="#2b2b2b";
+                    }
+                    else if(v6==0 && 0==1){
+                        v6=1;
+                        // FREE
+                    }
+                    else if(v7==0 && 0==1){
+                        v7=1;
+                        // FREE
+                    }
+                    else if(v8==0 && document.URL=="https://www.kongregate.com/" && node.tagName=="MAIN"){
+                        v8=1;
+                        let pw=document.createElement("div");
+                        pw.id="primarywrap";
+                        pw.addClassName("divider");
+                        let banners=node.getElementsByClassName("home_feat_items")[0].innerHTML;
+                        pw.innerHTML=homepage_primarywrap;
+                        node.parentElement.insertBefore(pw, node);
+                        node.remove();
+                        document.getElementsByClassName("home_feat_items")[0].innerHTML=banners;
+                    }
+                    else if(v9==0 && node==document.body && document.getElementById("home")){
+                        v9=1;
+                        node.classList.remove('lang_other', 'lang_en');
+                        node.classList.add('new_home', 'no_subwrap', 'grid960');
+                    }
+                    else if(v10==0 && (node.src||"").search("konstruct.min.js")>-1){
+                        v10=1;
+                        if( !is_unsupported() || GM_getValue("enable_on_unsupported",false) ){
+                            node.remove();
                         }
                     }
                 }
