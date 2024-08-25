@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    https://greasyfork.org/users/1206953
-// @version      1.2
+// @version      1.3
 // @description  Gone but not forgotten
 // @author       Fancy2209, Matrix4348
 // @match        *://www.kongregate.com/*
@@ -98,7 +98,7 @@ function TimeToLogin(){
         });
     }
 
-    var go=0, t = $("welcome");
+    var go=0, t = document.getElementById("welcome");
     if(typeof(active_user)!="undefined"){
         if (active_user.isAuthenticated() && t!=null){ go=1; }
     }
@@ -113,9 +113,9 @@ function TimeToLogin(){
             t.select(".username_holder").each(function (e) { e.update(active_user.username()); });
         var a = active_user.unreadShoutsCount() + active_user.unreadWhispersCount() + active_user.unreadGameMessagesCount();
         a > 0 &&
-            ($("profile_bar_messages").addClassName("alert_messages"),
+            ($("profile_bar_messages").classList.add("alert_messages"),
              $("profile_control_unread_message_count").update(a),
-             $("profile_control_unread_message_count").addClassName("mls has_messages"),
+             $("profile_control_unread_message_count").classList.add("mls has_messages"),
              $("my-messages-link").setAttribute("title", active_user.unreadShoutsCount() + " shouts, " + active_user.unreadWhispersCount() + " whispers"),
              0 !== active_user.unreadWhispersCount()
              ? $("my-messages-link").setAttribute("href", "/accounts/" + active_user.username() + "/private_messages")
@@ -175,7 +175,7 @@ function fill_games_tab(A){
 }
 
 function replace_css(remove_new){
-    var N=document.head.getElementsBySelector('link[rel="stylesheet"]');
+    var N=document.head.querySelectorAll('link[rel="stylesheet"]');
     for(let n of N){
         if(n.href.search("gamepage_merged")>-1 && n.getAttribute("data-turbo-track")=="reload"){
             if(remove_new){ n.remove(); }
@@ -200,7 +200,7 @@ function replace_css(remove_new){
 }
 
 function replace_favicon(){
-    var I=document.head.getElementsBySelector('link[rel="icon"]');
+    var I=document.head.querySelectorAll('link[rel="icon"]');
     for(let i of I){
         if(i.type=="image/svg+xml"){ i.href = "https://github.com/Fancy2209/Good-Old-Kongregate/raw/main/Icon/icon.svg"; }
         else{ i.href = "https://raw.githubusercontent.com/Fancy2209/Good-Old-Kongregate/main/Icon/kong.png"; }
@@ -222,7 +222,7 @@ function switch_banner(C){
 function replace_homepage_banners(node,homepage_primarywrap){
     let pw=document.createElement("div");
     pw.id="primarywrap";
-    pw.addClassName("divider");
+    pw.classList.add("divider");
     let banners=node.getElementsByClassName("home_feat_items")[0].innerHTML;
     pw.innerHTML=homepage_primarywrap;
     node.parentElement.insertBefore(pw, node);
@@ -2949,7 +2949,7 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                         v2=1;
                         let n=document.createElement("div");
                         n.id="footer";
-                        n.addClassName("clearfix");
+                        n.classList.add("clearfix");
                         n.innerHTML = footer;
                         node.parentElement.insertBefore(n, node);
                         node.remove();
