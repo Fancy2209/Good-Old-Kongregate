@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    https://greasyfork.org/users/1206953
-// @version      1.3
+// @version      1.3.1
 // @description  Gone but not forgotten
 // @author       Fancy2209, Matrix4348
 // @match        *://www.kongregate.com/*
@@ -21,6 +21,23 @@ if( typeof(GM_getValue)=="undefined" ){ GM_getValue=function(a,b){ return b; }; 
 if( typeof(GM_setValue)=="undefined" ){ GM_setValue=function(){}; }
 if( typeof(GM_registerMenuCommand)=="undefined" ){ GM_registerMenuCommand=function(){}; }
 if( typeof(GM_unregisterMenuCommand)=="undefined" ){ GM_unregisterMenuCommand=function(){}; }
+
+function registerMenuCommand(t,f,o){
+    var n=GM_info.scriptHandler.toLowerCase();
+    var v0=GM_info.version[0];
+    if(n=="greasemonkey"){
+        if(v0==4){
+            // Do nothing... for now?
+        }
+        else{
+            // A third argument breaks GM_registerMenuCommand ("accessKey must be a single character") on Pale Moon.
+            // I am assuming that the problem is shared across all browsers, for Greasemonkey 3... and below.
+            GM_registerMenuCommand(t,f);
+        }
+    }
+    else{ GM_registerMenuCommand(t,f,o); }
+}
+////
 
 var unsupported_pages = [
     // Use (|/fr|/de) after .com in order to take localized pages into account.
@@ -61,13 +78,17 @@ function PutWarningOnUnsupportedPages(A){
 function toggle_command(){
     var x = { true: "Disable Good Old Kongregate on unsupported pages", false:"Enable Good Old Kongregate on unsupported pages" };
     var e = GM_getValue("enable_on_unsupported",false);
-    GM_unregisterMenuCommand(x[e]);
-    GM_registerMenuCommand(x[!e],toggle_command,{id:x[!e],autoClose:false});
+    if( GM_info.scriptHandler.toLowerCase()!="greasemonkey" || GM_info.version[0]>3 ){
+        GM_unregisterMenuCommand(x[e]);
+        registerMenuCommand(x[!e],toggle_command,{id:x[!e],autoClose:false});
+    }
     GM_setValue("enable_on_unsupported",!e);
 }
 
 var x = { true: "Disable Good Old Kongregate on unsupported pages", false:"Enable Good Old Kongregate on unsupported pages" };
-GM_registerMenuCommand(x[GM_getValue("enable_on_unsupported",false)],toggle_command,{id:x[GM_getValue("enable_on_unsupported",false)],autoClose:false});
+if( GM_info.scriptHandler.toLowerCase()!="greasemonkey" || GM_info.version[0]>3 ){
+    registerMenuCommand(x[GM_getValue("enable_on_unsupported",false)],toggle_command,{id:x[GM_getValue("enable_on_unsupported",false)],autoClose:false});
+} else{ registerMenuCommand("Enable or disable Good Old Kongregate on unsupported pages",toggle_command,{id:x[GM_getValue("enable_on_unsupported",false)],autoClose:false}); }
 
 function TimeToLogin(){
     function updatePlaylist() {
