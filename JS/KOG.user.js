@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    https://greasyfork.org/users/1206953
-// @version      1.3.1
+// @version      1.3.2
 // @description  Gone but not forgotten
 // @author       Fancy2209, Matrix4348
 // @match        *://www.kongregate.com/*
@@ -11,6 +11,7 @@
 // @grant        GM_setValue
 // @grant        GM_registerMenuCommand
 // @grant        GM_unregisterMenuCommand
+// @grant		 unsafeWindow
 // @run-at       document-start
 // ==/UserScript==
 
@@ -90,75 +91,72 @@ if( GM_info.scriptHandler.toLowerCase()!="greasemonkey" || GM_info.version[0]>3 
     registerMenuCommand(x[GM_getValue("enable_on_unsupported",false)],toggle_command,{id:x[GM_getValue("enable_on_unsupported",false)],autoClose:false});
 } else{ registerMenuCommand("Enable or disable Good Old Kongregate on unsupported pages",toggle_command,{id:x[GM_getValue("enable_on_unsupported",false)],autoClose:false}); }
 
-function TimeToLogin(){
+
+function TimeToLogin(active_user){
     function updatePlaylist() {
         if(!active_user.playLatersCount){
             active_user.playLatersCount=function(){ return 0; }
         }
         var e = active_user.playLatersCount();
-        $$(".play-laters-count-link").each(function (t) {
-            (t.title = e + " games in your playlist."), t.down(".play-laters-count").update(e);
+        Array.from(document.getElementsByClassName("play-laters-count-link")).forEach(function (t) {
+            t.title = e + " games in your playlist.";
+            t.querySelector(".play-laters-count").innerHTML=e;
         });
     }
     function updateFavorites() {
         var e = active_user.favoritesCount();
-        $$(".favorites-count-link").each(function (t) {
-            (t.title = e + " favorites."), t.down(".favorites-count").update(e);
-        });
+        Array.from(document.getElementsByClassName("favorites-count-link")).forEach(function (t) { t.title = e + " favorites."; t.querySelector(".favorites-count").innerHTML=e; });
     }
     function updateFriendInfo(e) {
-        e.select(".friends_online_count").each(function (e) {
-            e.update(active_user.friendsOnlineCount());
-        }),
-            active_user.friendsOnlineCount() > 0
-            ? e.select(".friends_online_link").each(function (e) {
-            e.title = active_user.friendsOnlineNames();
-        })
-        : e.select(".friends_online_link").each(function (e) {
-            e.title = "No friends online.";
-        });
+        Array.from(e.getElementsByClassName("friends_online_count")).forEach(function (e) { e.innerHTML=active_user.friendsOnlineCount(); });
+        active_user.friendsOnlineCount() > 0
+            ? Array.from(e.getElementsByClassName("friends_online_link")).forEach(function (e) { e.title = active_user.friendsOnlineNames(); })
+        : Array.from(e.getElementsByClassName("friends_online_link")).forEach(function (e) { e.title = "No friends online."; });
     }
 
     var go=0, t = document.getElementById("welcome");
     if(typeof(active_user)!="undefined"){
-        if (active_user.isAuthenticated() && t!=null){ go=1; }
+        if (active_user.isAuthenticated() && t!=null){ go=1;}
     }
     if(go){
         var e = active_user.getAttributes();
-        updateFriendInfo(t), updatePlaylist(), updateFavorites();
+        updateFriendInfo(t);
+        updatePlaylist();
+        updateFavorites();
         var n = document.createElement("img"); n.id = "welcome_box_small_user_avatar"; n.src = e.avatar_url; n.title = e.username; n.name = "user_avatar"; n.alt = "Avatar for " + e.username; n.height = 28; n.width = 28;
-        t.down("span#small_avatar_placeholder").update(n),
-            t.select(".facebook_nav_item").each(function (e) { active_user.isFacebookConnected() && e.hide(); }),
-            $("mini-profile-level").writeAttribute({ class: "spritesite levelbug level_" + e.level, title: "Level " + e.level }),
-            active_user.populateUserSpecificLinks(t),
-            t.select(".username_holder").each(function (e) { e.update(active_user.username()); });
+        t.querySelector("span#small_avatar_placeholder").innerHTML=""; t.querySelector("span#small_avatar_placeholder").appendChild(n);
+        Array.from(t.getElementsByClassName("facebook_nav_item")).forEach(function (e) { active_user.isFacebookConnected() && e.hide(); });
+        document.getElementById("mini-profile-level").setAttribute("class", "spritesite levelbug level_" + e.level);
+        document.getElementById("mini-profile-level").setAttribute("title", "Level " + e.level);
+        active_user.populateUserSpecificLinks(t);
+        Array.from(t.getElementsByClassName("username_holder")).forEach(function (e) { e.innerHTML=active_user.username(); });
         var a = active_user.unreadShoutsCount() + active_user.unreadWhispersCount() + active_user.unreadGameMessagesCount();
         a > 0 &&
-            ($("profile_bar_messages").classList.add("alert_messages"),
-             $("profile_control_unread_message_count").update(a),
-             $("profile_control_unread_message_count").classList.add("mls has_messages"),
-             $("my-messages-link").setAttribute("title", active_user.unreadShoutsCount() + " shouts, " + active_user.unreadWhispersCount() + " whispers"),
+            (document.getElementById("profile_bar_messages").classList.add("alert_messages"),
+             document.getElementById("profile_control_unread_message_count").innerHTML=a,
+             document.getElementById("profile_control_unread_message_count").classList.add("mls has_messages"),
+             document.getElementById("my-messages-link").setAttribute("title", active_user.unreadShoutsCount() + " shouts, " + active_user.unreadWhispersCount() + " whispers"),
              0 !== active_user.unreadWhispersCount()
-             ? $("my-messages-link").setAttribute("href", "/accounts/" + active_user.username() + "/private_messages")
-             : 0 !== active_user.unreadGameMessagesCount() && $("my-messages-link").setAttribute("href", "/accounts/" + active_user.username() + "/game_messages")),
-            null !== active_user.chipsBalance(),
-            ($("blocks_balance").update(active_user.chipsBalance()), $("blocks").show()),
-            $("guest_user_welcome_content").hide(),
-            $("nav_welcome_box").show();
+             ? document.getElementById("my-messages-link").setAttribute("href", "/accounts/" + active_user.username() + "/private_messages")
+             : 0 !== active_user.unreadGameMessagesCount() && document.getElementById("my-messages-link").setAttribute("href", "/accounts/" + active_user.username() + "/game_messages"));
+        //null !== active_user.chipsBalance();
+        (document.getElementById("blocks_balance").innerHTML=active_user.chipsBalance(), document.getElementById("blocks").style.display="");
+        document.getElementById("guest_user_welcome_content").style.display="none";
+        document.getElementById("nav_welcome_box").style.display="";
     }
-    else{ setTimeout(function(){ TimeToLogin(); },1); }
+    else{ setTimeout(function(){ TimeToLogin(unsafeWindow.active_user); },1); }
 }
 
-function ReopenChat(A){
+function ReopenChat(A,holodeck){
     var go=0;
     if(typeof(holodeck)!="undefined" && document.getElementById("chat_tab")!=null){
         if(holodeck.ready){ go=1; }
     }
     if(go){ document.getElementById("chat_tab").style.display="";}
-    else if(A){ setTimeout(function(B){ ReopenChat(B); },1000, A-1); }
+    else if(A){ setTimeout(function(B){ ReopenChat(B,unsafeWindow.holodeck); },1000, A-1); }
 }
 
-function fill_games_tab(A){
+function fill_games_tab(A,navigationData){
     if(typeof(navigationData)!="undefined"){
         if(navigationData.user.authenticated){
             document.getElementById("GOK_recently_played").setAttribute("href",navigationData.user.recently_played_path);
@@ -192,7 +190,7 @@ function fill_games_tab(A){
             else{ document.getElementById("GOK_no_playlist_text").innerText="Add games to play them later."; }*/
         }
     }
-    else if(A){ setTimeout(function(B){ fill_games_tab(B); },1000, A-1); }
+    else if(A){ setTimeout(function(B){ fill_games_tab(B,unsafeWindow.navigationData); },1000, A-1); }
 }
 
 function replace_css(remove_new){
@@ -253,9 +251,9 @@ function replace_homepage_banners(node,homepage_primarywrap){
     document.getElementsByClassName("home_feat_nav")[0].getElementsByClassName("next mls")[0].addEventListener("click",function(){switch_banner("next");});
 }
 
-function ThingsToDoAtTheEnd(){
+function ThingsToDoAtTheEnd(holodeck){
     PutWarningOnUnsupportedPages(50);
-    ReopenChat(50);
+    ReopenChat(50,holodeck);
 };
 
 (function() {
@@ -2956,8 +2954,8 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                         n.innerHTML = headerWrap;
                         node.parentElement.insertBefore(n, node);
                         node.remove();
-                        TimeToLogin();
-                        fill_games_tab(50);
+                        TimeToLogin(unsafeWindow.active_user);
+                        fill_games_tab(50,unsafeWindow.navigationData);
                         replace_css(!is_unsupported() || GM_getValue("enable_on_unsupported",false));
                         replace_favicon();
                     }
@@ -3017,6 +3015,6 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
     var observer = new MutationObserver(callback);
     observer.observe(targetNode, config);
 
-    ThingsToDoAtTheEnd();
+    ThingsToDoAtTheEnd(unsafeWindow.holodeck);
 
 })();
