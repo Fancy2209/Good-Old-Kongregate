@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    https://greasyfork.org/users/1206953
-// @version      1.3.2
-// @description  Gone but not forgotten
+// @version      1.4
+// @description  Gone but not forgotten - browse Kongregate with the pre-2023 style
 // @author       Fancy2209, Matrix4348
 // @match        *://www.kongregate.com/*
 // @icon         https://matrix4348.github.io/logos/kongregate.png
@@ -11,7 +11,7 @@
 // @grant        GM_setValue
 // @grant        GM_registerMenuCommand
 // @grant        GM_unregisterMenuCommand
-// @grant		 unsafeWindow
+// @grant        unsafeWindow
 // @run-at       document-start
 // ==/UserScript==
 
@@ -2981,13 +2981,19 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                         v4=1;
                         // FREE
                     }
-                    else if(v5==0 && node.id=="floating_game_holder"){ // MORE WORK NEEDED TO FIX CHANGEs FROM DECEMBER 14TH!
+                    else if(v5==0 && node.id=="floating_game_holder"){
                         v5=1;
                         document.getElementById("floating_game_holder").parentNode.style.backgroundColor="#2b2b2b";
+                        document.getElementsByClassName("gamepage_header_outer")[0].classList.add("mbm");
+                        document.getElementsByClassName("gamepage_header_outer")[0].classList.add("pbm");
                     }
-                    else if(v6==0 && 0==1){
+                    else if(v6==0 && node.id=="global"){ // Changes from December 14th, 2023 moved game page banners below games
                         v6=1;
-                        // FREE
+                        let pN=document.getElementById("progress_bar_target").parentNode;
+                        pN.insertBefore(node,document.getElementById("progress_bar_target"));
+                        let n=document.createElement("div");
+                        n.classList.add("gamepage_categories_outer");
+                        pN.insertBefore(n,node); // This node contained links to game categories, for the moment it will be added empty, for the margin.
                     }
                     else if(v7==0 && 0==1){
                         v7=1;
