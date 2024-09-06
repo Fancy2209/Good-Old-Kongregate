@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    https://greasyfork.org/users/1206953
-// @version      1.4
+// @version      1.4.1
 // @description  Gone but not forgotten - browse Kongregate with the pre-2023 style
 // @author       Fancy2209, Matrix4348
 // @match        *://www.kongregate.com/*
@@ -2984,8 +2984,9 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                     else if(v5==0 && node.id=="floating_game_holder"){
                         v5=1;
                         document.getElementById("floating_game_holder").parentNode.style.backgroundColor="#2b2b2b";
-                        document.getElementsByClassName("gamepage_header_outer")[0].classList.add("mbm");
-                        document.getElementsByClassName("gamepage_header_outer")[0].classList.add("pbm");
+                        document.getElementsByClassName("gamepage_header_outer")[0].classList.add("mbm"); // space between game name and the game
+                        document.getElementsByClassName("gamepage_header_outer")[0].classList.add("pbm"); // space between game name and the game
+                        node.parentNode.classList.add("upper_gamepage"); // To add space right below the game
                     }
                     else if(v6==0 && node.id=="global"){ // Changes from December 14th, 2023 moved game page banners below games
                         v6=1;
