@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    https://greasyfork.org/users/1206953
-// @version      1.4.1
+// @version      1.4.2
 // @description  Gone but not forgotten - browse Kongregate with the pre-2023 style
 // @author       Fancy2209, Matrix4348
 // @match        *://www.kongregate.com/*
@@ -131,16 +131,17 @@ function TimeToLogin(active_user){
         active_user.populateUserSpecificLinks(t);
         Array.from(t.getElementsByClassName("username_holder")).forEach(function (e) { e.innerHTML=active_user.username(); });
         var a = active_user.unreadShoutsCount() + active_user.unreadWhispersCount() + active_user.unreadGameMessagesCount();
-        a > 0 &&
-            (document.getElementById("profile_bar_messages").classList.add("alert_messages"),
-             document.getElementById("profile_control_unread_message_count").innerHTML=a,
-             document.getElementById("profile_control_unread_message_count").classList.add("mls has_messages"),
-             document.getElementById("my-messages-link").setAttribute("title", active_user.unreadShoutsCount() + " shouts, " + active_user.unreadWhispersCount() + " whispers"),
-             0 !== active_user.unreadWhispersCount()
-             ? document.getElementById("my-messages-link").setAttribute("href", "/accounts/" + active_user.username() + "/private_messages")
-             : 0 !== active_user.unreadGameMessagesCount() && document.getElementById("my-messages-link").setAttribute("href", "/accounts/" + active_user.username() + "/game_messages"));
-        //null !== active_user.chipsBalance();
-        (document.getElementById("blocks_balance").innerHTML=active_user.chipsBalance(), document.getElementById("blocks").style.display="");
+        if(a > 0){
+            document.getElementById("profile_bar_messages").classList.add("alert_messages");
+            document.getElementById("profile_control_unread_message_count").innerHTML=a;
+            document.getElementById("profile_control_unread_message_count").classList.add("mls","has_messages");
+            document.getElementById("my-messages-link").setAttribute("title", active_user.unreadShoutsCount() + " shouts, " + active_user.unreadWhispersCount() + " whispers");
+            0 !== active_user.unreadWhispersCount()
+                ? document.getElementById("my-messages-link").setAttribute("href", "/accounts/" + active_user.username() + "/private_messages")
+                : 0 !== active_user.unreadGameMessagesCount() && document.getElementById("my-messages-link").setAttribute("href", "/accounts/" + active_user.username() + "/game_messages");
+        }
+        if(null !== active_user.chipsBalance()){ document.getElementById("blocks_balance").innerHTML=active_user.chipsBalance(); }
+        document.getElementById("blocks").style.display="";
         document.getElementById("guest_user_welcome_content").style.display="none";
         document.getElementById("nav_welcome_box").style.display="";
     }
