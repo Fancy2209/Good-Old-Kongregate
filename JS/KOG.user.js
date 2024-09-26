@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    https://greasyfork.org/users/1206953
-// @version      1.4.2
+// @version      1.4.3
 // @description  Gone but not forgotten - browse Kongregate with the pre-2023 style
 // @author       Fancy2209, Matrix4348
 // @match        *://www.kongregate.com/*
@@ -217,6 +217,15 @@ function replace_css(remove_new){
             if(remove_new){ n.remove(); }
         }
     }
+    // Because Kongregate obviously adds new content (like the medal of the "iron, fire and explosions" quest) with the new styles in mind, some parts of those must be kept.
+    var s=document.createElement("style");
+    s.innerHTML=`
+    img,video {
+        max-width: 100%;
+        height: auto;
+    }
+    `;
+    document.head.appendChild(s);
 }
 
 function replace_favicon(){
