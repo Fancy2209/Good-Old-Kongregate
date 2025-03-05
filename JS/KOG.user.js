@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    https://greasyfork.org/users/1206953
-// @version      1.4.3
+// @version      1.4.4
 // @description  Gone but not forgotten - browse Kongregate with the pre-2023 style
 // @author       Fancy2209, Matrix4348
 // @match        *://www.kongregate.com/*
@@ -2983,9 +2983,9 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                         node.parentElement.insertBefore(n, node);
                         node.remove();
                     }
-                    else if (v3==0 && 0==1){
+                    else if (v3==0 && node?.classList?.contains("sr-only")){
                         v3=1;
-                        // FREE
+                        node.style.display="none"; // This hides the new "Play [game] at Kongregate!" div, that is only visible with the old style.
                     }
                     else if (v4==0 && 0==1){
                         v4=1;
