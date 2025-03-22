@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    https://greasyfork.org/users/1206953
-// @version      1.4.4
+// @version      1.4.5
 // @description  Gone but not forgotten - browse Kongregate with the pre-2023 style
 // @author       Fancy2209, Matrix4348
 // @match        *://www.kongregate.com/*
@@ -3025,6 +3025,11 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                             node.remove();
                         }
                     }
+                }
+                // To remove an anti-ad blockers banner (appeared on March 22nd, 2025).
+                var c = node?.classList?.[0] || "";
+                if( c.search(/[a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9]/)>-1 && node.innerHTML.search("Disable any ad or script blocking software, then reload this page.")>-1 ){
+                    node.remove();
                 }
             }
         }
