@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    https://greasyfork.org/users/1206953
-// @version      1.4.5.1
+// @version      1.4.6
 // @description  Gone but not forgotten - browse Kongregate with the pre-2023 style
 // @author       Fancy2209, Matrix4348
 // @match        *://www.kongregate.com/*
@@ -42,11 +42,11 @@ function registerMenuCommand(t,f,o){
 
 var unsupported_pages = [
     // Use (|/fr|/de) after .com in order to take localized pages into account.
-    // Notes: . is a wildcard for one character, *represents several occurences of what if follows, (?!X) means "only if not followed by X", (.*?) means anything.
+    // Notes: . is a wildcard for one character, * represents several occurences of what if follows, (?!X) means "only if not followed by X", (.*?) means anything.
     // Note: (\[A-Za-z0-9_\]) means anything that is a latin letter, arabic digit or underscore.
     "www.kongregate.com(|/fr|/de)/achievements",
     "www.kongregate.com(|/fr|/de)/search",
-    "www.kongregate.com(|/fr|/de)/games(?!/.)",
+    "www.kongregate.com(|/fr|/de)/games(?!.)", // Target: https://www.kongregate.com/games but not https://www.kongregate.com/games_for_your_site or game pages
     "www.kongregate.com((?!/games/)|/fr(?!/games/)|/de(?!/games/))/(.*?)-games", // Targets: pages like https://www.kongregate.com/puzzle-games. Use of (?!/games/) because game names could end by "-games" or " games".
     "www.kongregate.com(|/fr|/de)/games/(\[A-Za-z0-9_\]*)/?(?!.)", // Targets: www.kongregate.com/games/dev and www.kongregate.com/games/dev/ but not www.kongregate.com/games/dev/game
 ];
@@ -877,7 +877,7 @@ $j( document ).ready(function() {
 </a>
 <ul class="footer_sub clearfix">
 <li class="kongregate_copyright">
-  <span>© 2024 </span>
+  <span>© 2025 </span>
   <a class="spriteall spritesite" href="https://www.kongregate.com/">Kongregate</a>
 </li>
 <li class="footer_mtg--logo spritesite textreplace">An MTG company</li>
@@ -2956,11 +2956,6 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
     var callback = (mutationList, observer) => {
         for (let mutation of mutationList) {
             for(let node of mutation.addedNodes){
-                // To remove an anti-ad blockers banner (appeared on March 22nd, 2025).
-                var c = node?.classList?.[0] || "";
-                if( c.search(/[a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9]/)>-1 && node.innerHTML.search("Disable any ad or script blocking software, then reload this page.")>-1 ){
-                    node.remove();
-                }
                 if (mutation.type === 'childList') {
                     if(v1==0 && node.tagName=="K-NAVBAR"){
                         v1=1;
