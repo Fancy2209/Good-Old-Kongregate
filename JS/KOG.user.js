@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    https://greasyfork.org/users/1206953
-// @version      1.4.6
+// @version      1.4.7
 // @description  Gone but not forgotten - browse Kongregate with the pre-2023 style
 // @author       Fancy2209, Matrix4348
 // @match        *://www.kongregate.com/*
@@ -877,10 +877,10 @@ $j( document ).ready(function() {
 </a>
 <ul class="footer_sub clearfix">
 <li class="kongregate_copyright">
-  <span>© 2025 </span>
+  <span>© 2026 </span>
   <a class="spriteall spritesite" href="https://www.kongregate.com/">Kongregate</a>
+  <span>&nbsp;&nbsp;All rights reserved.</span>
 </li>
-<li class="footer_mtg--logo spritesite textreplace">An MTG company</li>
 </ul>
 
 </div>
