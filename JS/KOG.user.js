@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    https://greasyfork.org/users/1206953
-// @version      1.4.8
+// @version      1.5.00
 // @description  Gone but not forgotten - browse Kongregate with the pre-2023 style
 // @author       Fancy2209, Matrix4348
 // @match        *://www.kongregate.com/*
@@ -41,14 +41,14 @@ function registerMenuCommand(t,f,o){
 ////
 
 var unsupported_pages = [
-    // Use (|/fr|/de) after .com in order to take localized pages into account.
+    // Use ((/[a-zA-Z0-9]*)?) after .com in order to take localized pages into account.
     // Notes: . is a wildcard for one character, * represents several occurences of what if follows, (?!X) means "only if not followed by X", (.*?) means anything.
     // Note: (\[A-Za-z0-9_\]) means anything that is a latin letter, arabic digit or underscore.
-    "www.kongregate.com(|/fr|/de)/achievements",
-    "www.kongregate.com(|/fr|/de)/search",
-    "www.kongregate.com(|/fr|/de)/games(?!.)", // Target: https://www.kongregate.com/games but not https://www.kongregate.com/games_for_your_site or game pages
-    "www.kongregate.com((?!/games/)|/fr(?!/games/)|/de(?!/games/))/(.*?)-games", // Targets: pages like https://www.kongregate.com/puzzle-games. Use of (?!/games/) because game names could end by "-games" or " games".
-    "www.kongregate.com(|/fr|/de)/games/(\[A-Za-z0-9_\]*)/?(?!.)", // Targets: www.kongregate.com/games/dev and www.kongregate.com/games/dev/ but not www.kongregate.com/games/dev/game
+    "www.kongregate.com((/[a-zA-Z0-9]*)?)/achievements",
+    "www.kongregate.com((/[a-zA-Z0-9]*)?)/search",
+    "www.kongregate.com((/[a-zA-Z0-9]*)?)/games(?!.)", // Target: https://www.kongregate.com/games but not https://www.kongregate.com/games_for_your_site or game pages
+    "www.kongregate.com(((/[a-zA-Z0-9]*)?)(?!/games/))/(.*?)-games", // Targets: pages like https://www.kongregate.com/puzzle-games. Use of (?!/games/) because game names could end by "-games" or " games".
+    "www.kongregate.com((/[a-zA-Z0-9]*)?)/games/(\[A-Za-z0-9_\]*)/?(?!.)", // Targets: www.kongregate.com/games/dev and www.kongregate.com/games/dev/ but not www.kongregate.com/games/dev/game
 ];
 
 function is_unsupported(){
