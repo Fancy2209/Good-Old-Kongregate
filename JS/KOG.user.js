@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good Old Kongregate
 // @namespace    https://greasyfork.org/users/1206953
-// @version      1.5.00
+// @version      1.5.01
 // @description  Gone but not forgotten - browse Kongregate with the pre-2023 style
 // @author       Fancy2209, Matrix4348
 // @match        *://www.kongregate.com/*
@@ -224,13 +224,39 @@ function replace_css(remove_new){
         max-width: 100%;
         height: auto;
     }
-
-    .cur_kpan img {
-	    max-width: 100%;
-	    max-height: 100%;
-    }
     `;
     document.head.appendChild(s);
+}
+
+function fix_kongpanion_image(node){
+    // Post-redesign kongpanions are created with the new style in mind.
+    // As a result, they need something like max-height and max-width to be set to 100% so they fit in the kongpanions pages.
+    // Unfortunately, a simply CSS rule like this would not work because then, pre-redesign kongpanions would be too small...
+    // We will check for the kongpanion id, which is indirectly available in the image URL.
+    var last_good_id = 395;
+    var split_id = node.src.match("/([0-9]{4})/([0-9]{4})/");
+    var current_id = split_id[1].concat(split_id[2]);
+    current_id = current_id%2 == 0 ? current_id/2 : (current_id+1)/2;
+    if(current_id > last_good_id){
+        node.style.maxHeight = "100%";
+        node.style.maxWidth = "100%";
+        node.style.marginTop = "5%"; // Because of the above lines, newer kongpanions are much smaller than old ones and not centered.
+    }
+    else{
+        node.style.maxHeight = "";
+        node.style.maxWidth = "";
+        node.style.marginTop = "";
+    }
+}
+
+function kongpanion_css(A){
+    if( document.readyState == "complete" ){
+        var node = document.getElementsByClassName("cur_kpan")[0].getElementsByTagName("IMG")[0];
+        fix_kongpanion_image(node);
+    }
+    else{
+        setTimeout( function(B){ kongpanion_css(B); }, 1000, A-1);
+    }
 }
 
 function replace_favicon(){
@@ -269,6 +295,7 @@ function replace_homepage_banners(node,homepage_primarywrap){
 function ThingsToDoAtTheEnd(holodeck){
     PutWarningOnUnsupportedPages(50);
     ReopenChat(50,holodeck);
+    kongpanion_css(50);
 };
 
 (function() {
@@ -686,17 +713,29 @@ function ThingsToDoAtTheEnd(holodeck){
 
     <!-- #search -->
 <li class="search" id="search_bar">
-<form onsubmit="$('nav_search_submit_button').onclick();" id="search" class="search" action="https://www.kongregate.com/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">    <dl>
-      <dt><div style="position:relative" id="game_title_chooser_outer"><input type="text" name="q" id="game_title" value="" tabindex="1" class="hintable game_title hinted_value" title="Search games &amp; more" autocomplete="off"><div style="display:none;" id="game_title_snapshot" class="game_chooser_selected"></div><div style="z-index: 20000; display: none;" id="game_title_auto_complete" class="game_chooser"></div><script>
+<form onsubmit="$('nav_search_submit_button').onclick();" id="search" class="search" action="https://www.kongregate.com/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+<dl>
+      <dt>
+         <div style="position:relative" id="game_title_chooser_outer">
+            <input type="text" name="q" id="game_title" value="" tabindex="1" class="hintable game_title hinted_value" title="Search games &amp; more" autocomplete="off">
+            <div style="display:none;" id="game_title_snapshot" class="game_chooser_selected"></div>
+            <div style="z-index: 20000; display: none;" id="game_title_auto_complete" class="game_chooser"></div>
+
+            <script>
 //<![CDATA[
 var game_title_auto_completer=new Ajax.CachedAutocompleter("game_title","game_title_auto_complete","/games/search?site_search=true",{"paramName":"search","method":"get","onShow":function(element,update){update.show();},"onHide":function(element,update){update.hide();},"minChars":3,"noAutoDefault":false,"forceActivation":true,"frequency":0.1,"callback":function(element,value){return game_indicator(element,value)},"afterUpdateElement":function(element,value){(function(m) { $("nav_search_submit_button").onclick(); game_title_auto_completer.submitted = true; document.location = m.url; })(eval('(' + value.down('.metadata').innerHTML + ')'));}});$('game_title').up('form').observe('submit', function() { if ('' == $('game_title').value) { $('search_game_id').value = ''; }});
 //]]>
-</script></div></dt>
-    <dd><input type="submit" value="Search" id="nav_search_submit_button" tabindex="2" class="spritesite" onclick="try{}catch(e){};if(!this.elem_nav_search_submit_button){this.elem_nav_search_submit_button=$('nav_search_submit_button');this.spin_nav_search_submit_button=$('nav_search_submit_button_spinner');this.restore=function(t){return function(){t.elem_nav_search_submit_button.show();t.spin_nav_search_submit_button.hide();Event.stopObserving(window, 'unload', t.restore);}}(this);}this.elem_nav_search_submit_button.hide();this.spin_nav_search_submit_button.show();Event.observe(window, 'unload', this.restore);" data-disable-with="Search"><span id="nav_search_submit_button_spinner" class="spinner spinner_inverse" style="display:none" title="loading…">​</span></dd>
-  </dl>
+            </script>
+
+         </div>
+     </dt>
+     <dd>
+        <input type="submit" value="Search" id="nav_search_submit_button" tabindex="2" class="spritesite" onclick="try{}catch(e){};if(!this.elem_nav_search_submit_button){this.elem_nav_search_submit_button=$('nav_search_submit_button');this.spin_nav_search_submit_button=$('nav_search_submit_button_spinner');this.restore=function(t){return function(){t.elem_nav_search_submit_button.show();t.spin_nav_search_submit_button.hide();Event.stopObserving(window, 'unload', t.restore);}}(this);}this.elem_nav_search_submit_button.hide();this.spin_nav_search_submit_button.show();Event.observe(window, 'unload', this.restore);" data-disable-with="Search">
+        <span id="nav_search_submit_button_spinner" class="spinner spinner_inverse" style="display:none" title="loading…">​</span>
+     </dd>
+</dl>
   <script>
 //<![CDATA[
-
     game_title_auto_completer.hide = game_title_auto_completer.hide.wrap(
       function(hide) {
         Shim.hide('game_title_auto_completer');
@@ -739,7 +778,6 @@ var game_title_auto_completer=new Ajax.CachedAutocompleter("game_title","game_ti
       }
       return value;
     }
-
 //]]>
 </script>  <div id="game_chooser_loading" style="display:none"><ul>
   <li class="loading"><div><span class="spinner">​</span></div></li>
@@ -3005,8 +3043,9 @@ kong_ads.displayAd("kong_home_bf_281x90_3");
                     }
                     else if(v6==0 && node.id=="global"){ // Changes from December 14th, 2023 moved game page banners below games
                         v6=1;
-                        let pN=document.getElementById("progress_bar_target").parentNode;
-                        pN.insertBefore(node,document.getElementById("progress_bar_target"));
+                        let reference_node = document.getElementById("progress_bar_target") || node.parentNode.firstElementChild; // #progress_bar_target seems to have disappeared in Auguest 2026.
+                        let pN = reference_node.parentNode;
+                        pN.insertBefore(node,reference_node);
                         let n=document.createElement("div");
                         n.classList.add("gamepage_categories_outer");
                         pN.insertBefore(n,node); // This node contained links to game categories, for the moment it will be added empty, for the margin.
